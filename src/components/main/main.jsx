@@ -1,7 +1,13 @@
 import React from 'react';
+import {MovieCard} from "../movie-card/movie-card";
 
-const Main = (props) => (
-  <>
+const MOVIE_QUANTITY = 20;
+
+const Main = (props) => {
+  const movies = new Array(MOVIE_QUANTITY);
+  movies.fill(null);
+
+  return <>
     <section className="movie-card">
       <div className="movie-card__bg">
         <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
@@ -96,7 +102,7 @@ const Main = (props) => (
         </ul>
 
         <div className="catalog__movies-list">
-          //TODO Add movie cards here
+          {movies.map((el, index) => <MovieCard key={index}/>)}
         </div>
 
         <div className="catalog__more">
@@ -118,7 +124,7 @@ const Main = (props) => (
         </div>
       </footer>
     </div>
-  </>
-);
+  </>;
+};
 
 export {Main};

@@ -4,6 +4,7 @@ import {MovieCard} from "../movie-card/movie-card";
 const MOVIE_QUANTITY = 20;
 
 const Main = (props) => {
+  const {promo: {title}} = props;
   const movies = new Array(MOVIE_QUANTITY);
   movies.fill(null);
 
@@ -40,10 +41,10 @@ const Main = (props) => {
           </div>
 
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+            <h2 className="movie-card__title">{title}</h2>
             <p className="movie-card__meta">
-              <span className="movie-card__genre">Drama</span>
-              <span className="movie-card__year">2014</span>
+              <span className="movie-card__genre">{genre}</span>
+              <span className="movie-card__year">{date}</span>
             </p>
 
             <div className="movie-card__buttons">

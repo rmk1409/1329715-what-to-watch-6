@@ -1,9 +1,9 @@
 import React from "react";
 import {Main} from "../main/main";
 
-const App = () => (
+const App = (props) => (
   <>
-    <Main/>
+    <Main props = {props}/>
   </>
 );
 

@@ -1,10 +1,11 @@
 import React from 'react';
 import {MovieCard} from "../movie-card/movie-card";
+import PropTypes from "prop-types";
 
 const MOVIE_QUANTITY = 20;
 
 const Main = (props) => {
-  const {promo: {title}} = props;
+  const {promo: {title, genre, date}} = props;
   const movies = new Array(MOVIE_QUANTITY);
   movies.fill(null);
 
@@ -126,6 +127,14 @@ const Main = (props) => {
       </footer>
     </div>
   </>;
+};
+
+Main.propTypes = {
+  promo: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    date: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export {Main};

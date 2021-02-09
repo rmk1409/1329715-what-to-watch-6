@@ -1,11 +1,11 @@
 import React from 'react';
-import {filmMocksValidation} from "../../validation";
+import {filmsValidation} from "../../validation";
 import {useParams} from "react-router-dom";
 
 const Film = (props) => {
-  const {filmMocks} = props;
+  const {films} = props;
   const id = +useParams().id;
-  const film = filmMocks.find((currentFilm)=>currentFilm.id === id);
+  const film = films.find((currentFilm)=>currentFilm.id === id);
 
   return <>
     <section className="movie-card movie-card--full">
@@ -166,7 +166,7 @@ const Film = (props) => {
 };
 
 Film.propTypes = {
-  ...filmMocksValidation
+  ...filmsValidation
 };
 
 export {Film};

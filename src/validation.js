@@ -8,7 +8,7 @@ const promoValidation = {
   }).isRequired,
 };
 
-const filmMockValidation = {
+const filmValidation = {
   film: PropTypes.shape({
     "id": PropTypes.number.isRequired,
     "name": PropTypes.string.isRequired,
@@ -30,12 +30,12 @@ const filmMockValidation = {
   })
 };
 
-const filmMocksValidation = {
-  filmMocks: PropTypes.arrayOf(filmMockValidation.film).isRequired,
+const filmsValidation = {
+  films: PropTypes.arrayOf(filmValidation.film).isRequired,
 };
 
-const reviewMocksValidation = {
-  reviewMocks: PropTypes.arrayOf(PropTypes.shape({
+const reviewsValidation = {
+  reviews: PropTypes.arrayOf(PropTypes.shape({
     "id": PropTypes.number.isRequired,
     "film_id": PropTypes.number.isRequired,
     "user": PropTypes.shape({
@@ -48,4 +48,4 @@ const reviewMocksValidation = {
   })).isRequired,
 };
 
-export {promoValidation, filmMockValidation, filmMocksValidation, reviewMocksValidation};
+export {promoValidation, filmValidation, filmsValidation, reviewsValidation};

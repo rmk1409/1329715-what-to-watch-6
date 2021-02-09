@@ -7,30 +7,30 @@ import {Film} from "../film/film";
 import {AddReview} from "../add-review/add-review";
 import {NotFound} from "../404/404";
 import {Player} from "../player/player";
-import {filmMocksValidation, promoValidation, reviewMocksValidation} from "../../validation";
+import {filmsValidation, promoValidation} from "../../validation";
 
 const App = (props) => {
-  const {promo, filmMocks} = props;
+  const {promo, films} = props;
 
   return <BrowserRouter>
     <Switch>
       <Route exact path="/">
-        <Main promo={promo} filmMocks={filmMocks}/>
+        <Main promo={promo} films={films}/>
       </Route>
       <Route exact path="/login">
         <SignIn/>
       </Route>
       <Route exact path="/mylist">
-        <MyList filmMocks={filmMocks}/>
+        <MyList films={films}/>
       </Route>
       <Route exact path="/films/:id">
-        <Film filmMocks={filmMocks}/>
+        <Film films={films}/>
       </Route>
       <Route exact path="/films/:id/review">
-        <AddReview filmMocks={filmMocks}/>
+        <AddReview films={films}/>
       </Route>
       <Route exact path="/player/:id">
-        <Player filmMocks={filmMocks}/>
+        <Player films={films}/>
       </Route>
       <Route>
         <NotFound/>
@@ -41,8 +41,7 @@ const App = (props) => {
 
 App.propTypes = {
   ...promoValidation,
-  ...filmMocksValidation,
-  ...reviewMocksValidation,
+  ...filmsValidation,
 };
 
 export {App};

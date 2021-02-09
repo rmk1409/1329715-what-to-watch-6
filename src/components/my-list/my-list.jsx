@@ -1,10 +1,10 @@
 import React from 'react';
-import {filmMocksValidation} from "../../validation";
+import {filmsValidation} from "../../validation";
 import {MovieList} from "../movie-list/movie-list";
 
 const MyList = (props) => {
-  const {filmMocks} = props;
-  const favoriteFilms = filmMocks.filter((film)=>film[`is_favorite`]);
+  const {films} = props;
+  const favoriteFilms = films.filter((film)=>film[`is_favorite`]);
 
   return <div className="user-page">
     <header className="page-header user-page__head">
@@ -28,7 +28,7 @@ const MyList = (props) => {
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-      <MovieList filmMocks={favoriteFilms}/>
+      <MovieList films={favoriteFilms}/>
     </section>
 
     <footer className="page-footer">
@@ -48,7 +48,7 @@ const MyList = (props) => {
 };
 
 MyList.propTypes = {
-  ...filmMocksValidation
+  ...filmsValidation
 };
 
 export {MyList};

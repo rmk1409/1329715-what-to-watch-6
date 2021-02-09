@@ -1,5 +1,5 @@
 import React from 'react';
-import {filmMockValidation} from "../../validation";
+import {filmValidation} from "../../validation";
 import * as PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 
@@ -25,7 +25,7 @@ const MovieCard = (props) => {
 };
 
 MovieCard.propTypes = {
-  ...filmMockValidation,
+  ...filmValidation,
   onCover: PropTypes.func.isRequired,
 };
 

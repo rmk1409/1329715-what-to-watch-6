@@ -1,12 +1,12 @@
 import React from 'react';
-import {filmMocksValidation} from "../../validation";
+import {filmsValidation} from "../../validation";
 import {SendCommentForm} from "../send-comment-form/send-comment-form";
 import {useParams} from "react-router-dom";
 
 const AddReview = (props) => {
-  const {filmMocks} = props;
+  const {films} = props;
   const id = +useParams().id;
-  const film = filmMocks.find((currentFilm)=>currentFilm.id === id);
+  const film = films.find((currentFilm)=>currentFilm.id === id);
 
   return <>
     <section className="movie-card movie-card--full">
@@ -60,7 +60,7 @@ const AddReview = (props) => {
 };
 
 AddReview.propTypes = {
-  ...filmMocksValidation
+  ...filmsValidation
 };
 
 export {AddReview};

@@ -1,8 +1,11 @@
 import React from 'react';
 import {filmMockValidation} from "../../validation";
+import {useParams} from "react-router-dom";
 
 const Player = (props) => {
-  const {film} = props;
+  const {filmMocks} = props;
+  const id = +useParams().id;
+  const film = filmMocks.find((currentFilm)=>currentFilm.id === id);
 
   return <>
     <div className="player">

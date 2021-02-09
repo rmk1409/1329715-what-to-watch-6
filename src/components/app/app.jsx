@@ -24,13 +24,13 @@ const App = (props) => {
         <MyList filmMocks={filmMocks}/>
       </Route>
       <Route exact path="/films/:id">
-        <Film film={filmMocks[0]}/>
+        <Film filmMocks={filmMocks}/>
       </Route>
       <Route exact path="/films/:id/review">
-        <AddReview film={filmMocks[0]}/>
+        <AddReview filmMocks={filmMocks}/>
       </Route>
       <Route exact path="/player/:id">
-        <Player film={filmMocks[0]}/>
+        <Player filmMocks={filmMocks}/>
       </Route>
       <Route>
         <NotFound/>

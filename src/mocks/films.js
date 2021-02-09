@@ -21,7 +21,7 @@ const filmMocks = [
   {
     "id": 2,
     "name": `name2`,
-    "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
+    "poster_image": `img/aviator.jpg`,
     "preview_image": `img/aviator.jpg`,
     "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
     "background_color": `#ffffff`,
@@ -40,7 +40,7 @@ const filmMocks = [
   {
     "id": 3,
     "name": `name3`,
-    "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
+    "poster_image": `img/avatar.jpg`,
     "preview_image": `img/avatar.jpg`,
     "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
     "background_color": `#ffffff`,
@@ -59,7 +59,7 @@ const filmMocks = [
   {
     "id": 4,
     "name": `name4`,
-    "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
+    "poster_image": `img/bohemian-rhapsody.jpg`,
     "preview_image": `img/bohemian-rhapsody.jpg`,
     "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
     "background_color": `#ffffff`,
@@ -78,7 +78,7 @@ const filmMocks = [
   {
     "id": 5,
     "name": `name5`,
-    "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
+    "poster_image": `img/dardjeeling-limited.jpg`,
     "preview_image": `img/dardjeeling-limited.jpg`,
     "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
     "background_color": `#ffffff`,
@@ -97,7 +97,7 @@ const filmMocks = [
   {
     "id": 6,
     "name": `name6`,
-    "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
+    "poster_image": `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     "preview_image": `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
     "background_color": `#ffffff`,
@@ -116,7 +116,7 @@ const filmMocks = [
   {
     "id": 7,
     "name": `name7`,
-    "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
+    "poster_image": `img/macbeth.jpg`,
     "preview_image": `img/macbeth.jpg`,
     "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
     "background_color": `#ffffff`,
@@ -135,7 +135,7 @@ const filmMocks = [
   {
     "id": 8,
     "name": `name8`,
-    "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
+    "poster_image": `img/midnight-special.jpg`,
     "preview_image": `img/midnight-special.jpg`,
     "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
     "background_color": `#ffffff`,

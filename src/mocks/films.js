@@ -3,7 +3,7 @@ const filmMocks = [
     "id": 1,
     "name": `name1`,
     "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
-    "preview_image": `img/the-grand-budapest-hotel.jpg`,
+    "preview_image": `img/the-grand-budapest-hotel-poster.jpg`,
     "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
     "background_color": `#ffffff`,
     "video_link": `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,

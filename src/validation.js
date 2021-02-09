@@ -8,8 +8,8 @@ const promoValidation = {
   }).isRequired,
 };
 
-const filmMocksValidation = {
-  filmMocks: PropTypes.arrayOf(PropTypes.shape({
+const filmMockValidation = {
+  film: PropTypes.shape({
     "id": PropTypes.number.isRequired,
     "name": PropTypes.string.isRequired,
     "poster_image": PropTypes.string.isRequired,
@@ -22,12 +22,16 @@ const filmMocksValidation = {
     "rating": PropTypes.number.isRequired,
     "scores_count": PropTypes.number.isRequired,
     "director": PropTypes.string.isRequired,
-    "starring": PropTypes.arrayOf(PropTypes.string),
+    "starring": PropTypes.arrayOf(PropTypes.string).isRequired,
     "run_time": PropTypes.number.isRequired,
     "genre": PropTypes.string.isRequired,
     "released": PropTypes.number.isRequired,
     "is_favorite": PropTypes.bool.isRequired,
-  })).isRequired,
+  })
+};
+
+const filmMocksValidation = {
+  filmMocks: PropTypes.arrayOf(filmMockValidation.film).isRequired,
 };
 
 const reviewMocksValidation = {
@@ -44,4 +48,4 @@ const reviewMocksValidation = {
   })).isRequired,
 };
 
-export {promoValidation, filmMocksValidation, reviewMocksValidation};
+export {promoValidation, filmMockValidation, filmMocksValidation, reviewMocksValidation};

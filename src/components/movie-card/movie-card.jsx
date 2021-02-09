@@ -1,11 +1,12 @@
 import React from 'react';
 import {filmMockValidation} from "../../validation";
+import * as PropTypes from "prop-types";
 
 const MovieCard = (props) => {
-  const {film} = props;
+  const {film, onCover} = props;
 
   return <>
-    <article className="small-movie-card catalog__movies-card">
+    <article className="small-movie-card catalog__movies-card" onMouseOver={() => onCover(film.id)}>
       <div className="small-movie-card__image">
         <img
           src={film[`preview_image`]} alt={film.name}
@@ -19,7 +20,8 @@ const MovieCard = (props) => {
 };
 
 MovieCard.propTypes = {
-  ...filmMockValidation
+  ...filmMockValidation,
+  onCover: PropTypes.func.isRequired,
 };
 
 export {MovieCard};

@@ -1,6 +1,7 @@
 import React from 'react';
 import {MovieCard} from "../movie-card/movie-card";
 import {filmMocksValidation, promoValidation} from "../../validation";
+import {MovieList} from "../movie-list/movie-list";
 
 const Main = (props) => {
   const {promo: {title, genre, date}, filmMocks} = props;
@@ -98,11 +99,7 @@ const Main = (props) => {
             <a href="#" className="catalog__genres-link">Thrillers</a>
           </li>
         </ul>
-
-        <div className="catalog__movies-list">
-          {filmMocks.map((film) => <MovieCard key={film.id} film={film}/>)}
-        </div>
-
+        <MovieList filmMocks={filmMocks}/>
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
         </div>
@@ -127,7 +124,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   ...promoValidation,
-  ...filmMocksValidation
+  ...filmMocksValidation,
 };
 
 export {Main};

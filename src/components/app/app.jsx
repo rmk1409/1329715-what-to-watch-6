@@ -10,7 +10,7 @@ import {Player} from "../player/player";
 import {filmMocksValidation, promoValidation, reviewMocksValidation} from "../../validation";
 
 const App = (props) => {
-  const {promo, filmMocks, reviewMocks} = props;
+  const {promo, filmMocks} = props;
 
   return <BrowserRouter>
     <Switch>
@@ -21,16 +21,16 @@ const App = (props) => {
         <SignIn/>
       </Route>
       <Route exact path="/mylist">
-        <MyList/>
+        <MyList filmMocks={filmMocks}/>
       </Route>
       <Route exact path="/films/:id">
-        <Film/>
+        <Film film={filmMocks[0]}/>
       </Route>
       <Route exact path="/films/:id/review">
-        <AddReview reviewMocks={reviewMocks}/>
+        <AddReview film={filmMocks[0]}/>
       </Route>
       <Route exact path="/player/:id">
-        <Player/>
+        <Player film={filmMocks[0]}/>
       </Route>
       <Route>
         <NotFound/>

@@ -1,5 +1,4 @@
 import React from 'react';
-import {MovieCard} from "../movie-card/movie-card";
 import {filmMocksValidation, promoValidation} from "../../validation";
 import {MovieList} from "../movie-list/movie-list";
 

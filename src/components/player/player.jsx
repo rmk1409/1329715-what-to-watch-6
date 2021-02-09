@@ -1,9 +1,14 @@
 import React from 'react';
+import {filmMockValidation} from "../../validation";
 
-const Player = () => (
-  <>
+const Player = (props) => {
+  const {film} = props;
+
+  return <>
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"/>
+      <video src="#" className="player__video" poster="img/player-poster.jpg">
+        <source src={film[`video_link`]}/>
+      </video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -34,7 +39,11 @@ const Player = () => (
         </div>
       </div>
     </div>
-  </>
-);
+  </>;
+};
+
+Player.propTypes = {
+  ...filmMockValidation
+};
 
 export {Player};

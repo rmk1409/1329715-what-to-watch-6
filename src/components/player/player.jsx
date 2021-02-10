@@ -1,9 +1,17 @@
 import React from 'react';
+import {filmValidation} from "../../validation";
+import {useParams} from "react-router-dom";
 
-const Player = () => (
-  <>
+const Player = (props) => {
+  const {films} = props;
+  const id = +useParams().id;
+  const film = films.find((currentFilm)=>currentFilm.id === id);
+
+  return <>
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"/>
+      <video src="#" className="player__video" poster="img/player-poster.jpg">
+        <source src={film[`video_link`]}/>
+      </video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -34,7 +42,11 @@ const Player = () => (
         </div>
       </div>
     </div>
-  </>
-);
+  </>;
+};
+
+Player.propTypes = {
+  ...filmValidation
+};
 
 export {Player};

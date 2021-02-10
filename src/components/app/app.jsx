@@ -1,48 +1,47 @@
 import React from "react";
 import {Main} from "../main/main";
-import PropTypes from "prop-types";
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {SignIn} from "../sign-in/sign-in";
 import {MyList} from "../my-list/my-list";
 import {Film} from "../film/film";
 import {AddReview} from "../add-review/add-review";
 import {NotFound} from "../404/404";
 import {Player} from "../player/player";
+import {filmsValidation, promoValidation} from "../../validation";
 
-const App = (props) => (
-  <BrowserRouter>
+const App = (props) => {
+  const {promo, films} = props;
+
+  return <BrowserRouter>
     <Switch>
       <Route exact path="/">
-        <Main promo={props.promo}/>
+        <Main promo={promo} films={films}/>
       </Route>
       <Route exact path="/login">
         <SignIn/>
       </Route>
       <Route exact path="/mylist">
-        <MyList/>
+        <MyList films={films}/>
       </Route>
       <Route exact path="/films/:id">
-        <Film/>
+        <Film films={films}/>
       </Route>
       <Route exact path="/films/:id/review">
-        <AddReview/>
+        <AddReview films={films}/>
       </Route>
       <Route exact path="/player/:id">
-        <Player/>
+        <Player films={films}/>
       </Route>
       <Route>
         <NotFound/>
       </Route>
     </Switch>
-  </BrowserRouter>
-);
+  </BrowserRouter>;
+};
 
 App.propTypes = {
-  promo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    date: PropTypes.number.isRequired,
-  }).isRequired,
+  ...promoValidation,
+  ...filmsValidation,
 };
 
 export {App};

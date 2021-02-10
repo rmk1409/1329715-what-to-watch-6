@@ -1,13 +1,9 @@
 import React from 'react';
-import {MovieCard} from "../movie-card/movie-card";
-import PropTypes from "prop-types";
-
-const MOVIE_QUANTITY = 20;
+import {filmsValidation, promoValidation} from "../../validation";
+import {MovieList} from "../movie-list/movie-list";
 
 const Main = (props) => {
-  const {promo: {title, genre, date}} = props;
-  const movies = new Array(MOVIE_QUANTITY);
-  movies.fill(null);
+  const {promo: {title, genre, date}, films} = props;
 
   return <>
     <section className="movie-card">
@@ -102,11 +98,7 @@ const Main = (props) => {
             <a href="#" className="catalog__genres-link">Thrillers</a>
           </li>
         </ul>
-
-        <div className="catalog__movies-list">
-          {movies.map((el, index) => <MovieCard key={index}/>)}
-        </div>
-
+        <MovieList films={films}/>
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
         </div>
@@ -130,11 +122,8 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  promo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    date: PropTypes.number.isRequired,
-  }).isRequired,
+  ...promoValidation,
+  ...filmsValidation,
 };
 
 export {Main};

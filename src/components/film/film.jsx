@@ -1,11 +1,12 @@
 import React from 'react';
-import {filmsValidation} from "../../validation";
+import {filmsValidation, reviewsValidation} from "../../validation";
 import {useParams} from "react-router-dom";
+import {TabList} from "../tab-list/tab-list";
 
 const Film = (props) => {
-  const {films} = props;
+  const {films, reviews} = props;
   const id = +useParams().id;
-  const film = films.find((currentFilm)=>currentFilm.id === id);
+  const film = films.find((currentFilm) => currentFilm.id === id);
 
   return <>
     <section className="movie-card movie-card--full">
@@ -68,35 +69,7 @@ const Film = (props) => {
           </div>
 
           <div className="movie-card__desc">
-            <nav className="movie-nav movie-card__nav">
-              <ul className="movie-nav__list">
-                <li className="movie-nav__item movie-nav__item--active">
-                  <a href="#" className="movie-nav__link">Overview</a>
-                </li>
-                <li className="movie-nav__item">
-                  <a href="#" className="movie-nav__link">Details</a>
-                </li>
-                <li className="movie-nav__item">
-                  <a href="#" className="movie-nav__link">Reviews</a>
-                </li>
-              </ul>
-            </nav>
-
-            <div className="movie-rating">
-              <div className="movie-rating__score">{film.rating}</div>
-              <p className="movie-rating__meta">
-                <span className="movie-rating__level">Very good</span>
-                <span className="movie-rating__count">{film[`scores_count`]} ratings</span>
-              </p>
-            </div>
-
-            <div className="movie-card__text">
-              <p>{film.description}</p>
-
-              <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
-
-              <p className="movie-card__starring"><strong>Starring: {film.starring.join(`, `)}</strong></p>
-            </div>
+            <TabList film={film} reviews={reviews}/>
           </div>
         </div>
       </div>
@@ -166,7 +139,8 @@ const Film = (props) => {
 };
 
 Film.propTypes = {
-  ...filmsValidation
+  ...filmsValidation,
+  ...reviewsValidation
 };
 
 export {Film};

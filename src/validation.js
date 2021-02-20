@@ -27,15 +27,15 @@ const filmValidation = {
     "genre": PropTypes.string.isRequired,
     "released": PropTypes.number.isRequired,
     "is_favorite": PropTypes.bool.isRequired,
-  })
+  }),
 };
 
 const filmsValidation = {
   films: PropTypes.arrayOf(filmValidation.film).isRequired,
 };
 
-const reviewsValidation = {
-  reviews: PropTypes.arrayOf(PropTypes.shape({
+const reviewValidation = {
+  review: PropTypes.shape({
     "id": PropTypes.number.isRequired,
     "film_id": PropTypes.number.isRequired,
     "user": PropTypes.shape({
@@ -45,7 +45,11 @@ const reviewsValidation = {
     "rating": PropTypes.number.isRequired,
     "comment": PropTypes.string.isRequired,
     "date": PropTypes.string.isRequired,
-  })).isRequired,
+  }),
 };
 
-export {promoValidation, filmValidation, filmsValidation, reviewsValidation};
+const reviewsValidation = {
+  reviews: PropTypes.arrayOf(reviewValidation.review).isRequired,
+};
+
+export {promoValidation, filmValidation, filmsValidation, reviewValidation, reviewsValidation};

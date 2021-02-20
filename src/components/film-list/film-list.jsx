@@ -1,18 +1,18 @@
-import {MovieCard} from "../movie-card/movie-card";
+import {FilmCard} from "../film-card/film-card";
 import React, {useState} from "react";
 import {filmsValidation} from "../../validation";
 
-const MovieList = (props) => {
+const FilmList = (props) => {
   const {films} = props;
   const [, setActiveFilmId] = useState();
 
   return <div className="catalog__movies-list">
-    {films.map((film) => <MovieCard key={film.id} film={film} setActiveFilmId = {setActiveFilmId}/>)}
+    {films.map((film) => <FilmCard key={film.id} film={film} setActiveFilmId = {setActiveFilmId}/>)}
   </div>;
 };
 
-MovieList.propTypes = {
+FilmList.propTypes = {
   ...filmsValidation,
 };
 
-export {MovieList};
+export {FilmList};

@@ -7,7 +7,7 @@ import {useEffect, useRef, useState} from "react";
 
 const ONE_SECOND = 1000;
 
-const MovieCard = (props) => {
+const FilmCard = (props) => {
   const {film, setActiveFilmId} = props;
   const href = `/films/${film.id}`;
   const [isPlaying, setPlaying] = useState(false);
@@ -55,9 +55,9 @@ const MovieCard = (props) => {
   </>;
 };
 
-MovieCard.propTypes = {
+FilmCard.propTypes = {
   ...filmValidation,
   setActiveFilmId: PropTypes.func.isRequired,
 };
 
-export {MovieCard};
+export {FilmCard};

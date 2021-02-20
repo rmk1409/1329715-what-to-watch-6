@@ -2,7 +2,7 @@ import React from 'react';
 import {filmsValidation, reviewsValidation} from "../../validation";
 import {useParams} from "react-router-dom";
 import {TabList} from "../tab-list/tab-list";
-import {MovieList} from "../movie-list/movie-list";
+import {FilmList} from "../film-list/film-list";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
@@ -87,7 +87,7 @@ const Film = (props) => {
         <h2 className="catalog__title">More like this</h2>
 
         <div className="catalog__movies-list">
-          <MovieList films={similarFilms}/>
+          <FilmList films={similarFilms}/>
         </div>
       </section>
 

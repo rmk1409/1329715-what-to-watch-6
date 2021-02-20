@@ -1,6 +1,6 @@
 import React from 'react';
 import {filmsValidation} from "../../validation";
-import {MovieList} from "../movie-list/movie-list";
+import {FilmList} from "../film-list/film-list";
 
 const MyList = (props) => {
   const {films} = props;
@@ -28,7 +28,7 @@ const MyList = (props) => {
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-      <MovieList films={favoriteFilms}/>
+      <FilmList films={favoriteFilms}/>
     </section>
 
     <footer className="page-footer">

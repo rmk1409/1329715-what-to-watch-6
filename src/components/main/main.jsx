@@ -1,6 +1,6 @@
 import React from 'react';
 import {filmsValidation, promoValidation} from "../../validation";
-import {MovieList} from "../movie-list/movie-list";
+import {FilmList} from "../film-list/film-list";
 
 const Main = (props) => {
   const {promo: {title, genre, date}, films} = props;
@@ -98,7 +98,7 @@ const Main = (props) => {
             <a href="#" className="catalog__genres-link">Thrillers</a>
           </li>
         </ul>
-        <MovieList films={films}/>
+        <FilmList films={films}/>
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
         </div>

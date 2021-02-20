@@ -2,11 +2,18 @@ import React from 'react';
 import {filmsValidation, reviewsValidation} from "../../validation";
 import {useParams} from "react-router-dom";
 import {TabList} from "../tab-list/tab-list";
+import {MovieList} from "../movie-list/movie-list";
+
+const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
 const Film = (props) => {
   const {films, reviews} = props;
   const id = +useParams().id;
   const film = films.find((currentFilm) => currentFilm.id === id);
+
+  const similarFilms = films
+    .filter((currentFilm) => currentFilm.genre === film.genre && film.id !== currentFilm.id)
+    .splice(0, MAX_SHOWN_SIMILAR_FILM_QUANTITY);
 
   return <>
     <section className="movie-card movie-card--full">
@@ -80,44 +87,7 @@ const Film = (props) => {
         <h2 className="catalog__title">More like this</h2>
 
         <div className="catalog__movies-list">
-          <article className="small-movie-card catalog__movies-card">
-            <div className="small-movie-card__image">
-              <img
-                src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"/>
-            </div>
-            <h3 className="small-movie-card__title">
-              <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of
-                Grindelwald</a>
-            </h3>
-          </article>
-
-          <article className="small-movie-card catalog__movies-card">
-            <div className="small-movie-card__image">
-              <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
-            </div>
-            <h3 className="small-movie-card__title">
-              <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-            </h3>
-          </article>
-
-          <article className="small-movie-card catalog__movies-card">
-            <div className="small-movie-card__image">
-              <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
-            </div>
-            <h3 className="small-movie-card__title">
-              <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-            </h3>
-          </article>
-
-          <article className="small-movie-card catalog__movies-card">
-            <div className="small-movie-card__image">
-              <img src="img/aviator.jpg" alt="Aviator" width="280" height="175"/>
-            </div>
-            <h3 className="small-movie-card__title">
-              <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-            </h3>
-          </article>
+          <MovieList films={similarFilms}/>
         </div>
       </section>
 
@@ -140,7 +110,7 @@ const Film = (props) => {
 
 Film.propTypes = {
   ...filmsValidation,
-  ...reviewsValidation
+  ...reviewsValidation,
 };
 
 export {Film};

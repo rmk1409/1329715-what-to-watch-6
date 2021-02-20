@@ -52,7 +52,7 @@ const filmMocks = [
     "director": `director3`,
     "starring": [`star3`, `star4`, `star5`],
     "run_time": 3,
-    "genre": `genre3`,
+    "genre": `genre1`,
     "released": 1962,
     "is_favorite": false
   },
@@ -90,7 +90,7 @@ const filmMocks = [
     "director": `director5`,
     "starring": [`star5`],
     "run_time": 5,
-    "genre": `genre5`,
+    "genre": `genre1`,
     "released": 1964,
     "is_favorite": false
   },
@@ -128,7 +128,7 @@ const filmMocks = [
     "director": `director7`,
     "starring": [`star7`, `star5`],
     "run_time": 7,
-    "genre": `genre7`,
+    "genre": `genre1`,
     "released": 1966,
     "is_favorite": true
   },

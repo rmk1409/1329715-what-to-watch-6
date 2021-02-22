@@ -15,8 +15,9 @@ const GenreList = (props) => {
         <a href="#" className="catalog__genres-link" onClick={onClickGenre}>All genres</a>
       </li>
       {uniqueGenres.map((currentUniqueGenre) =>
-        <li key={currentUniqueGenre}
-            className={`catalog__genres-item ${currentStateGenre === currentUniqueGenre ? activeGenreClass : ``}`}>
+        <li
+          key={currentUniqueGenre}
+          className={`catalog__genres-item ${currentStateGenre === currentUniqueGenre ? activeGenreClass : ``}`}>
           <a href="#" className="catalog__genres-link" onClick={onClickGenre}>{currentUniqueGenre}</a>
         </li>)}
     </ul>

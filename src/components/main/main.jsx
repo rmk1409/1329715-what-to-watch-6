@@ -1,10 +1,10 @@
 import React from 'react';
-import {filmsValidation, promoValidation} from "../../validation";
+import {promoValidation} from "../../validation";
 import {ConnectedFilmList} from "../film-list/film-list";
 import {ConnectedGenreList} from "../genre-list/genre-list";
 
 const Main = (props) => {
-  const {promo: {title, genre, date}, films} = props;
+  const {promo: {title, genre, date}} = props;
 
   return <>
     <section className="movie-card">
@@ -92,7 +92,6 @@ const Main = (props) => {
 
 Main.propTypes = {
   ...promoValidation,
-  ...filmsValidation,
 };
 
 export {Main};

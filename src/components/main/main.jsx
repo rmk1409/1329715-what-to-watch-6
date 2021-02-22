@@ -1,6 +1,6 @@
 import React from 'react';
 import {filmsValidation, promoValidation} from "../../validation";
-import {FilmList} from "../film-list/film-list";
+import {ConnectedFilmList} from "../film-list/film-list";
 import {ConnectedGenreList} from "../genre-list/genre-list";
 
 const Main = (props) => {
@@ -66,10 +66,8 @@ const Main = (props) => {
     <div className="page-content">
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-
         <ConnectedGenreList/>
-
-        <FilmList films={films}/>
+        <ConnectedFilmList/>
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
         </div>

@@ -3,4 +3,18 @@ const ActionType = {
   GET_FILMS_BY_CURRENT_GENRE: `get-film-by-current-genre`,
 };
 
-export {ActionType};
+const ActionCreator = {
+  changeGenre(payload) {
+    return {
+      type: ActionType.CHANGE_GENRE,
+      payload
+    };
+  },
+  getFilmsByCurrentGenre() {
+    return {
+      type: ActionType.GET_FILMS_BY_CURRENT_GENRE,
+    };
+  },
+};
+
+export {ActionType, ActionCreator};

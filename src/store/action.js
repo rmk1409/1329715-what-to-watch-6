@@ -10,9 +10,10 @@ const ActionCreator = {
       payload
     };
   },
-  getFilmsByCurrentGenre() {
+  getFilmsByCurrentGenre(payload) {
     return {
       type: ActionType.GET_FILMS_BY_CURRENT_GENRE,
+      payload
     };
   },
 };

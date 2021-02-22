@@ -29,7 +29,7 @@ GenreList.propTypes = {
   genre: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({films: state.films, genre: state.genre});
+const mapStateToProps = (state) => ({films: state.initialFilms, genre: state.genre});
 const mapDispatchToProps = (dispatch) => ({
   onClickGenre(evt) {
     evt.preventDefault();

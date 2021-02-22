@@ -5,6 +5,7 @@ import {ActionType} from "./action";
 const initState = {
   genre: Genre.ALL,
   films: filmMocks,
+  initialFilms: filmMocks
 };
 
 const reducer = (state = initState, action) => {
@@ -16,7 +17,7 @@ const reducer = (state = initState, action) => {
     case ActionType.GET_FILMS_BY_CURRENT_GENRE:
       let films = initState.films;
       if (Genre.ALL !== action.payload) {
-        films = films.filter((film) => film.genre === action.value);
+        films = films.filter((film) => film.genre === action.payload);
       }
       newState = {...state, films};
       break;

@@ -1,10 +1,13 @@
 import React from 'react';
-import {promoValidation} from "../../validation";
+import {filmsValidation, promoValidation} from "../../validation";
 import {ConnectedFilmList} from "../film-list/film-list";
 import {ConnectedGenreList} from "../genre-list/genre-list";
+import {ConnectedShowMore} from "../show-more/show-more";
+import {connect} from "react-redux";
+import * as PropTypes from "prop-types";
 
 const Main = (props) => {
-  const {promo: {title, genre, date}} = props;
+  const {promo: {title, genre, date}, films, shownFilmQuantity} = props;
 
   return <>
     <section className="movie-card">
@@ -69,7 +72,7 @@ const Main = (props) => {
         <ConnectedGenreList/>
         <ConnectedFilmList/>
         <div className="catalog__more">
-          <button className="catalog__button" type="button">Show more</button>
+          {films.length > shownFilmQuantity ? <ConnectedShowMore/> : ``}
         </div>
       </section>
 
@@ -92,6 +95,15 @@ const Main = (props) => {
 
 Main.propTypes = {
   ...promoValidation,
+  ...filmsValidation,
+  shownFilmQuantity: PropTypes.number.isRequired,
 };
 
-export {Main};
+const mapStateToProps = (state) => ({
+  films: state.films,
+  shownFilmQuantity: state.shownFilmQuantity,
+});
+
+const ConnectedMain = connect(mapStateToProps, null)(Main);
+
+export {Main, ConnectedMain};

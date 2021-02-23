@@ -1,5 +1,5 @@
 import React from "react";
-import {Main} from "../main/main";
+import {ConnectedMain} from "../main/main";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {SignIn} from "../sign-in/sign-in";
 import {MyList} from "../my-list/my-list";
@@ -15,7 +15,7 @@ const App = (props) => {
   return <BrowserRouter>
     <Switch>
       <Route exact path="/">
-        <Main promo={promo} films={films}/>
+        <ConnectedMain promo={promo} films={films}/>
       </Route>
       <Route exact path="/login">
         <SignIn/>

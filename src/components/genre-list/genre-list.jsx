@@ -30,13 +30,18 @@ GenreList.propTypes = {
   genre: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({films: state.initialFilms, genre: state.genre});
+const mapStateToProps = (state) => ({
+  films: state.initialFilms,
+  genre: state.genre,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   onClickGenre(evt) {
     evt.preventDefault();
     const newGenre = evt.target.textContent;
     dispatch(ActionCreator.changeGenre(newGenre));
     dispatch(ActionCreator.getFilmsByCurrentGenre(newGenre));
+    dispatch(ActionCreator.setShownFilmQuantity());
   },
 });
 const ConnectedGenreList = connect(mapStateToProps, mapDispatchToProps)(GenreList);

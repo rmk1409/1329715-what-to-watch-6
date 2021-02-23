@@ -20,4 +20,5 @@ ReactDOM.render(
     <Provider store={store}>
       <App promo={promo} films={filmMocks} reviews={reviewMocks}/>
     </Provider>,
-    document.querySelector(`#root`));
+    document.querySelector(`#root`)
+);

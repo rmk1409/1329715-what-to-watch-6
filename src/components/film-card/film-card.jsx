@@ -45,7 +45,7 @@ const FilmCard = ({film, setActiveFilmId}) => {
       onMouseEnter={() => onMouseEnter()}
       onMouseLeave={() => onMouseLeave()}>
       <div className="small-movie-card__image">
-        <VideoPlayer film={film} videoRef={videoRef}/>
+        <VideoPlayer film={film} ref={videoRef}/>
       </div>
       <h3 className="small-movie-card__title">
         <Link className="small-movie-card__link" to={href}>{film.name}</Link>

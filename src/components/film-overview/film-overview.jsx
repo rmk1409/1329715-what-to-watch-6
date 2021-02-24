@@ -1,10 +1,8 @@
 import React from "react";
 import {filmValidation} from "../../validation";
 
-const FilmOverview = (props) => {
-  const {film} = props;
-
-  return <>
+const FilmOverview = ({film}) => (
+  <>
     <div className="movie-rating">
       <div className="movie-rating__score">{film.rating}</div>
       <p className="movie-rating__meta">
@@ -17,8 +15,8 @@ const FilmOverview = (props) => {
       <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
       <p className="movie-card__starring"><strong>Starring: {film.starring.join(`, `)}</strong></p>
     </div>
-  </>;
-};
+  </>
+);
 
 FilmOverview.propTypes = {
   ...filmValidation,

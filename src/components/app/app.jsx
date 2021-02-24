@@ -9,10 +9,8 @@ import {NotFound} from "../404/404";
 import {Player} from "../player/player";
 import {filmsValidation, promoValidation, reviewsValidation} from "../../validation";
 
-const App = (props) => {
-  const {promo, films, reviews} = props;
-
-  return <BrowserRouter>
+const App = ({promo, films, reviews}) => (
+  <BrowserRouter>
     <Switch>
       <Route exact path="/">
         <ConnectedMain promo={promo} films={films}/>
@@ -36,13 +34,13 @@ const App = (props) => {
         <NotFound/>
       </Route>
     </Switch>
-  </BrowserRouter>;
-};
+  </BrowserRouter>
+);
 
 App.propTypes = {
   ...promoValidation,
   ...filmsValidation,
-  ...reviewsValidation
+  ...reviewsValidation,
 };
 
 export {App};

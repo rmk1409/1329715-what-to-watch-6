@@ -3,10 +3,11 @@ import {filmValidation} from "../../validation";
 
 const MIN_IN_HOUR = 60;
 
-const FilmDetails = (props) => {
-  const {film} = props;
+const FilmDetails = ({film}) => {
   const stars = film.starring.map((value, index) => (
-    <React.Fragment key={index}>{value}{index < (film.starring.length - 1) ? <br/> : ``}</React.Fragment>
+    <React.Fragment key={index}>
+      {value}{index < (film.starring.length - 1) ? <br/> : ``}
+    </React.Fragment>
   ));
 
   const formattedDuration = `${Math.floor(film[`run_time`] / MIN_IN_HOUR)}h ${film[`run_time`] % MIN_IN_HOUR}m`;

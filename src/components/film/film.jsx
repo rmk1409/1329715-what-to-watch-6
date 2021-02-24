@@ -6,8 +6,7 @@ import {FilmList} from "../film-list/film-list";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
-const Film = (props) => {
-  const {films, reviews} = props;
+const Film = ({films, reviews}) => {
   const id = +useParams().id;
   const film = films.find((currentFilm) => currentFilm.id === id);
 

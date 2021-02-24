@@ -1,8 +1,7 @@
 import React from "react";
 import {reviewValidation} from "../../validation";
 
-const Review = (props) => {
-  const {review} = props;
+const Review = ({review}) => {
   const dayjs = require(`dayjs`);
 
   const dateForAttribute = dayjs(review.date).format(`YYYY-MM-DD`);

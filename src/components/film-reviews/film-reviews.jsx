@@ -2,14 +2,11 @@ import React from 'react';
 import {filmValidation, reviewsValidation} from "../../validation";
 import {Review} from "../review/review";
 
-const FilmReviews = (props) => {
-  const {film} = props;
-  let {reviews} = props;
-
-  reviews = reviews.filter((review) => review[`film_id`] === film.id);
-  const halfIndex = Math.ceil(reviews.length / 2);
-  const firstHalfReviews = reviews.splice(0, halfIndex);
-  const secondHalfReviews = reviews.splice(-halfIndex);
+const FilmReviews = ({film, reviews}) => {
+  const filteredReviews = reviews.filter((review) => review[`film_id`] === film.id);
+  const halfIndex = Math.ceil(filteredReviews.length / 2);
+  const firstHalfReviews = filteredReviews.splice(0, halfIndex);
+  const secondHalfReviews = filteredReviews.splice(-halfIndex);
 
   return <>
     <div className="movie-card__reviews movie-card__row">

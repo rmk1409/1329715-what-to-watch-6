@@ -4,8 +4,7 @@ import {filmsValidation} from "../../validation";
 import {connect} from "react-redux";
 import * as PropTypes from "prop-types";
 
-const FilmList = (props) => {
-  const {films, shownFilmQuantity} = props;
+const FilmList = ({films, shownFilmQuantity}) => {
   const [, setActiveFilmId] = useState();
 
   const filmsToShow = shownFilmQuantity ? films.slice(0, shownFilmQuantity) : films;

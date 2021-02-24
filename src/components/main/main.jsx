@@ -6,10 +6,8 @@ import {ConnectedShowMore} from "../show-more/show-more";
 import {connect} from "react-redux";
 import * as PropTypes from "prop-types";
 
-const Main = (props) => {
-  const {promo: {title, genre, date}, films, shownFilmQuantity} = props;
-
-  return <>
+const Main = ({promo: {title, genre, date}, films, shownFilmQuantity}) => (
+  <>
     <section className="movie-card">
       <div className="movie-card__bg">
         <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
@@ -90,8 +88,8 @@ const Main = (props) => {
         </div>
       </footer>
     </div>
-  </>;
-};
+  </>
+);
 
 Main.propTypes = {
   ...promoValidation,

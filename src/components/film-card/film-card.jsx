@@ -7,8 +7,7 @@ import {useEffect, useRef, useState} from "react";
 
 const ONE_SECOND = 1000;
 
-const FilmCard = (props) => {
-  const {film, setActiveFilmId} = props;
+const FilmCard = ({film, setActiveFilmId}) => {
   const href = `/films/${film.id}`;
   const [isPlaying, setPlaying] = useState(false);
   const [cardTimeout, setCardTimout] = useState(null);

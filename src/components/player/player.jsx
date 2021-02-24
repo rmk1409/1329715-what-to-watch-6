@@ -2,8 +2,7 @@ import React from 'react';
 import {filmValidation} from "../../validation";
 import {useParams} from "react-router-dom";
 
-const Player = (props) => {
-  const {films} = props;
+const Player = ({films}) => {
   const id = +useParams().id;
   const film = films.find((currentFilm)=>currentFilm.id === id);
 

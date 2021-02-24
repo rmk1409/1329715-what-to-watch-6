@@ -3,13 +3,11 @@ import * as PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 
-const ShowMore = (props) => {
-  const {clickShowMore} = props;
-
-  return <>
+const ShowMore = ({clickShowMore}) => (
+  <>
     <button className="catalog__button" type="button" onClick={clickShowMore}>Show more</button>
-  </>;
-};
+  </>
+);
 
 ShowMore.propTypes = {
   clickShowMore: PropTypes.func.isRequired,

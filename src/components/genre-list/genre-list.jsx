@@ -5,8 +5,7 @@ import * as PropTypes from "prop-types";
 import {ActionCreator} from "../../store/action";
 import {Genre} from "../../const";
 
-const GenreList = (props) => {
-  const {films, genre: currentStateGenre, onClickGenre} = props;
+const GenreList = ({films, genre: currentStateGenre, onClickGenre}) => {
   const uniqueGenres = Array.from(new Set(films.map((film) => film.genre)));
   const activeGenreClass = `catalog__genres-item--active`;
   return <>

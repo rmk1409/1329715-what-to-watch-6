@@ -24,8 +24,7 @@ const getContent = (film, type = tabType.OVERVIEW, reviews) => {
   return content;
 };
 
-const TabList = (props) => {
-  const {film, reviews} = props;
+const TabList = ({film, reviews}) => {
   const [chosenTab, setChosenTab] = useState(tabType.OVERVIEW);
 
   const onClickLink = (evt) => {

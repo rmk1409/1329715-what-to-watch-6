@@ -3,8 +3,7 @@ import {filmsValidation} from "../../validation";
 import {SendCommentForm} from "../send-comment-form/send-comment-form";
 import {useParams} from "react-router-dom";
 
-const AddReview = (props) => {
-  const {films} = props;
+const AddReview = ({films}) => {
   const id = +useParams().id;
   const film = films.find((currentFilm)=>currentFilm.id === id);
 

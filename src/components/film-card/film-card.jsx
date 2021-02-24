@@ -10,10 +10,10 @@ const ONE_SECOND = 1000;
 const FilmCard = ({film, setActiveFilmId}) => {
   const href = `/films/${film.id}`;
   const [isPlaying, setPlaying] = useState(false);
-  const [cardTimeout, setCardTimout] = useState(null);
 
   const isInitialMount = useRef(true);
   const videoRef = useRef();
+  const timeoutRef = useRef();
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -25,17 +25,19 @@ const FilmCard = ({film, setActiveFilmId}) => {
         videoRef.current.load();
       }
     }
+
+    return () => window.clearTimeout(timeoutRef.current);
   }, [isPlaying]);
 
   const onMouseEnter = () => {
     setActiveFilmId(film.id);
-    setCardTimout(setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       setPlaying(true);
-    }, ONE_SECOND));
+    }, ONE_SECOND);
   };
   const onMouseLeave = () => {
     setActiveFilmId(null);
-    window.clearTimeout(cardTimeout);
+    window.clearTimeout(timeoutRef.current);
     setPlaying(false);
   };
 

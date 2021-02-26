@@ -1,5 +1,5 @@
 import React from "react";
-import {Main} from "../main/main";
+import {ConnectedMain} from "../main/main";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {SignIn} from "../sign-in/sign-in";
 import {MyList} from "../my-list/my-list";
@@ -7,15 +7,13 @@ import {Film} from "../film/film";
 import {AddReview} from "../add-review/add-review";
 import {NotFound} from "../404/404";
 import {Player} from "../player/player";
-import {filmsValidation, promoValidation} from "../../validation";
+import {filmsValidation, promoValidation, reviewsValidation} from "../../validation";
 
-const App = (props) => {
-  const {promo, films} = props;
-
-  return <BrowserRouter>
+const App = ({promo, films, reviews}) => (
+  <BrowserRouter>
     <Switch>
       <Route exact path="/">
-        <Main promo={promo} films={films}/>
+        <ConnectedMain promo={promo} films={films}/>
       </Route>
       <Route exact path="/login">
         <SignIn/>
@@ -24,7 +22,7 @@ const App = (props) => {
         <MyList films={films}/>
       </Route>
       <Route exact path="/films/:id">
-        <Film films={films}/>
+        <Film films={films} reviews={reviews}/>
       </Route>
       <Route exact path="/films/:id/review">
         <AddReview films={films}/>
@@ -36,12 +34,13 @@ const App = (props) => {
         <NotFound/>
       </Route>
     </Switch>
-  </BrowserRouter>;
-};
+  </BrowserRouter>
+);
 
 App.propTypes = {
   ...promoValidation,
   ...filmsValidation,
+  ...reviewsValidation,
 };
 
 export {App};

@@ -52,7 +52,7 @@ const filmMocks = [
     "director": `director3`,
     "starring": [`star3`, `star4`, `star5`],
     "run_time": 3,
-    "genre": `genre3`,
+    "genre": `genre1`,
     "released": 1962,
     "is_favorite": false
   },
@@ -90,7 +90,7 @@ const filmMocks = [
     "director": `director5`,
     "starring": [`star5`],
     "run_time": 5,
-    "genre": `genre5`,
+    "genre": `genre1`,
     "released": 1964,
     "is_favorite": false
   },
@@ -128,7 +128,7 @@ const filmMocks = [
     "director": `director7`,
     "starring": [`star7`, `star5`],
     "run_time": 7,
-    "genre": `genre7`,
+    "genre": `genre1`,
     "released": 1966,
     "is_favorite": true
   },
@@ -150,6 +150,44 @@ const filmMocks = [
     "genre": `genre8`,
     "released": 1968,
     "is_favorite": true
+  },
+  {
+    "id": 9,
+    "name": `name9`,
+    "poster_image": `img/the-grand-budapest-hotel-poster.jpg`,
+    "preview_image": `img/the-grand-budapest-hotel-poster.jpg`,
+    "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
+    "background_color": `#ffffff`,
+    "video_link": `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    "preview_video_link": `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    "description": `description1`,
+    "rating": 0.9,
+    "scores_count": 9,
+    "director": `director9`,
+    "starring": [`star1`, `star2`, `star3`, `star4`, `star5`],
+    "run_time": 1,
+    "genre": `genre2`,
+    "released": 1979,
+    "is_favorite": true
+  },
+  {
+    "id": 10,
+    "name": `name10`,
+    "poster_image": `img/aviator.jpg`,
+    "preview_image": `img/aviator.jpg`,
+    "background_image": `img/the-grand-budapest-hotel-bg.jpg`,
+    "background_color": `#ffffff`,
+    "video_link": `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    "preview_video_link": `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    "description": `description2`,
+    "rating": 1,
+    "scores_count": 10,
+    "director": `director2`,
+    "starring": [`star1`, `star4`, `star5`],
+    "run_time": 110,
+    "genre": `genre2`,
+    "released": 2010,
+    "is_favorite": false
   },
 ];
 

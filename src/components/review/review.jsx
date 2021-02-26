@@ -1,9 +1,8 @@
 import React from "react";
 import {reviewValidation} from "../../validation";
+import * as dayjs from 'dayjs';
 
 const Review = ({review}) => {
-  const dayjs = require(`dayjs`);
-
   const dateForAttribute = dayjs(review.date).format(`YYYY-MM-DD`);
   const dateForTextContent = dayjs(review.date).format(`MMMM DD, YYYY`);
 

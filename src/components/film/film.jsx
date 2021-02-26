@@ -7,8 +7,8 @@ import {FilmList} from "../film-list/film-list";
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
 const Film = ({films, reviews}) => {
-  const id = +useParams().id;
-  const film = films.find((currentFilm) => currentFilm.id === id);
+  const {id} = useParams();
+  const film = films.find((currentFilm) => currentFilm.id === parseInt(id, 10));
 
   const similarFilms = films
     .filter((currentFilm) => currentFilm.genre === film.genre && film.id !== currentFilm.id)

@@ -114,7 +114,7 @@ Film.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  films: state.initialFilms,
 });
 
 const ConnectedFilm = connect(mapStateToProps, null)(Film);

@@ -54,7 +54,7 @@ MyList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  films: state.initialFilms,
 });
 
 const ConnectedMyList = connect(mapStateToProps, null)(MyList);

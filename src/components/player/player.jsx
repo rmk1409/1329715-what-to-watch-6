@@ -50,7 +50,7 @@ Player.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  films: state.initialFilms,
 });
 
 const ConnectedPlayer = connect(mapStateToProps, null)(Player);

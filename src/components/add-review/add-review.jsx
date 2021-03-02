@@ -64,7 +64,7 @@ AddReview.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  films: state.initialFilms,
 });
 
 const ConnectedAddReview = connect(mapStateToProps, null)(AddReview);

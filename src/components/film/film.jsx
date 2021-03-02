@@ -3,6 +3,7 @@ import {filmsValidation, reviewsValidation} from "../../validation";
 import {useParams} from "react-router-dom";
 import {TabList} from "../tab-list/tab-list";
 import {FilmList} from "../film-list/film-list";
+import {connect} from "react-redux";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
@@ -112,4 +113,10 @@ Film.propTypes = {
   ...reviewsValidation,
 };
 
-export {Film};
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+const ConnectedFilm = connect(mapStateToProps, null)(Film);
+
+export {ConnectedFilm};

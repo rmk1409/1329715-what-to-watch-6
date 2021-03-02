@@ -2,6 +2,7 @@ import React from 'react';
 import {filmsValidation} from "../../validation";
 import {SendCommentForm} from "../send-comment-form/send-comment-form";
 import {useParams} from "react-router-dom";
+import {connect} from "react-redux";
 
 const AddReview = ({films}) => {
   const id = +useParams().id;
@@ -62,4 +63,10 @@ AddReview.propTypes = {
   ...filmsValidation
 };
 
-export {AddReview};
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+const ConnectedAddReview = connect(mapStateToProps, null)(AddReview);
+
+export {ConnectedAddReview};

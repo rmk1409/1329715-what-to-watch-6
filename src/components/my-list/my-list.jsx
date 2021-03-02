@@ -1,6 +1,7 @@
 import React from 'react';
 import {filmsValidation} from "../../validation";
 import {FilmList} from "../film-list/film-list";
+import {connect} from "react-redux";
 
 const MyList = ({films}) => {
   const favoriteFilms = films.filter((film) => film[`is_favorite`]);
@@ -52,4 +53,10 @@ MyList.propTypes = {
   ...filmsValidation,
 };
 
-export {MyList};
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+const ConnectedMyList = connect(mapStateToProps, null)(MyList);
+
+export {ConnectedMyList};

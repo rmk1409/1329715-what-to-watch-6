@@ -1,12 +1,12 @@
 import {Genre, MAX_SHOWN_FILM_QUANTITY_PER_TIME} from "../const";
-import {filmMocks} from "../mocks/films";
 import {ActionType} from "./action";
 
 const initState = {
   genre: Genre.ALL,
-  films: filmMocks,
-  initialFilms: filmMocks,
-  shownFilmQuantity: filmMocks.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : filmMocks.length,
+  films: [],
+  initialFilms: [],
+  // shownFilmQuantity: filmMocks.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : filmMocks.length,
+  shownFilmQuantity: 0,
 };
 
 const reducer = (state = initState, action) => {

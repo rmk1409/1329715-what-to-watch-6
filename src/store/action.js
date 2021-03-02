@@ -6,22 +6,21 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  changeGenre(payload) {
+  changeGenre(genre) {
     return {
       type: ActionType.CHANGE_GENRE,
-      payload,
+      payload: genre,
     };
   },
-  getFilmsByCurrentGenre(payload) {
+  getFilmsByCurrentGenre() {
     return {
       type: ActionType.GET_FILMS_BY_CURRENT_GENRE,
-      payload,
     };
   },
-  setShownFilmQuantity(payload) {
+  setShownFilmQuantity(quantity) {
     return {
       type: ActionType.SET_SHOWN_FILM_QUANTITY,
-      payload,
+      payload: quantity,
     };
   },
   increaseShownFilmQuantity() {

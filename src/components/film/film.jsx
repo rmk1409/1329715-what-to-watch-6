@@ -1,17 +1,18 @@
 import React from 'react';
-import {filmsValidation, reviewsValidation} from "../../validation";
+import {filmValidation, reviewsValidation} from "../../validation";
 import {useParams} from "react-router-dom";
 import {TabList} from "../tab-list/tab-list";
 import {FilmList} from "../film-list/film-list";
 import {connect} from "react-redux";
+import PropTypes from "prop-types";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
-const Film = ({films, reviews}) => {
+const Film = ({allFilms, reviews}) => {
   const {id} = useParams();
-  const film = films.find((currentFilm) => currentFilm.id === parseInt(id, 10));
+  const film = allFilms.find((currentFilm) => currentFilm.id === parseInt(id, 10));
 
-  const similarFilms = films
+  const similarFilms = allFilms
     .filter((currentFilm) => currentFilm.genre === film.genre && film.id !== currentFilm.id)
     .splice(0, MAX_SHOWN_SIMILAR_FILM_QUANTITY);
 
@@ -109,14 +110,13 @@ const Film = ({films, reviews}) => {
 };
 
 Film.propTypes = {
-  ...filmsValidation,
+  allFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
   ...reviewsValidation,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.initialFilms,
+  allFilms: state.allFilms,
 });
-
 const ConnectedFilm = connect(mapStateToProps, null)(Film);
 
 export {ConnectedFilm};

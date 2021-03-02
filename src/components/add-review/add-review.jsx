@@ -1,12 +1,13 @@
 import React from 'react';
-import {filmsValidation} from "../../validation";
+import {filmValidation} from "../../validation";
 import {SendCommentForm} from "../send-comment-form/send-comment-form";
 import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
+import PropTypes from "prop-types";
 
-const AddReview = ({films}) => {
-  const id = +useParams().id;
-  const film = films.find((currentFilm)=>currentFilm.id === id);
+const AddReview = ({allFilms}) => {
+  const {id} = useParams();
+  const film = allFilms.find((currentFilm) => currentFilm.id === parseInt(id, 10));
 
   return <>
     <section className="movie-card movie-card--full">
@@ -60,13 +61,12 @@ const AddReview = ({films}) => {
 };
 
 AddReview.propTypes = {
-  ...filmsValidation
+  allFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.initialFilms,
+  allFilms: state.allFilms,
 });
-
 const ConnectedAddReview = connect(mapStateToProps, null)(AddReview);
 
 export {ConnectedAddReview};

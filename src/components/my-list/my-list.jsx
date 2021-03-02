@@ -1,10 +1,11 @@
 import React from 'react';
-import {filmsValidation} from "../../validation";
+import {filmValidation} from "../../validation";
 import {FilmList} from "../film-list/film-list";
 import {connect} from "react-redux";
+import PropTypes from "prop-types";
 
-const MyList = ({films}) => {
-  const favoriteFilms = films.filter((film) => film[`is_favorite`]);
+const MyList = ({allFilms}) => {
+  const favoriteFilms = allFilms.filter((film) => film[`is_favorite`]);
 
   return <>
     <div className="user-page">
@@ -50,11 +51,11 @@ const MyList = ({films}) => {
 };
 
 MyList.propTypes = {
-  ...filmsValidation,
+  allFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.initialFilms,
+  allFilms: state.allFilms,
 });
 
 const ConnectedMyList = connect(mapStateToProps, null)(MyList);

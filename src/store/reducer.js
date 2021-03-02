@@ -4,8 +4,8 @@ import {ActionType} from "./action";
 const initState = {
   chosenGenre: Genre.ALL,
   isFilmsLoaded: false,
-  films: [],
-  initialFilms: [],
+  allFilms: [],
+  filteredFilms: [],
   shownFilmQuantity: 0,
 };
 
@@ -14,31 +14,36 @@ const reducer = (state = initState, {type, payload}) => {
   let shownFilmQuantity;
   switch (type) {
     case ActionType.LOAD_FILMS:
+      const allFilms = payload;
       newState = {
         ...state,
         isFilmsLoaded: true,
-        films: payload,
-        initialFilms: payload,
-        shownFilmQuantity: payload.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : payload.length,
+        allFilms,
+        filteredFilms: allFilms,
+        shownFilmQuantity: allFilms.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : allFilms.length,
       };
       break;
     case ActionType.CHANGE_GENRE:
       newState = {...state, chosenGenre: payload};
       break;
     case ActionType.GET_FILMS_BY_CURRENT_GENRE:
-      let films = state.initialFilms;
+      let filteredFilms = state.allFilms;
       const chosenGenre = state.chosenGenre;
       if (Genre.ALL !== chosenGenre) {
-        films = films.filter((film) => film.genre === chosenGenre);
+        filteredFilms = filteredFilms.filter((film) => film.genre === chosenGenre);
       }
-      newState = {...state, films};
+      newState = {...state, filteredFilms};
       break;
     case ActionType.INCREASE_SHOWN_FILM_QUANTITY:
-      shownFilmQuantity = state.shownFilmQuantity + MAX_SHOWN_FILM_QUANTITY_PER_TIME > state.films.length ? state.films.length : state.shownFilmQuantity + MAX_SHOWN_FILM_QUANTITY_PER_TIME;
+      shownFilmQuantity = (state.shownFilmQuantity + MAX_SHOWN_FILM_QUANTITY_PER_TIME) < state.filteredFilms.length ?
+        state.shownFilmQuantity + MAX_SHOWN_FILM_QUANTITY_PER_TIME :
+        state.filteredFilms.length;
       newState = {...state, shownFilmQuantity};
       break;
     case ActionType.SET_SHOWN_FILM_QUANTITY:
-      shownFilmQuantity = payload || state.films.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : state.films.length;
+      const newShownFilmQuantity = payload;
+      shownFilmQuantity = newShownFilmQuantity ||
+        (state.filteredFilms.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : state.filteredFilms.length);
       newState = {...state, shownFilmQuantity};
       break;
     default:

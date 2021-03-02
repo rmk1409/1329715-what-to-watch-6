@@ -1,12 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
-import {filmsValidation} from "../../validation";
+import {filmValidation} from "../../validation";
 import * as PropTypes from "prop-types";
 import {ActionCreator} from "../../store/action";
 import {Genre} from "../../const";
 
-const GenreList = ({films, chosenGenre, onClickGenre}) => {
-  const uniqueGenres = Array.from(new Set(films.map((film) => film.genre)));
+const GenreList = ({allFilms, chosenGenre, onClickGenre}) => {
+  const uniqueGenres = Array.from(new Set(allFilms.map((film) => film.genre)));
   const activeGenreClass = `catalog__genres-item--active`;
   return <>
     <ul className="catalog__genres-list">
@@ -24,16 +24,15 @@ const GenreList = ({films, chosenGenre, onClickGenre}) => {
 };
 
 GenreList.propTypes = {
-  ...filmsValidation,
+  allFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
   onClickGenre: PropTypes.func.isRequired,
   chosenGenre: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.initialFilms,
+  allFilms: state.allFilms,
   chosenGenre: state.chosenGenre,
 });
-
 const mapDispatchToProps = (dispatch) => ({
   onClickGenre(evt) {
     evt.preventDefault();

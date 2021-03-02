@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {filmsValidation, promoValidation} from "../../validation";
+import {filmValidation, promoValidation} from "../../validation";
 import {ConnectedFilmList} from "../film-list/film-list";
 import {ConnectedGenreList} from "../genre-list/genre-list";
 import {ConnectedShowMore} from "../show-more/show-more";
@@ -9,7 +9,7 @@ import {LoadingScreen} from "../loading-screen/loading-screen";
 import {fetchFilmList} from "../../store/api-actions";
 
 const Main = (props) => {
-  const {promo: {title, genre, date}, films, shownFilmQuantity, isFilmsLoaded, onLoadFilms} = props;
+  const {promo: {title, genre, date}, filteredFilms, shownFilmQuantity, isFilmsLoaded, onLoadFilms} = props;
 
   useEffect(() => {
     if (!isFilmsLoaded) {
@@ -86,7 +86,7 @@ const Main = (props) => {
         <ConnectedGenreList/>
         <ConnectedFilmList/>
         <div className="catalog__more">
-          {films.length > shownFilmQuantity ? <ConnectedShowMore/> : ``}
+          {filteredFilms.length > shownFilmQuantity ? <ConnectedShowMore/> : ``}
         </div>
       </section>
 
@@ -109,13 +109,13 @@ const Main = (props) => {
 
 Main.propTypes = {
   ...promoValidation,
-  ...filmsValidation,
+  filteredFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
   shownFilmQuantity: PropTypes.number.isRequired,
   isFilmsLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  filteredFilms: state.filteredFilms,
   shownFilmQuantity: state.shownFilmQuantity,
   isFilmsLoaded: state.isFilmsLoaded,
 });

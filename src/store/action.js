@@ -3,9 +3,16 @@ const ActionType = {
   GET_FILMS_BY_CURRENT_GENRE: `get-film-by-current-genre`,
   SET_SHOWN_FILM_QUANTITY: `set-shown-film-quantity`,
   INCREASE_SHOWN_FILM_QUANTITY: `increase-shown-film-quantity`,
+  LOAD_FILMS: `load-films`,
 };
 
 const ActionCreator = {
+  loadFilms(films) {
+    return {
+      type: ActionType.LOAD_FILMS,
+      payload: films,
+    };
+  },
   changeGenre(genre) {
     return {
       type: ActionType.CHANGE_GENRE,

@@ -3,9 +3,9 @@ import {ActionType} from "./action";
 
 const initState = {
   chosenGenre: Genre.ALL,
+  isFilmsLoaded: false,
   films: [],
   initialFilms: [],
-  // shownFilmQuantity: filmMocks.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : filmMocks.length,
   shownFilmQuantity: 0,
 };
 
@@ -13,11 +13,20 @@ const reducer = (state = initState, {type, payload}) => {
   let newState;
   let shownFilmQuantity;
   switch (type) {
+    case ActionType.LOAD_FILMS:
+      newState = {
+        ...state,
+        isFilmsLoaded: true,
+        films: payload,
+        initialFilms: payload,
+        shownFilmQuantity: payload.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : payload.length,
+      };
+      break;
     case ActionType.CHANGE_GENRE:
-      newState = {...state, genre: payload};
+      newState = {...state, chosenGenre: payload};
       break;
     case ActionType.GET_FILMS_BY_CURRENT_GENRE:
-      let films = initState.films;
+      let films = state.initialFilms;
       const chosenGenre = state.chosenGenre;
       if (Genre.ALL !== chosenGenre) {
         films = films.filter((film) => film.genre === chosenGenre);

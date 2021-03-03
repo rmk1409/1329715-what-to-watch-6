@@ -1,15 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {filmValidation, reviewsValidation} from "../../validation";
 import {useParams} from "react-router-dom";
 import {TabList} from "../tab-list/tab-list";
 import {FilmList} from "../film-list/film-list";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {fetchFilmList} from "../../store/api-actions";
+import {LoadingScreen} from "../loading-screen/loading-screen";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
-const Film = ({allFilms, reviews}) => {
+const Film = ({allFilms, reviews, isFilmsLoaded, onLoadFilms}) => {
   const {id} = useParams();
+
+  useEffect(() => {
+    if (!isFilmsLoaded) {
+      onLoadFilms();
+    }
+  }, [isFilmsLoaded]);
+
+  if (!isFilmsLoaded) {
+    return (
+      <LoadingScreen/>
+    );
+  }
+
   const film = allFilms.find((currentFilm) => currentFilm.id === parseInt(id, 10));
 
   const similarFilms = allFilms
@@ -112,11 +127,19 @@ const Film = ({allFilms, reviews}) => {
 Film.propTypes = {
   allFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
   ...reviewsValidation,
+  onLoadFilms: PropTypes.func.isRequired,
+  isFilmsLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   allFilms: state.allFilms,
+  isFilmsLoaded: state.isFilmsLoaded,
 });
-const ConnectedFilm = connect(mapStateToProps, null)(Film);
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFilms() {
+    dispatch(fetchFilmList());
+  },
+});
+const ConnectedFilm = connect(mapStateToProps, mapDispatchToProps)(Film);
 
 export {ConnectedFilm};

@@ -1,12 +1,26 @@
 import React from "react";
 import {filmValidation} from "../../validation";
 
+const getScoreWord = (number) => {
+  let word = `Awesome`;
+  if (number >= 0 && number < 3) {
+    word = `Bad`;
+  } else if (number < 5) {
+    word = `Normal`;
+  } else if (number < 8) {
+    word = `Good`;
+  } else if (number < 10) {
+    word = `Very good`;
+  }
+  return word;
+};
+
 const FilmOverview = ({film}) => (
   <>
     <div className="movie-rating">
       <div className="movie-rating__score">{film.rating}</div>
       <p className="movie-rating__meta">
-        <span className="movie-rating__level">Very good</span>
+        <span className="movie-rating__level">{getScoreWord(film.rating)}</span>
         <span className="movie-rating__count">{film[`scores_count`]} ratings</span>
       </p>
     </div>

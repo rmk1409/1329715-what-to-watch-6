@@ -13,16 +13,15 @@ const FilmList = ({films, shownFilmQuantity}) => {
   </div>;
 };
 
-const mapStateToProps = (state) => ({
-  films: state.films,
-  shownFilmQuantity: state.shownFilmQuantity,
-});
-
-const ConnectedFilmList = connect(mapStateToProps, null)(FilmList);
-
 FilmList.propTypes = {
   ...filmsValidation,
   shownFilmQuantity: PropTypes.number,
 };
+
+const mapStateToProps = (state) => ({
+  films: state.allFilms,
+  shownFilmQuantity: state.shownFilmQuantity,
+});
+const ConnectedFilmList = connect(mapStateToProps, null)(FilmList);
 
 export {FilmList, ConnectedFilmList};

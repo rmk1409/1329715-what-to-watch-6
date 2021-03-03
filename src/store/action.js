@@ -3,25 +3,31 @@ const ActionType = {
   GET_FILMS_BY_CURRENT_GENRE: `get-film-by-current-genre`,
   SET_SHOWN_FILM_QUANTITY: `set-shown-film-quantity`,
   INCREASE_SHOWN_FILM_QUANTITY: `increase-shown-film-quantity`,
+  LOAD_FILMS: `load-films`,
 };
 
 const ActionCreator = {
-  changeGenre(payload) {
+  loadFilms(films) {
+    return {
+      type: ActionType.LOAD_FILMS,
+      payload: films,
+    };
+  },
+  changeGenre(genre) {
     return {
       type: ActionType.CHANGE_GENRE,
-      payload,
+      payload: genre,
     };
   },
-  getFilmsByCurrentGenre(payload) {
+  getFilmsByCurrentGenre() {
     return {
       type: ActionType.GET_FILMS_BY_CURRENT_GENRE,
-      payload,
     };
   },
-  setShownFilmQuantity(payload) {
+  setShownFilmQuantity(quantity) {
     return {
       type: ActionType.SET_SHOWN_FILM_QUANTITY,
-      payload,
+      payload: quantity,
     };
   },
   increaseShownFilmQuantity() {

@@ -1,10 +1,11 @@
 import React from 'react';
 import {filmValidation} from "../../validation";
 import {useParams} from "react-router-dom";
+import {connect} from "react-redux";
 
-const Player = ({films}) => {
-  const id = +useParams().id;
-  const film = films.find((currentFilm)=>currentFilm.id === id);
+const Player = ({allFilms}) => {
+  const {id} = useParams();
+  const film = allFilms.find((currentFilm)=>currentFilm.id === parseInt(id, 10));
 
   return <>
     <div className="player">
@@ -48,4 +49,10 @@ Player.propTypes = {
   ...filmValidation
 };
 
-export {Player};
+const mapStateToProps = (state) => ({
+  allFilms: state.allFilms,
+});
+
+const ConnectedPlayer = connect(mapStateToProps, null)(Player);
+
+export {ConnectedPlayer};

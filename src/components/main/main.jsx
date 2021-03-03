@@ -1,13 +1,29 @@
-import React from 'react';
-import {filmsValidation, promoValidation} from "../../validation";
+import React, {useEffect} from 'react';
+import {filmValidation, promoValidation} from "../../validation";
 import {ConnectedFilmList} from "../film-list/film-list";
 import {ConnectedGenreList} from "../genre-list/genre-list";
 import {ConnectedShowMore} from "../show-more/show-more";
 import {connect} from "react-redux";
 import * as PropTypes from "prop-types";
+import {LoadingScreen} from "../loading-screen/loading-screen";
+import {fetchFilmList} from "../../store/api-actions";
 
-const Main = ({promo: {title, genre, date}, films, shownFilmQuantity}) => (
-  <>
+const Main = (props) => {
+  const {promo: {title, genre, date}, filteredFilms, shownFilmQuantity, isFilmsLoaded, onLoadFilms} = props;
+
+  useEffect(() => {
+    if (!isFilmsLoaded) {
+      onLoadFilms();
+    }
+  }, [isFilmsLoaded]);
+
+  if (!isFilmsLoaded) {
+    return (
+      <LoadingScreen/>
+    );
+  }
+
+  return <>
     <section className="movie-card">
       <div className="movie-card__bg">
         <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
@@ -70,7 +86,7 @@ const Main = ({promo: {title, genre, date}, films, shownFilmQuantity}) => (
         <ConnectedGenreList/>
         <ConnectedFilmList/>
         <div className="catalog__more">
-          {films.length > shownFilmQuantity ? <ConnectedShowMore/> : ``}
+          {filteredFilms.length > shownFilmQuantity ? <ConnectedShowMore/> : ``}
         </div>
       </section>
 
@@ -88,20 +104,28 @@ const Main = ({promo: {title, genre, date}, films, shownFilmQuantity}) => (
         </div>
       </footer>
     </div>
-  </>
-);
+  </>;
+};
 
 Main.propTypes = {
   ...promoValidation,
-  ...filmsValidation,
+  filteredFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
   shownFilmQuantity: PropTypes.number.isRequired,
+  isFilmsLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  filteredFilms: state.filteredFilms,
   shownFilmQuantity: state.shownFilmQuantity,
+  isFilmsLoaded: state.isFilmsLoaded,
 });
 
-const ConnectedMain = connect(mapStateToProps, null)(Main);
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFilms() {
+    dispatch(fetchFilmList());
+  },
+});
+
+const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main);
 
 export {Main, ConnectedMain};

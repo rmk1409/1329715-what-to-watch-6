@@ -4,13 +4,21 @@ const ActionType = {
   SET_SHOWN_FILM_QUANTITY: `set-shown-film-quantity`,
   INCREASE_SHOWN_FILM_QUANTITY: `increase-shown-film-quantity`,
   LOAD_FILMS: `load-films`,
-  CHECK_AUTHORIZATION: `check-authorization`,
+  SET_AUTHORIZATION_STATUS: `set-authorization`,
+  SET_AUTH_INFO: `set-auth-info`,
+  REDIRECT_TO_ROUTE: `redirect-to-route`,
 };
 
 const ActionCreator = {
+  redirectToRoute(url) {
+    return {
+      type: ActionType.REDIRECT_TO_ROUTE,
+      payload: url,
+    };
+  },
   setAuthorization(isAuthorized) {
     return {
-      type: ActionType.CHECK_AUTHORIZATION,
+      type: ActionType.SET_AUTHORIZATION_STATUS,
       payload: isAuthorized,
     };
   },
@@ -40,6 +48,12 @@ const ActionCreator = {
   increaseShownFilmQuantity() {
     return {
       type: ActionType.INCREASE_SHOWN_FILM_QUANTITY,
+    };
+  },
+  setAuthInfo(data) {
+    return {
+      type: ActionType.SET_AUTH_INFO,
+      payload: data,
     };
   },
 };

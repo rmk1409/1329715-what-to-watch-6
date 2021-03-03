@@ -7,9 +7,19 @@ import {connect} from "react-redux";
 import * as PropTypes from "prop-types";
 import {LoadingScreen} from "../loading-screen/loading-screen";
 import {fetchFilmList} from "../../store/api-actions";
+import {ActionCreator} from "../../store/action";
 
 const Main = (props) => {
-  const {promo: {title, genre, date}, filteredFilms, shownFilmQuantity, isFilmsLoaded, onLoadFilms} = props;
+  const {
+    promo: {title, genre, date},
+    filteredFilms,
+    shownFilmQuantity,
+    isFilmsLoaded,
+    onLoadFilms,
+    authorizationStatus,
+    authInfo,
+    onMyListClick
+  } = props;
 
   useEffect(() => {
     if (!isFilmsLoaded) {
@@ -22,6 +32,11 @@ const Main = (props) => {
       <LoadingScreen/>
     );
   }
+
+  const handleMyListClick = (evt) => {
+    evt.preventDefault();
+    onMyListClick();
+  };
 
   return <>
     <section className="movie-card">
@@ -41,9 +56,14 @@ const Main = (props) => {
         </div>
 
         <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-          </div>
+          {authorizationStatus ?
+            <>
+              <div className="user-block__avatar">
+                <img src={authInfo[`avatar_url`]} alt="User avatar" width="63" height="63"/>
+              </div>
+            </> :
+            <a href="sign-in.html" className="user-block__link">Sign in</a>
+          }
         </div>
       </header>
 
@@ -69,7 +89,7 @@ const Main = (props) => {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
+              <button className="btn btn--list movie-card__button" type="button" onClick={handleMyListClick}>
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use xlinkHref="#add"/>
                 </svg>
@@ -112,20 +132,26 @@ Main.propTypes = {
   filteredFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
   shownFilmQuantity: PropTypes.number.isRequired,
   isFilmsLoaded: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.bool.isRequired,
+  authInfo: PropTypes.object.isRequired,
+  onMyListClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filteredFilms: state.filteredFilms,
   shownFilmQuantity: state.shownFilmQuantity,
   isFilmsLoaded: state.isFilmsLoaded,
+  authorizationStatus: state.authorizationStatus,
+  authInfo: state.authInfo,
 });
-
 const mapDispatchToProps = (dispatch) => ({
   onLoadFilms() {
     dispatch(fetchFilmList());
   },
+  onMyListClick() {
+    dispatch(ActionCreator.redirectToRoute(`/mylist`));
+  }
 });
-
 const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main);
 
 export {Main, ConnectedMain};

@@ -8,13 +8,20 @@ const initState = {
   filteredFilms: [],
   shownFilmQuantity: 0,
   authorizationStatus: false,
+  authInfo: {
+    email: `Oliver.conner@gmail.com`,
+    [`avatar_url`]: `img/avatar.jpg`,
+  },
 };
 
 const reducer = (state = initState, {type, payload}) => {
   let newState;
   let shownFilmQuantity;
   switch (type) {
-    case ActionType.CHECK_AUTHORIZATION:
+    case ActionType.SET_AUTH_INFO:
+      newState = {...state, authInfo: payload};
+      break;
+    case ActionType.SET_AUTHORIZATION_STATUS:
       newState = {...state, authorizationStatus: payload};
       break;
     case ActionType.LOAD_FILMS:
@@ -49,6 +56,8 @@ const reducer = (state = initState, {type, payload}) => {
       shownFilmQuantity = newShownFilmQuantity ||
         (state.filteredFilms.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : state.filteredFilms.length);
       newState = {...state, shownFilmQuantity};
+      break;
+    case ActionType.REDIRECT_TO_ROUTE:
       break;
     default:
       newState = initState;

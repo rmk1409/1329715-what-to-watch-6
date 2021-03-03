@@ -7,8 +7,21 @@ const fetchFilmList = () => (dispatch, _getState, api) => (
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
-    .then(() => dispatch(ActionCreator.setAuthorization(true)))
+    .then(({data}) => {
+      dispatch(ActionCreator.setAuthInfo(data));
+      dispatch(ActionCreator.setAuthorization(true));
+    })
     .catch(() => dispatch(ActionCreator.setAuthorization(false)))
 );
 
-export {fetchFilmList, checkAuth};
+const login = (user) => (dispatch, _getState, api) => (
+  api.post(`/login`, {...user})
+    .then(({data}) => {
+      dispatch(ActionCreator.setAuthInfo(data));
+      dispatch(ActionCreator.setAuthorization(true));
+      dispatch(ActionCreator.redirectToRoute(`/`));
+    })
+    .catch(() => dispatch(ActionCreator.setAuthorization(false)))
+);
+
+export {fetchFilmList, checkAuth, login};

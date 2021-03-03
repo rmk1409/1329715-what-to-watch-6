@@ -7,12 +7,16 @@ const initState = {
   allFilms: [],
   filteredFilms: [],
   shownFilmQuantity: 0,
+  authorizationStatus: false,
 };
 
 const reducer = (state = initState, {type, payload}) => {
   let newState;
   let shownFilmQuantity;
   switch (type) {
+    case ActionType.CHECK_AUTHORIZATION:
+      newState = {...state, authorizationStatus: payload};
+      break;
     case ActionType.LOAD_FILMS:
       const allFilms = payload;
       newState = {

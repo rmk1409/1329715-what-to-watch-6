@@ -4,9 +4,16 @@ const ActionType = {
   SET_SHOWN_FILM_QUANTITY: `set-shown-film-quantity`,
   INCREASE_SHOWN_FILM_QUANTITY: `increase-shown-film-quantity`,
   LOAD_FILMS: `load-films`,
+  CHECK_AUTHORIZATION: `check-authorization`,
 };
 
 const ActionCreator = {
+  checkAuthorization(isAuthorized) {
+    return {
+      type: ActionType.CHECK_AUTHORIZATION,
+      payload: isAuthorized,
+    };
+  },
   loadFilms(films) {
     return {
       type: ActionType.LOAD_FILMS,

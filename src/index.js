@@ -8,6 +8,7 @@ import {Provider} from "react-redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {createAPI} from "./services/api";
 import thunk from "redux-thunk";
+import {checkAuth} from "./store/api-actions";
 
 const title = `The Grand Budapest Hotel`;
 const genre = `Drama`;
@@ -17,6 +18,8 @@ const promo = {title, genre, date};
 
 const api = createAPI();
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
+
+store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

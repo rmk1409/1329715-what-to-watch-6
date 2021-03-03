@@ -5,4 +5,10 @@ const fetchFilmList = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.loadFilms(data)))
 );
 
-export {fetchFilmList};
+const checkAuth = () => (dispatch, _getState, api) => (
+  api.get(`/login`)
+    .then(() => dispatch(ActionCreator.setAuthorization(true)))
+    .catch(() => dispatch(ActionCreator.setAuthorization(false)))
+);
+
+export {fetchFilmList, checkAuth};

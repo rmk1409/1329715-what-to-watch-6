@@ -8,7 +8,7 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  checkAuthorization(isAuthorized) {
+  setAuthorization(isAuthorized) {
     return {
       type: ActionType.CHECK_AUTHORIZATION,
       payload: isAuthorized,

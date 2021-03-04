@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {fetchFilmList} from "../../store/api-actions";
 import {LoadingScreen} from "../loading-screen/loading-screen";
+import {NotFound} from "../404/404";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
@@ -26,6 +27,10 @@ const Film = ({allFilms, reviews, isFilmsLoaded, onLoadFilms}) => {
   }
 
   const film = allFilms.find((currentFilm) => currentFilm.id === parseInt(id, 10));
+
+  if (!film) {
+    return <NotFound/>;
+  }
 
   const similarFilms = allFilms
     .filter((currentFilm) => currentFilm.genre === film.genre && film.id !== currentFilm.id)

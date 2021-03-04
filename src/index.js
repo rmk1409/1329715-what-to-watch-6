@@ -7,7 +7,7 @@ import {Provider} from "react-redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {createAPI} from "./services/api";
 import thunk from "redux-thunk";
-import {checkAuth} from "./store/api-actions";
+import {checkAuth, fetchFilmList} from "./store/api-actions";
 import {redirect} from "./store/redirect";
 
 const title = `The Grand Budapest Hotel`;

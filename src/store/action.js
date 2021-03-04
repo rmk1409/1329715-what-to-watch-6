@@ -8,6 +8,8 @@ const ActionType = {
   SET_AUTH_INFO: `set-auth-info`,
   REDIRECT_TO_ROUTE: `redirect-to-route`,
   LOAD_REVIEWS: `load-reviews`,
+  SET_REVIEWS: `set-reviews`,
+
 };
 
 const ActionCreator = {
@@ -60,6 +62,12 @@ const ActionCreator = {
   loadReviews(data) {
     return {
       type: ActionType.LOAD_REVIEWS,
+      payload: data,
+    };
+  },
+  setReviews(data) {
+    return {
+      type: ActionType.SET_REVIEWS,
       payload: data,
     };
   },

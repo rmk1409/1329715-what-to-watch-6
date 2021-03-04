@@ -1,6 +1,6 @@
 import React from 'react';
 import {filmValidation} from "../../validation";
-import {SendCommentForm} from "../send-comment-form/send-comment-form";
+import {ConnectedSendCommentForm} from "../send-comment-form/send-comment-form";
 import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
@@ -53,7 +53,7 @@ const AddReview = ({allFilms}) => {
       </div>
 
       <div className="add-review">
-        <SendCommentForm/>
+        <ConnectedSendCommentForm id={parseInt(id, 10)}/>
       </div>
 
     </section>

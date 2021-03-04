@@ -10,6 +10,11 @@ const fetchReviewList = (id) => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.loadReviews(data)))
 );
 
+const postReview = (id, dataToSend) => (dispatch, _getState, api) => (
+  api.post(`/comments/${id}`, dataToSend)
+    .then(({data}) => dispatch(ActionCreator.setReviews(data)))
+);
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
     .then(({data}) => {
@@ -29,4 +34,4 @@ const login = (user) => (dispatch, _getState, api) => (
     .catch(() => dispatch(ActionCreator.setAuthorization(false)))
 );
 
-export {fetchFilmList, fetchReviewList, checkAuth, login};
+export {fetchFilmList, fetchReviewList, checkAuth, login, postReview};

@@ -1,6 +1,10 @@
 import React, {useState} from "react";
+import {ActionCreator} from "../../store/action";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import {postReview} from "../../store/api-actions";
 
-const SendCommentForm = () => {
+const SendCommentForm = ({onSubmitClick, id}) => {
   const [review, setReview] = useState({
     rating: 0,
     comment: ``,
@@ -8,6 +12,11 @@ const SendCommentForm = () => {
 
   const setRating = (evt) => setReview({...review, rating: evt.target.value});
   const setComment = (evt) => setReview({...review, comment: evt.target.value});
+
+  const onSubmitClickHandler = (evt) => {
+    evt.preventDefault();
+    onSubmitClick(id, review);
+  };
 
   return <>
     <form action="#" className="add-review__form">
@@ -50,7 +59,7 @@ const SendCommentForm = () => {
           className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"
           onChange={setComment}/>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+          <button className="add-review__btn" type="submit" onClick={onSubmitClickHandler}>Post</button>
         </div>
 
       </div>
@@ -58,4 +67,17 @@ const SendCommentForm = () => {
   </>;
 };
 
-export {SendCommentForm};
+SendCommentForm.propTypes = {
+  onSubmitClick: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmitClick(id, data) {
+    dispatch(postReview(id, data));
+    dispatch(ActionCreator.redirectToRoute(`/films/${id}`));
+  },
+});
+const ConnectedSendCommentForm = connect(null, mapDispatchToProps)(SendCommentForm);
+
+export {SendCommentForm, ConnectedSendCommentForm};

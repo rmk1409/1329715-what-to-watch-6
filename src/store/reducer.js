@@ -41,6 +41,12 @@ const reducer = (state = initState, {type, payload}) => {
         reviewsForActiveFilm: payload
       };
       break;
+    case ActionType.SET_REVIEWS:
+      newState = {
+        ...state,
+        reviewsForActiveFilm: payload
+      };
+      break;
     case ActionType.CHANGE_GENRE:
       newState = {...state, chosenGenre: payload};
       break;

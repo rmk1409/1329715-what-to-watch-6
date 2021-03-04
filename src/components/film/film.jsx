@@ -1,39 +1,24 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {filmValidation} from "../../validation";
 import {useParams} from "react-router-dom";
 import {TabList} from "../tab-list/tab-list";
 import {FilmList} from "../film-list/film-list";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {fetchFilmList, fetchReviewList} from "../../store/api-actions";
-import {LoadingScreen} from "../loading-screen/loading-screen";
+import {fetchReviewList} from "../../store/api-actions";
 import {NotFound} from "../404/404";
 import {ConnectedUserBlock} from "../user-block/user-block";
 import {ActionCreator} from "../../store/action";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
-const Film = ({allFilms, isFilmsLoaded, onLoadFilms, onLoadReviews, authorizationStatus, onAddReviewClick}) => {
+const Film = ({allFilms, onLoadReviews, authorizationStatus, onAddReviewClick}) => {
   const {id} = useParams();
-
-  useEffect(() => {
-    if (!isFilmsLoaded) {
-      onLoadFilms();
-      onLoadReviews(id);
-    }
-  }, [isFilmsLoaded]);
-
-  if (!isFilmsLoaded) {
-    return (
-      <LoadingScreen/>
-    );
-  }
-
   const film = allFilms.find((currentFilm) => currentFilm.id === parseInt(id, 10));
-
   if (!film) {
     return <NotFound/>;
   }
+  onLoadReviews(id);
 
   const similarFilms = allFilms
     .filter((currentFilm) => currentFilm.genre === film.genre && film.id !== currentFilm.id)
@@ -137,22 +122,16 @@ const Film = ({allFilms, isFilmsLoaded, onLoadFilms, onLoadReviews, authorizatio
 
 Film.propTypes = {
   allFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
-  onLoadFilms: PropTypes.func.isRequired,
   onAddReviewClick: PropTypes.func.isRequired,
   onLoadReviews: PropTypes.func.isRequired,
-  isFilmsLoaded: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   allFilms: state.allFilms,
-  isFilmsLoaded: state.isFilmsLoaded,
   authorizationStatus: state.authorizationStatus,
 });
 const mapDispatchToProps = (dispatch) => ({
-  onLoadFilms() {
-    dispatch(fetchFilmList());
-  },
   onLoadReviews(id) {
     dispatch(fetchReviewList(id));
   },

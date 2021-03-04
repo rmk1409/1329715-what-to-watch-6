@@ -1,12 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {filmValidation, promoValidation} from "../../validation";
 import {ConnectedFilmList} from "../film-list/film-list";
 import {ConnectedGenreList} from "../genre-list/genre-list";
 import {ConnectedShowMore} from "../show-more/show-more";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {LoadingScreen} from "../loading-screen/loading-screen";
-import {fetchFilmList} from "../../store/api-actions";
 import {ActionCreator} from "../../store/action";
 import {ConnectedUserBlock} from "../user-block/user-block";
 
@@ -15,22 +13,8 @@ const Main = (props) => {
     promo: {title, genre, date},
     filteredFilms,
     shownFilmQuantity,
-    isFilmsLoaded,
-    onLoadFilms,
     onMyListClick,
   } = props;
-
-  useEffect(() => {
-    if (!isFilmsLoaded) {
-      onLoadFilms();
-    }
-  }, [isFilmsLoaded]);
-
-  if (!isFilmsLoaded) {
-    return (
-      <LoadingScreen/>
-    );
-  }
 
   const handleMyListClick = (evt) => {
     evt.preventDefault();
@@ -121,19 +105,14 @@ Main.propTypes = {
   ...promoValidation,
   filteredFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
   shownFilmQuantity: PropTypes.number.isRequired,
-  isFilmsLoaded: PropTypes.bool.isRequired,
   onMyListClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filteredFilms: state.filteredFilms,
   shownFilmQuantity: state.shownFilmQuantity,
-  isFilmsLoaded: state.isFilmsLoaded,
 });
 const mapDispatchToProps = (dispatch) => ({
-  onLoadFilms() {
-    dispatch(fetchFilmList());
-  },
   onMyListClick() {
     dispatch(ActionCreator.redirectToRoute(`/mylist`));
   },

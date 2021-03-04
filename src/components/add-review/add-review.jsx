@@ -4,6 +4,7 @@ import {ConnectedSendCommentForm} from "../send-comment-form/send-comment-form";
 import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {ConnectedUserBlock} from "../user-block/user-block";
 
 const AddReview = ({allFilms}) => {
   const {id} = useParams();
@@ -38,11 +39,7 @@ const AddReview = ({allFilms}) => {
             </ul>
           </nav>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-            </div>
-          </div>
+          <ConnectedUserBlock/>
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">

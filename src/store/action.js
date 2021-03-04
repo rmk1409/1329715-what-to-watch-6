@@ -7,6 +7,7 @@ const ActionType = {
   SET_AUTHORIZATION_STATUS: `set-authorization`,
   SET_AUTH_INFO: `set-auth-info`,
   REDIRECT_TO_ROUTE: `redirect-to-route`,
+  LOAD_REVIEWS: `load-reviews`,
 };
 
 const ActionCreator = {
@@ -53,6 +54,12 @@ const ActionCreator = {
   setAuthInfo(data) {
     return {
       type: ActionType.SET_AUTH_INFO,
+      payload: data,
+    };
+  },
+  loadReviews(data) {
+    return {
+      type: ActionType.LOAD_REVIEWS,
       payload: data,
     };
   },

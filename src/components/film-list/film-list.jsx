@@ -1,4 +1,4 @@
-import {FilmCard} from "../film-card/film-card";
+import {ConnectedFilmCard} from "../film-card/film-card";
 import React, {useState} from "react";
 import {filmsValidation} from "../../validation";
 import {connect} from "react-redux";
@@ -9,7 +9,7 @@ const FilmList = ({films, shownFilmQuantity}) => {
 
   const filmsToShow = shownFilmQuantity ? films.slice(0, shownFilmQuantity) : films;
   return <div className="catalog__movies-list">
-    {filmsToShow.map((film) => <FilmCard key={film.id} film={film} setActiveFilmId={setActiveFilmId}/>)}
+    {filmsToShow.map((film) => <ConnectedFilmCard key={film.id} film={film} setActiveFilmId={setActiveFilmId}/>)}
   </div>;
 };
 

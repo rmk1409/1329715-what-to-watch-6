@@ -122,10 +122,7 @@ Main.propTypes = {
   filteredFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
   shownFilmQuantity: PropTypes.number.isRequired,
   isFilmsLoaded: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.bool.isRequired,
-  authInfo: PropTypes.object.isRequired,
   onMyListClick: PropTypes.func.isRequired,
-  onSignInClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

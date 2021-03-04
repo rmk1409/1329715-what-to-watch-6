@@ -7,11 +7,11 @@ import {ConnectedFilm} from "../film/film";
 import {ConnectedAddReview} from "../add-review/add-review";
 import {NotFound} from "../404/404";
 import {ConnectedPlayer} from "../player/player";
-import {promoValidation, reviewsValidation} from "../../validation";
+import {promoValidation} from "../../validation";
 import {browserHistory} from "../../browser-history";
 import {ConnectedPrivateRoute} from "../private-route/private-route";
 
-const App = ({promo, reviews}) => (
+const App = ({promo}) => (
   <Router history={browserHistory}>
     <Switch>
       <Route exact path="/">
@@ -19,7 +19,7 @@ const App = ({promo, reviews}) => (
       </Route>
       <ConnectedPrivateRoute exact path="/mylist" render={() => <ConnectedMyList/>}/>
       <Route exact path="/films/:id">
-        <ConnectedFilm reviews={reviews}/>
+        <ConnectedFilm/>
       </Route>
       <ConnectedPrivateRoute exact path="/films/:id/review" render={() => <ConnectedAddReview/>}/>
       <Route exact path="/player/:id">
@@ -37,7 +37,6 @@ const App = ({promo, reviews}) => (
 
 App.propTypes = {
   ...promoValidation,
-  ...reviewsValidation,
 };
 
 export {App};

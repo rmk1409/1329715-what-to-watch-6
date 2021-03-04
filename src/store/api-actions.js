@@ -5,6 +5,11 @@ const fetchFilmList = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.loadFilms(data)))
 );
 
+const fetchReviewList = (id) => (dispatch, _getState, api) => (
+  api.get(`/comments/${id}`)
+    .then(({data}) => dispatch(ActionCreator.loadReviews(data)))
+);
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
     .then(({data}) => {
@@ -24,4 +29,4 @@ const login = (user) => (dispatch, _getState, api) => (
     .catch(() => dispatch(ActionCreator.setAuthorization(false)))
 );
 
-export {fetchFilmList, checkAuth, login};
+export {fetchFilmList, fetchReviewList, checkAuth, login};

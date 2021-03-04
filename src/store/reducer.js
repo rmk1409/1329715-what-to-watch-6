@@ -6,6 +6,7 @@ const initState = {
   isFilmsLoaded: false,
   allFilms: [],
   filteredFilms: [],
+  reviewsForActiveFilm: [],
   shownFilmQuantity: 0,
   authorizationStatus: false,
   authInfo: {
@@ -32,6 +33,12 @@ const reducer = (state = initState, {type, payload}) => {
         allFilms,
         filteredFilms: allFilms,
         shownFilmQuantity: allFilms.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : allFilms.length,
+      };
+      break;
+    case ActionType.LOAD_REVIEWS:
+      newState = {
+        ...state,
+        reviewsForActiveFilm: payload
       };
       break;
     case ActionType.CHANGE_GENRE:

@@ -1,8 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {ActionCreator} from "../../store/action";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {postReview} from "../../store/api-actions";
+
+const MIN_VALID_RATING = 1;
+const MAX_VALID_RATING = 10;
+const MIN_VALID_MSG_LENGTH = 50;
+const MAX_VALID_MSG_LENGTH = 400;
 
 const SendCommentForm = ({onSubmitClick, id}) => {
   const [review, setReview] = useState({
@@ -17,6 +22,15 @@ const SendCommentForm = ({onSubmitClick, id}) => {
     evt.preventDefault();
     onSubmitClick(id, review);
   };
+
+  const [isReviewValid, setReviewValid] = useState(false);
+
+  useEffect(() => {
+    const isRatingValid = review.rating >= MIN_VALID_RATING && review.rating <= MAX_VALID_RATING;
+    const isMsgValid = review.comment.length >= MIN_VALID_MSG_LENGTH && review.comment.length <= MAX_VALID_MSG_LENGTH;
+
+    setReviewValid(isRatingValid && isMsgValid);
+  }, [review]);
 
   return <>
     <form action="#" className="add-review__form">
@@ -59,7 +73,9 @@ const SendCommentForm = ({onSubmitClick, id}) => {
           className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"
           onChange={setComment}/>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit" onClick={onSubmitClickHandler}>Post</button>
+          <button
+            className="add-review__btn" type="submit" onClick={onSubmitClickHandler} disabled={!isReviewValid}>Post
+          </button>
         </div>
 
       </div>

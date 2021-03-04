@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import {fetchFilmList} from "../../store/api-actions";
 import {LoadingScreen} from "../loading-screen/loading-screen";
 import {NotFound} from "../404/404";
+import {ConnectedUserBlock} from "../user-block/user-block";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
@@ -54,11 +55,7 @@ const Film = ({allFilms, reviews, isFilmsLoaded, onLoadFilms}) => {
             </a>
           </div>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-            </div>
-          </div>
+          <ConnectedUserBlock/>
         </header>
 
         <div className="movie-card__wrap">

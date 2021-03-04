@@ -4,10 +4,11 @@ import {ConnectedFilmList} from "../film-list/film-list";
 import {ConnectedGenreList} from "../genre-list/genre-list";
 import {ConnectedShowMore} from "../show-more/show-more";
 import {connect} from "react-redux";
-import * as PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import {LoadingScreen} from "../loading-screen/loading-screen";
 import {fetchFilmList} from "../../store/api-actions";
 import {ActionCreator} from "../../store/action";
+import {ConnectedUserBlock} from "../user-block/user-block";
 
 const Main = (props) => {
   const {
@@ -16,10 +17,7 @@ const Main = (props) => {
     shownFilmQuantity,
     isFilmsLoaded,
     onLoadFilms,
-    authorizationStatus,
-    authInfo,
     onMyListClick,
-    onSignInClick
   } = props;
 
   useEffect(() => {
@@ -39,11 +37,6 @@ const Main = (props) => {
     onMyListClick();
   };
 
-  const handleSignInClick = (evt) => {
-    evt.preventDefault();
-    onSignInClick();
-  };
-
   return <>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -61,16 +54,7 @@ const Main = (props) => {
           </a>
         </div>
 
-        <div className="user-block">
-          {authorizationStatus ?
-            <>
-              <div className="user-block__avatar">
-                <img src={authInfo[`avatar_url`]} alt="User avatar" width="63" height="63"/>
-              </div>
-            </> :
-            <a href="sign-in.html" className="user-block__link" onClick={handleSignInClick}>Sign in</a>
-          }
-        </div>
+        <ConnectedUserBlock/>
       </header>
 
       <div className="movie-card__wrap">
@@ -148,8 +132,6 @@ const mapStateToProps = (state) => ({
   filteredFilms: state.filteredFilms,
   shownFilmQuantity: state.shownFilmQuantity,
   isFilmsLoaded: state.isFilmsLoaded,
-  authorizationStatus: state.authorizationStatus,
-  authInfo: state.authInfo,
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadFilms() {
@@ -157,9 +139,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onMyListClick() {
     dispatch(ActionCreator.redirectToRoute(`/mylist`));
-  },
-  onSignInClick() {
-    dispatch(ActionCreator.redirectToRoute(`/login`));
   },
 });
 const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main);

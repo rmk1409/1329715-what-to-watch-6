@@ -58,6 +58,7 @@ const reducer = (state = initState, {type, payload}) => {
       newState = {...state, shownFilmQuantity};
       break;
     case ActionType.REDIRECT_TO_ROUTE:
+      newState = state;
       break;
     default:
       newState = initState;

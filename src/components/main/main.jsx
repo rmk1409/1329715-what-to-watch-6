@@ -18,7 +18,8 @@ const Main = (props) => {
     onLoadFilms,
     authorizationStatus,
     authInfo,
-    onMyListClick
+    onMyListClick,
+    onSignInClick
   } = props;
 
   useEffect(() => {
@@ -36,6 +37,11 @@ const Main = (props) => {
   const handleMyListClick = (evt) => {
     evt.preventDefault();
     onMyListClick();
+  };
+
+  const handleSignInClick = (evt) => {
+    evt.preventDefault();
+    onSignInClick();
   };
 
   return <>
@@ -62,7 +68,7 @@ const Main = (props) => {
                 <img src={authInfo[`avatar_url`]} alt="User avatar" width="63" height="63"/>
               </div>
             </> :
-            <a href="sign-in.html" className="user-block__link">Sign in</a>
+            <a href="sign-in.html" className="user-block__link" onClick={handleSignInClick}>Sign in</a>
           }
         </div>
       </header>
@@ -135,6 +141,7 @@ Main.propTypes = {
   authorizationStatus: PropTypes.bool.isRequired,
   authInfo: PropTypes.object.isRequired,
   onMyListClick: PropTypes.func.isRequired,
+  onSignInClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -150,7 +157,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onMyListClick() {
     dispatch(ActionCreator.redirectToRoute(`/mylist`));
-  }
+  },
+  onSignInClick() {
+    dispatch(ActionCreator.redirectToRoute(`/login`));
+  },
 });
 const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main);
 

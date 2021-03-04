@@ -3,6 +3,7 @@ import {filmValidation} from "../../validation";
 import {FilmList} from "../film-list/film-list";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {ConnectedUserBlock} from "../user-block/user-block";
 
 const MyList = ({allFilms}) => {
   const favoriteFilms = allFilms.filter((film) => film[`is_favorite`]);
@@ -20,11 +21,7 @@ const MyList = ({allFilms}) => {
 
         <h1 className="page-title user-page__title">My list</h1>
 
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-          </div>
-        </div>
+        <ConnectedUserBlock/>
       </header>
 
       <section className="catalog">

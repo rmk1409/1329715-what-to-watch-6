@@ -1,35 +1,33 @@
-import React, {useEffect} from 'react';
-import {filmValidation, reviewsValidation} from "../../validation";
+import React from 'react';
+import {filmValidation} from "../../validation";
 import {useParams} from "react-router-dom";
 import {TabList} from "../tab-list/tab-list";
 import {FilmList} from "../film-list/film-list";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {fetchFilmList} from "../../store/api-actions";
-import {LoadingScreen} from "../loading-screen/loading-screen";
+import {fetchReviewList} from "../../store/api-actions";
+import {NotFound} from "../404/404";
+import {ConnectedUserBlock} from "../user-block/user-block";
+import {ActionCreator} from "../../store/action";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
-const Film = ({allFilms, reviews, isFilmsLoaded, onLoadFilms}) => {
+const Film = ({allFilms, onLoadReviews, authorizationStatus, onAddReviewClick}) => {
   const {id} = useParams();
-
-  useEffect(() => {
-    if (!isFilmsLoaded) {
-      onLoadFilms();
-    }
-  }, [isFilmsLoaded]);
-
-  if (!isFilmsLoaded) {
-    return (
-      <LoadingScreen/>
-    );
-  }
-
   const film = allFilms.find((currentFilm) => currentFilm.id === parseInt(id, 10));
+  if (!film) {
+    return <NotFound/>;
+  }
+  onLoadReviews(id);
 
   const similarFilms = allFilms
     .filter((currentFilm) => currentFilm.genre === film.genre && film.id !== currentFilm.id)
     .splice(0, MAX_SHOWN_SIMILAR_FILM_QUANTITY);
+
+  const onAddReviewClickHandler = (evt) => {
+    evt.preventDefault();
+    onAddReviewClick(id);
+  };
 
   return <>
     <section className="movie-card movie-card--full">
@@ -49,11 +47,7 @@ const Film = ({allFilms, reviews, isFilmsLoaded, onLoadFilms}) => {
             </a>
           </div>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-            </div>
-          </div>
+          <ConnectedUserBlock/>
         </header>
 
         <div className="movie-card__wrap">
@@ -77,7 +71,9 @@ const Film = ({allFilms, reviews, isFilmsLoaded, onLoadFilms}) => {
                 </svg>
                 <span>My list</span>
               </button>
-              <a href="add-review.html" className="btn movie-card__button">Add review</a>
+              {authorizationStatus ?
+                <a href="add-review.html" className="btn movie-card__button" onClick={onAddReviewClickHandler}>Add
+                  review</a> : ``}
             </div>
           </div>
         </div>
@@ -92,7 +88,7 @@ const Film = ({allFilms, reviews, isFilmsLoaded, onLoadFilms}) => {
           </div>
 
           <div className="movie-card__desc">
-            <TabList film={film} reviews={reviews}/>
+            <TabList film={film}/>
           </div>
         </div>
       </div>
@@ -126,18 +122,21 @@ const Film = ({allFilms, reviews, isFilmsLoaded, onLoadFilms}) => {
 
 Film.propTypes = {
   allFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
-  ...reviewsValidation,
-  onLoadFilms: PropTypes.func.isRequired,
-  isFilmsLoaded: PropTypes.bool.isRequired,
+  onAddReviewClick: PropTypes.func.isRequired,
+  onLoadReviews: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   allFilms: state.allFilms,
-  isFilmsLoaded: state.isFilmsLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
 const mapDispatchToProps = (dispatch) => ({
-  onLoadFilms() {
-    dispatch(fetchFilmList());
+  onLoadReviews(id) {
+    dispatch(fetchReviewList(id));
+  },
+  onAddReviewClick(id) {
+    dispatch(ActionCreator.redirectToRoute(`/films/${id}/review`));
   },
 });
 const ConnectedFilm = connect(mapStateToProps, mapDispatchToProps)(Film);

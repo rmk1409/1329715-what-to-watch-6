@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {filmValidation} from "../../validation";
 import * as PropTypes from "prop-types";
-import {Link} from "react-router-dom";
 import {VideoPlayer} from "../video-player/video-player";
-import {useEffect, useRef, useState} from "react";
+import {ActionCreator} from "../../store/action";
+import {connect} from "react-redux";
+import {fetchReviewList} from "../../store/api-actions";
 
 const ONE_SECOND = 1000;
 
-const FilmCard = ({film, setActiveFilmId}) => {
-  const href = `/films/${film.id}`;
+const FilmCard = ({film, setActiveFilmId, onLinkClick}) => {
   const [isPlaying, setPlaying] = useState(false);
 
   const isInitialMount = useRef(true);
@@ -41,6 +41,12 @@ const FilmCard = ({film, setActiveFilmId}) => {
     setPlaying(false);
   };
 
+  const onLinkClickHandler = (evt) => {
+    evt.preventDefault();
+
+    onLinkClick(film.id);
+  };
+
   return <>
     <article
       className="small-movie-card catalog__movies-card"
@@ -50,7 +56,7 @@ const FilmCard = ({film, setActiveFilmId}) => {
         <VideoPlayer film={film} ref={videoRef}/>
       </div>
       <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to={href}>{film.name}</Link>
+        <a className="small-movie-card__link" onClick={onLinkClickHandler} href="#">{film.name}</a>
       </h3>
     </article>
   </>;
@@ -59,6 +65,15 @@ const FilmCard = ({film, setActiveFilmId}) => {
 FilmCard.propTypes = {
   ...filmValidation,
   setActiveFilmId: PropTypes.func.isRequired,
+  onLinkClick: PropTypes.func.isRequired,
 };
 
-export {FilmCard};
+const mapDispatchToProps = (dispatch) => ({
+  onLinkClick(id) {
+    dispatch(fetchReviewList(id));
+    dispatch(ActionCreator.redirectToRoute(`/films/${id}`));
+  },
+});
+const ConnectedFilmCard = connect(null, mapDispatchToProps)(FilmCard);
+
+export {FilmCard, ConnectedFilmCard};

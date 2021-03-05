@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {filmValidation, reviewsValidation} from "../../validation";
+import {filmValidation} from "../../validation";
 import {FilmOverview} from "../film-overview/film-overview";
 import {FilmDetails} from "../film-details/film-details";
-import {FilmReviews} from "../film-reviews/film-reviews";
+import {ConnectedFilmReviews} from "../film-reviews/film-reviews";
 
 const tabType = {
   OVERVIEW: `OVERVIEW`,
@@ -10,7 +10,7 @@ const tabType = {
   REVIEWS: `REVIEWS`,
 };
 
-const getContent = (film, type = tabType.OVERVIEW, reviews) => {
+const getContent = (film, type = tabType.OVERVIEW) => {
   let content = <FilmOverview film={film}/>;
 
   switch (type) {
@@ -18,13 +18,13 @@ const getContent = (film, type = tabType.OVERVIEW, reviews) => {
       content = <FilmDetails film={film}/>;
       break;
     case tabType.REVIEWS:
-      content = <FilmReviews film={film} reviews={reviews}/>;
+      content = <ConnectedFilmReviews/>;
       break;
   }
   return content;
 };
 
-const TabList = ({film, reviews}) => {
+const TabList = ({film}) => {
   const [chosenTab, setChosenTab] = useState(tabType.OVERVIEW);
 
   const onClickLink = (evt) => {
@@ -46,13 +46,12 @@ const TabList = ({film, reviews}) => {
         </li>
       </ul>
     </nav>
-    {getContent(film, chosenTab, reviews)}
+    {getContent(film, chosenTab)}
   </>;
 };
 
 TabList.propTypes = {
   ...filmValidation,
-  ...reviewsValidation,
 };
 
 export {TabList};

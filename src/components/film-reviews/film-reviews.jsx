@@ -1,12 +1,13 @@
 import React from 'react';
-import {filmValidation, reviewsValidation} from "../../validation";
+import {reviewValidation} from "../../validation";
 import {Review} from "../review/review";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
 
-const FilmReviews = ({film, reviews}) => {
-  const filteredReviews = reviews.filter((review) => review[`film_id`] === film.id);
-  const halfIndex = Math.ceil(filteredReviews.length / 2);
-  const firstHalfReviews = filteredReviews.splice(0, halfIndex);
-  const secondHalfReviews = filteredReviews.splice(-halfIndex);
+const FilmReviews = ({reviewsForActiveFilm}) => {
+  const halfIndex = Math.ceil(reviewsForActiveFilm.length / 2);
+  const firstHalfReviews = reviewsForActiveFilm.splice(0, halfIndex);
+  const secondHalfReviews = reviewsForActiveFilm.splice(-halfIndex);
 
   return <>
     <div className="movie-card__reviews movie-card__row">
@@ -21,8 +22,12 @@ const FilmReviews = ({film, reviews}) => {
 };
 
 FilmReviews.propTypes = {
-  ...filmValidation,
-  ...reviewsValidation,
+  reviewsForActiveFilm: PropTypes.arrayOf(reviewValidation.review).isRequired,
 };
 
-export {FilmReviews};
+const mapStateToProps = (state) => ({
+  reviewsForActiveFilm: state.reviewsForActiveFilm
+});
+const ConnectedFilmReviews = connect(mapStateToProps, null)(FilmReviews);
+
+export {FilmReviews, ConnectedFilmReviews};

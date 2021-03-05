@@ -10,7 +10,7 @@ const GenreList = ({allFilms, chosenGenre, onClickGenre}) => {
   const activeGenreClass = `catalog__genres-item--active`;
   return <>
     <ul className="catalog__genres-list">
-      <li className={`catalog__genres-item ${chosenGenre === Genre.ALL ? activeGenreClass : ``}`}>
+      <li className={`catalog__genres-item ${chosenGenre === Genre.all ? activeGenreClass : ``}`}>
         <a href="#" className="catalog__genres-link" onClick={onClickGenre}>All genres</a>
       </li>
       {uniqueGenres.map((currentUniqueGenre) =>

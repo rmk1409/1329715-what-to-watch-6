@@ -1,7 +1,22 @@
-const Genre = {
-  ALL: `All genres`,
-};
-
 const MAX_SHOWN_FILM_QUANTITY_PER_TIME = 8;
 
-export {Genre, MAX_SHOWN_FILM_QUANTITY_PER_TIME};
+const Genre = {
+  all: `All genres`,
+};
+
+const Rating = {
+  MIN_SCORE_FOR_BAD_RATING: 0,
+  MAX_SCORE_FOR_BAD_RATING: 3,
+  MAX_SCORE_FOR_NORMAL_RATING: 5,
+  MAX_SCORE_FOR_GOOD_RATING: 8,
+  MAX_SCORE_FOR_VERY_GOOD_RATING: 10,
+};
+
+const Review = {
+  MIN_VALID_RATING: 1,
+  MAX_VALID_RATING: 10,
+  MIN_VALID_MSG_LENGTH: 50,
+  MAX_VALID_MSG_LENGTH: 400,
+};
+
+export {Genre, MAX_SHOWN_FILM_QUANTITY_PER_TIME, Rating, Review};

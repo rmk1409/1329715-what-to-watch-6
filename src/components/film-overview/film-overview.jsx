@@ -1,16 +1,23 @@
 import React from "react";
 import {filmValidation} from "../../validation";
+import {Rating} from "../../const";
 
 const getScoreWord = (number) => {
   let word = `Awesome`;
-  if (number >= 0 && number < 3) {
+  if (number >= Rating.MIN_SCORE_FOR_BAD_RATING && number < Rating.MAX_SCORE_FOR_BAD_RATING) {
     word = `Bad`;
-  } else if (number < 5) {
-    word = `Normal`;
-  } else if (number < 8) {
-    word = `Good`;
-  } else if (number < 10) {
-    word = `Very good`;
+  } else {
+    if (number < Rating.MAX_SCORE_FOR_NORMAL_RATING) {
+      word = `Normal`;
+    } else {
+      if (number < Rating.MAX_SCORE_FOR_GOOD_RATING) {
+        word = `Good`;
+      } else {
+        if (number < Rating.MAX_SCORE_FOR_VERY_GOOD_RATING) {
+          word = `Very good`;
+        }
+      }
+    }
   }
   return word;
 };

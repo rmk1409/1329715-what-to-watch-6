@@ -1,27 +1,25 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {filmValidation, promoValidation} from "../../validation";
 import {ConnectedFilmList} from "../film-list/film-list";
 import {ConnectedGenreList} from "../genre-list/genre-list";
 import {ConnectedShowMore} from "../show-more/show-more";
 import {connect} from "react-redux";
-import * as PropTypes from "prop-types";
-import {LoadingScreen} from "../loading-screen/loading-screen";
-import {fetchFilmList} from "../../store/api-actions";
+import PropTypes from "prop-types";
+import {ActionCreator} from "../../store/action";
+import {ConnectedUserBlock} from "../user-block/user-block";
 
 const Main = (props) => {
-  const {promo: {title, genre, date}, filteredFilms, shownFilmQuantity, isFilmsLoaded, onLoadFilms} = props;
+  const {
+    promo: {title, genre, date},
+    filteredFilms,
+    shownFilmQuantity,
+    onMyListClick,
+  } = props;
 
-  useEffect(() => {
-    if (!isFilmsLoaded) {
-      onLoadFilms();
-    }
-  }, [isFilmsLoaded]);
-
-  if (!isFilmsLoaded) {
-    return (
-      <LoadingScreen/>
-    );
-  }
+  const handleMyListClick = (evt) => {
+    evt.preventDefault();
+    onMyListClick();
+  };
 
   return <>
     <section className="movie-card">
@@ -40,11 +38,7 @@ const Main = (props) => {
           </a>
         </div>
 
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-          </div>
-        </div>
+        <ConnectedUserBlock/>
       </header>
 
       <div className="movie-card__wrap">
@@ -69,7 +63,7 @@ const Main = (props) => {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
+              <button className="btn btn--list movie-card__button" type="button" onClick={handleMyListClick}>
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use xlinkHref="#add"/>
                 </svg>
@@ -111,21 +105,18 @@ Main.propTypes = {
   ...promoValidation,
   filteredFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
   shownFilmQuantity: PropTypes.number.isRequired,
-  isFilmsLoaded: PropTypes.bool.isRequired,
+  onMyListClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filteredFilms: state.filteredFilms,
   shownFilmQuantity: state.shownFilmQuantity,
-  isFilmsLoaded: state.isFilmsLoaded,
 });
-
 const mapDispatchToProps = (dispatch) => ({
-  onLoadFilms() {
-    dispatch(fetchFilmList());
+  onMyListClick() {
+    dispatch(ActionCreator.redirectToRoute(`/mylist`));
   },
 });
-
 const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main);
 
 export {Main, ConnectedMain};

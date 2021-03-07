@@ -3,6 +3,7 @@ import {reviewValidation} from "../../validation";
 import {Review} from "../review/review";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {getReviewsForActiveFilm} from "../../store/data/selector";
 
 const FilmReviews = ({reviewsForActiveFilm}) => {
   const halfIndex = Math.ceil(reviewsForActiveFilm.length / 2);
@@ -26,7 +27,7 @@ FilmReviews.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  reviewsForActiveFilm: state.reviewsForActiveFilm
+  reviewsForActiveFilm: getReviewsForActiveFilm(state),
 });
 const ConnectedFilmReviews = connect(mapStateToProps, null)(FilmReviews);
 

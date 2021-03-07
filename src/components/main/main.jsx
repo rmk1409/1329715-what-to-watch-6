@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {redirectToRoute} from "../../store/action";
 import {ConnectedUserBlock} from "../user-block/user-block";
+import {getFilteredFilms, getShownFilmQuantity} from "../../store/data/selector";
 
 const Main = (props) => {
   const {
@@ -109,8 +110,8 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  filteredFilms: state.filteredFilms,
-  shownFilmQuantity: state.shownFilmQuantity,
+  filteredFilms: getFilteredFilms(state),
+  shownFilmQuantity: getShownFilmQuantity(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   onMyListClick() {

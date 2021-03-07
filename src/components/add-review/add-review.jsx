@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {ConnectedUserBlock} from "../user-block/user-block";
+import {getAllFilms} from "../../store/data/selector";
 
 const AddReview = ({allFilms}) => {
   const {id} = useParams();
@@ -62,7 +63,7 @@ AddReview.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  allFilms: state.allFilms,
+  allFilms: getAllFilms(state),
 });
 const ConnectedAddReview = connect(mapStateToProps, null)(AddReview);
 

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 import {redirectToRoute} from "../../store/action";
 import {connect} from "react-redux";
+import {getAuthInfo, getAuthorizationStatus} from "../../store/user/selector";
 
 const UserBlock = ({authorizationStatus, authInfo, onSignInClick}) => {
   const handleSignInClick = (evt) => {
@@ -30,8 +31,8 @@ UserBlock.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  authInfo: state.authInfo,
+  authorizationStatus: getAuthorizationStatus(state),
+  authInfo: getAuthInfo(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   onSignInClick() {

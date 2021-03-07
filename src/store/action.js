@@ -53,11 +53,6 @@ const setAuthInfo = (authInfo) => ({
   payload: authInfo,
 });
 
-const loadReviews = (reviews) => ({
-  type: ActionType.LOAD_REVIEWS,
-  payload: reviews,
-});
-
 const setReviews = (reviews) => ({
   type: ActionType.SET_REVIEWS,
   payload: reviews,
@@ -73,6 +68,5 @@ export {
   setShownFilmQuantity,
   increaseShownFilmQuantity,
   setAuthInfo,
-  loadReviews,
   setReviews
 };

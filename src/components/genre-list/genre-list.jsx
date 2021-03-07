@@ -4,6 +4,7 @@ import {filmValidation} from "../../validation";
 import * as PropTypes from "prop-types";
 import {changeGenre, getFilmsByCurrentGenre, setShownFilmQuantity} from "../../store/action";
 import {Genre} from "../../const";
+import {getAllFilms, getChosenGenre} from "../../store/data/selector";
 
 const GenreList = ({allFilms, chosenGenre, onClickGenre}) => {
   const uniqueGenres = useMemo(() => Array.from(new Set(allFilms.map((film) => film.genre))), [allFilms]);
@@ -30,8 +31,8 @@ GenreList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  allFilms: state.allFilms,
-  chosenGenre: state.chosenGenre,
+  allFilms: getAllFilms(state),
+  chosenGenre: getChosenGenre(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   onClickGenre(evt) {

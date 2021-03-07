@@ -9,6 +9,8 @@ import {fetchReviewList} from "../../store/api-actions";
 import {NotFound} from "../404/404";
 import {ConnectedUserBlock} from "../user-block/user-block";
 import {redirectToRoute} from "../../store/action";
+import {getAllFilms} from "../../store/data/selector";
+import {getAuthorizationStatus} from "../../store/user/selector";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
@@ -128,8 +130,8 @@ Film.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  allFilms: state.allFilms,
-  authorizationStatus: state.authorizationStatus,
+  allFilms: getAllFilms(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadReviews(id) {

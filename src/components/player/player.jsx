@@ -2,6 +2,7 @@ import React from 'react';
 import {filmValidation} from "../../validation";
 import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
+import {getAllFilms} from "../../store/data/selector";
 
 const Player = ({allFilms}) => {
   const {id} = useParams();
@@ -50,7 +51,7 @@ Player.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  allFilms: state.allFilms,
+  allFilms: getAllFilms(state),
 });
 
 const ConnectedPlayer = connect(mapStateToProps, null)(Player);

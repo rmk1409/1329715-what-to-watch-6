@@ -4,6 +4,7 @@ import {FilmList} from "../film-list/film-list";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {ConnectedUserBlock} from "../user-block/user-block";
+import {getAllFilms} from "../../store/data/selector";
 
 const MyList = ({allFilms}) => {
   const favoriteFilms = allFilms.filter((film) => film[`is_favorite`]);
@@ -52,7 +53,7 @@ MyList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  allFilms: state.allFilms,
+  allFilms: getAllFilms(state),
 });
 
 const ConnectedMyList = connect(mapStateToProps, null)(MyList);

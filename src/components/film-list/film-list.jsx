@@ -3,6 +3,7 @@ import React from "react";
 import {filmsValidation} from "../../validation";
 import {connect} from "react-redux";
 import * as PropTypes from "prop-types";
+import {getAllFilms, getShownFilmQuantity} from "../../store/data/selector";
 
 const FilmList = ({films, shownFilmQuantity}) => {
   const filmsToShow = shownFilmQuantity ? films.slice(0, shownFilmQuantity) : films;
@@ -17,8 +18,8 @@ FilmList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  films: state.allFilms,
-  shownFilmQuantity: state.shownFilmQuantity,
+  films: getAllFilms(state),
+  shownFilmQuantity: getShownFilmQuantity(state),
 });
 const ConnectedFilmList = connect(mapStateToProps, null)(FilmList);
 

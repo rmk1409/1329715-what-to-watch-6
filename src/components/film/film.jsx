@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import {fetchReviewList} from "../../store/api-actions";
 import {NotFound} from "../404/404";
 import {ConnectedUserBlock} from "../user-block/user-block";
-import {ActionCreator} from "../../store/action";
+import {redirectToRoute} from "../../store/action";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
@@ -136,7 +136,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchReviewList(id));
   },
   onAddReviewClick(id) {
-    dispatch(ActionCreator.redirectToRoute(`/films/${id}/review`));
+    dispatch(redirectToRoute(`/films/${id}/review`));
   },
 });
 const ConnectedFilm = connect(mapStateToProps, mapDispatchToProps)(Film);

@@ -1,7 +1,10 @@
 const MAX_SHOWN_FILM_QUANTITY_PER_TIME = 8;
 
+const ONE_SECOND = 1000;
+
 const Genre = {
-  all: `All genres`,
+  ALL: `All genres`,
+  ACTIVE_GENRE_CLASS: `catalog__genres-item--active`,
 };
 
 const Rating = {
@@ -19,4 +22,4 @@ const Review = {
   MAX_VALID_MSG_LENGTH: 400,
 };
 
-export {Genre, MAX_SHOWN_FILM_QUANTITY_PER_TIME, Rating, Review};
+export {Genre, MAX_SHOWN_FILM_QUANTITY_PER_TIME, Rating, Review, ONE_SECOND};

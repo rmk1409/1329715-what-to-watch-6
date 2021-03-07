@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ActionCreator} from "../../store/action";
+import {redirectToRoute} from "../../store/action";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {postReview} from "../../store/api-actions";
@@ -62,7 +62,7 @@ SendCommentForm.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   onSubmitClick(id, data) {
     dispatch(postReview(id, data));
-    dispatch(ActionCreator.redirectToRoute(`/films/${id}`));
+    dispatch(redirectToRoute(`/films/${id}`));
   },
 });
 const ConnectedSendCommentForm = connect(null, mapDispatchToProps)(SendCommentForm);

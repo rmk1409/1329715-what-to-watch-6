@@ -2,7 +2,7 @@ import {Genre, MAX_SHOWN_FILM_QUANTITY_PER_TIME} from "../const";
 import {ActionType} from "./action";
 
 const initState = {
-  chosenGenre: Genre.all,
+  chosenGenre: Genre.ALL,
   isFilmsLoaded: false,
   allFilms: [],
   filteredFilms: [],
@@ -53,7 +53,7 @@ const reducer = (state = initState, {type, payload}) => {
     case ActionType.GET_FILMS_BY_CURRENT_GENRE:
       let filteredFilms = state.allFilms;
       const chosenGenre = state.chosenGenre;
-      if (Genre.all !== chosenGenre) {
+      if (Genre.ALL !== chosenGenre) {
         filteredFilms = filteredFilms.filter((film) => film.genre === chosenGenre);
       }
       newState = {...state, filteredFilms};

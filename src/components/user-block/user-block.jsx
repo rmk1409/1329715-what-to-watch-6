@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import {ActionCreator} from "../../store/action";
+import {redirectToRoute} from "../../store/action";
 import {connect} from "react-redux";
 
 const UserBlock = ({authorizationStatus, authInfo, onSignInClick}) => {
@@ -35,7 +35,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   onSignInClick() {
-    dispatch(ActionCreator.redirectToRoute(`/login`));
+    dispatch(redirectToRoute(`/login`));
   },
 });
 const ConnectedUserBlock = connect(mapStateToProps, mapDispatchToProps)(UserBlock);

@@ -5,7 +5,7 @@ import {ConnectedGenreList} from "../genre-list/genre-list";
 import {ConnectedShowMore} from "../show-more/show-more";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {ActionCreator} from "../../store/action";
+import {redirectToRoute} from "../../store/action";
 import {ConnectedUserBlock} from "../user-block/user-block";
 
 const Main = (props) => {
@@ -114,7 +114,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   onMyListClick() {
-    dispatch(ActionCreator.redirectToRoute(`/mylist`));
+    dispatch(redirectToRoute(`/mylist`));
   },
 });
 const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main);

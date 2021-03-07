@@ -23,9 +23,8 @@ const store = configureStore({
     getDefaultMiddleware({
       thunk: {
         extraArgument: api
-      },
-      redirect
-    })
+      }
+    }).concat(redirect)
 });
 
 Promise.resolve()

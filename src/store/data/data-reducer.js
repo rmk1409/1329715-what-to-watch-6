@@ -1,5 +1,13 @@
-import {ActionType} from "../action";
+import {
+  changeGenre,
+  getFilmsByCurrentGenre,
+  increaseShownFilmQuantity,
+  loadFilms,
+  setReviews,
+  setShownFilmQuantity,
+} from "../action";
 import {Genre, MAX_SHOWN_FILM_QUANTITY_PER_TIME} from "../../const";
+import {createReducer} from "@reduxjs/toolkit";
 
 const initState = {
   reviewsForActiveFilm: [],
@@ -10,49 +18,34 @@ const initState = {
   shownFilmQuantity: 0,
 };
 
-const dataReducer = (state = initState, {type, payload}) => {
-  let newState = state;
-  let shownFilmQuantity;
-  switch (type) {
-    case ActionType.SET_REVIEWS:
-      newState = {
-        ...state,
-        reviewsForActiveFilm: payload,
-      };
-      break;
-    case ActionType.LOAD_FILMS:
-      const allFilms = payload;
-      newState = {
-        ...state,
-        isFilmsLoaded: true,
-        allFilms,
-      };
-      break;
-    case ActionType.CHANGE_GENRE:
-      newState = {...state, chosenGenre: payload};
-      break;
-    case ActionType.GET_FILMS_BY_CURRENT_GENRE:
-      let filteredFilms = state.allFilms;
-      const chosenGenre = state.chosenGenre;
-      if (Genre.ALL !== chosenGenre) {
-        filteredFilms = filteredFilms.filter((film) => film.genre === chosenGenre);
-      }
-      newState = {...state, filteredFilms};
-      break;
-    case ActionType.SET_SHOWN_FILM_QUANTITY:
-      const newShownFilmQuantity = payload;
-      shownFilmQuantity = newShownFilmQuantity ||
-        (state.filteredFilms.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : state.filteredFilms.length);
-      newState = {...state, shownFilmQuantity};
-      break;
-    case ActionType.INCREASE_SHOWN_FILM_QUANTITY:
-      shownFilmQuantity = (state.shownFilmQuantity + MAX_SHOWN_FILM_QUANTITY_PER_TIME) < state.filteredFilms.length ?
-        state.shownFilmQuantity + MAX_SHOWN_FILM_QUANTITY_PER_TIME :
-        state.filteredFilms.length;
-      newState = {...state, shownFilmQuantity};
-      break;
-  }
-  return newState;
-};
+const dataReducer = createReducer(initState, (builder) => {
+  builder.addCase(setReviews, (state, action) => {
+    state.reviewsForActiveFilm = action.payload;
+  });
+  builder.addCase(loadFilms, (state, action) => {
+    state.allFilms = action.payload;
+    state.isFilmsLoaded = true;
+  });
+  builder.addCase(changeGenre, (state, action) => {
+    state.chosenGenre = action.payload;
+  });
+  builder.addCase(getFilmsByCurrentGenre, (state, _action) => {
+    let filteredFilms = state.allFilms;
+    const chosenGenre = state.chosenGenre;
+    if (Genre.ALL !== chosenGenre) {
+      filteredFilms = filteredFilms.filter((film) => film.genre === chosenGenre);
+    }
+    state.filteredFilms = filteredFilms;
+  });
+  builder.addCase(setShownFilmQuantity, (state, action) => {
+    state.shownFilmQuantity = action.payload ||
+      (state.filteredFilms.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : state.filteredFilms.length);
+  });
+  builder.addCase(increaseShownFilmQuantity, (state, _action) => {
+    state.shownFilmQuantity = (state.shownFilmQuantity + MAX_SHOWN_FILM_QUANTITY_PER_TIME) < state.filteredFilms.length ?
+      state.shownFilmQuantity + MAX_SHOWN_FILM_QUANTITY_PER_TIME :
+      state.filteredFilms.length;
+  });
+});
 
 export {dataReducer};

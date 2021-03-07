@@ -1,13 +1,25 @@
 import React, {useMemo} from "react";
-import {connect} from "react-redux";
-import {filmValidation} from "../../validation";
-import * as PropTypes from "prop-types";
+import {useDispatch, useSelector} from "react-redux";
 import {changeGenre, getFilmsByCurrentGenre, setShownFilmQuantity} from "../../store/action";
 import {Genre} from "../../const";
-import {getAllFilms, getChosenGenre} from "../../store/data/selector";
+import {NameSpace} from "../../store/reducer";
 
-const GenreList = ({allFilms, chosenGenre, onClickGenre}) => {
-  const uniqueGenres = useMemo(() => Array.from(new Set(allFilms.map((film) => film.genre))), [allFilms]);
+const GenreList = () => {
+  const {allFilms, chosenGenre} = useSelector((state) => state[NameSpace.DATA]);
+  const uniqueGenres = useMemo(
+      () => Array.from(new Set(allFilms.map((film) => film.genre))),
+      [allFilms]
+  );
+
+  const dispatch = useDispatch();
+  const onClickGenre = (evt) => {
+    evt.preventDefault();
+    const newChosenGenre = evt.target.textContent;
+    dispatch(changeGenre(newChosenGenre));
+    dispatch(getFilmsByCurrentGenre());
+    dispatch(setShownFilmQuantity());
+  };
+
   return <>
     <ul className="catalog__genres-list">
       <li
@@ -24,25 +36,4 @@ const GenreList = ({allFilms, chosenGenre, onClickGenre}) => {
   </>;
 };
 
-GenreList.propTypes = {
-  allFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
-  onClickGenre: PropTypes.func.isRequired,
-  chosenGenre: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  allFilms: getAllFilms(state),
-  chosenGenre: getChosenGenre(state),
-});
-const mapDispatchToProps = (dispatch) => ({
-  onClickGenre(evt) {
-    evt.preventDefault();
-    const newChosenGenre = evt.target.textContent;
-    dispatch(changeGenre(newChosenGenre));
-    dispatch(getFilmsByCurrentGenre());
-    dispatch(setShownFilmQuantity());
-  },
-});
-const ConnectedGenreList = connect(mapStateToProps, mapDispatchToProps)(GenreList);
-
-export {GenreList, ConnectedGenreList};
+export {GenreList};

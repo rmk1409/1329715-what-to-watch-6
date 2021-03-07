@@ -1,6 +1,7 @@
 const MAX_SHOWN_FILM_QUANTITY_PER_TIME = 8;
 
 const ONE_SECOND = 1000;
+const MIN_IN_HOUR = 60;
 
 const Genre = {
   ALL: `All genres`,
@@ -22,4 +23,4 @@ const Review = {
   MAX_VALID_MSG_LENGTH: 400,
 };
 
-export {Genre, MAX_SHOWN_FILM_QUANTITY_PER_TIME, Rating, Review, ONE_SECOND};
+export {Genre, MAX_SHOWN_FILM_QUANTITY_PER_TIME, Rating, Review, ONE_SECOND, MIN_IN_HOUR};

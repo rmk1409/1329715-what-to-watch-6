@@ -1,12 +1,12 @@
 import React from 'react';
-import {filmValidation} from "../../validation";
 import {useParams} from "react-router-dom";
-import {connect} from "react-redux";
-import {getAllFilms} from "../../store/data/selector";
+import {useSelector} from "react-redux";
+import {NameSpace} from "../../store/reducer";
 
-const Player = ({allFilms}) => {
+const Player = () => {
+  const {allFilms} = useSelector((state) => state[NameSpace.DATA]);
   const {id} = useParams();
-  const film = allFilms.find((currentFilm)=>currentFilm.id === parseInt(id, 10));
+  const film = allFilms.find((currentFilm) => currentFilm.id === parseInt(id, 10));
 
   return <>
     <div className="player">
@@ -46,14 +46,4 @@ const Player = ({allFilms}) => {
   </>;
 };
 
-Player.propTypes = {
-  ...filmValidation
-};
-
-const mapStateToProps = (state) => ({
-  allFilms: getAllFilms(state),
-});
-
-const ConnectedPlayer = connect(mapStateToProps, null)(Player);
-
-export {ConnectedPlayer};
+export {Player};

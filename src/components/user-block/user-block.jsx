@@ -1,13 +1,14 @@
 import React from 'react';
-import PropTypes from "prop-types";
 import {redirectToRoute} from "../../store/action";
-import {connect} from "react-redux";
-import {getAuthInfo, getAuthorizationStatus} from "../../store/user/selector";
+import {useDispatch, useSelector} from "react-redux";
+import {NameSpace} from "../../store/reducer";
 
-const UserBlock = ({authorizationStatus, authInfo, onSignInClick}) => {
+const UserBlock = () => {
+  const {authorizationStatus, authInfo} = useSelector((state)=>state[NameSpace.USER]);
+  const dispatch = useDispatch();
   const handleSignInClick = (evt) => {
     evt.preventDefault();
-    onSignInClick();
+    dispatch(redirectToRoute(`/login`));
   };
 
   return <>
@@ -24,21 +25,4 @@ const UserBlock = ({authorizationStatus, authInfo, onSignInClick}) => {
   </>;
 };
 
-UserBlock.propTypes = {
-  authorizationStatus: PropTypes.bool.isRequired,
-  authInfo: PropTypes.object.isRequired,
-  onSignInClick: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-  authInfo: getAuthInfo(state),
-});
-const mapDispatchToProps = (dispatch) => ({
-  onSignInClick() {
-    dispatch(redirectToRoute(`/login`));
-  },
-});
-const ConnectedUserBlock = connect(mapStateToProps, mapDispatchToProps)(UserBlock);
-
-export {ConnectedUserBlock};
+export {UserBlock};

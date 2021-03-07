@@ -1,35 +1,37 @@
-import React from 'react';
-import {filmValidation} from "../../validation";
+import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {TabList} from "../tab-list/tab-list";
 import {FilmList} from "../film-list/film-list";
-import {connect} from "react-redux";
-import PropTypes from "prop-types";
+import {useDispatch, useSelector} from "react-redux";
 import {fetchReviewList} from "../../store/api-actions";
 import {NotFound} from "../404/404";
-import {ConnectedUserBlock} from "../user-block/user-block";
+import {UserBlock} from "../user-block/user-block";
 import {redirectToRoute} from "../../store/action";
-import {getAllFilms} from "../../store/data/selector";
-import {getAuthorizationStatus} from "../../store/user/selector";
+import {NameSpace} from "../../store/reducer";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
-const Film = ({allFilms, onLoadReviews, authorizationStatus, onAddReviewClick}) => {
+const Film = () => {
   const {id} = useParams();
+  const {allFilms} = useSelector((state) => state[NameSpace.DATA]);
+  const {authorizationStatus} = useSelector((state) => state[NameSpace.USER]);
   const film = allFilms.find((currentFilm) => currentFilm.id === parseInt(id, 10));
+  const dispatch = useDispatch();
   if (!film) {
     return <NotFound/>;
   }
-  onLoadReviews(id);
+  useEffect(() => {
+    dispatch(fetchReviewList(id));
+  }, []);
+
+  const onAddReviewClickHandler = (evt) => {
+    evt.preventDefault();
+    dispatch(redirectToRoute(`/films/${id}/review`));
+  };
 
   const similarFilms = allFilms
     .filter((currentFilm) => currentFilm.genre === film.genre && film.id !== currentFilm.id)
     .splice(0, MAX_SHOWN_SIMILAR_FILM_QUANTITY);
-
-  const onAddReviewClickHandler = (evt) => {
-    evt.preventDefault();
-    onAddReviewClick(id);
-  };
 
   return <>
     <section className="movie-card movie-card--full">
@@ -49,7 +51,7 @@ const Film = ({allFilms, onLoadReviews, authorizationStatus, onAddReviewClick}) 
             </a>
           </div>
 
-          <ConnectedUserBlock/>
+          <UserBlock/>
         </header>
 
         <div className="movie-card__wrap">
@@ -122,25 +124,4 @@ const Film = ({allFilms, onLoadReviews, authorizationStatus, onAddReviewClick}) 
   </>;
 };
 
-Film.propTypes = {
-  allFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
-  onAddReviewClick: PropTypes.func.isRequired,
-  onLoadReviews: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  allFilms: getAllFilms(state),
-  authorizationStatus: getAuthorizationStatus(state),
-});
-const mapDispatchToProps = (dispatch) => ({
-  onLoadReviews(id) {
-    dispatch(fetchReviewList(id));
-  },
-  onAddReviewClick(id) {
-    dispatch(redirectToRoute(`/films/${id}/review`));
-  },
-});
-const ConnectedFilm = connect(mapStateToProps, mapDispatchToProps)(Film);
-
-export {ConnectedFilm};
+export {Film};

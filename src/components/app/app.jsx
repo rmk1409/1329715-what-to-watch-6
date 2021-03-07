@@ -1,32 +1,32 @@
 import React from "react";
-import {ConnectedMain} from "../main/main";
+import {Main} from "../main/main";
 import {Route, Router, Switch} from "react-router-dom";
-import {ConnectedSignIn} from "../sign-in/sign-in";
-import {ConnectedMyList} from "../my-list/my-list";
-import {ConnectedFilm} from "../film/film";
-import {ConnectedAddReview} from "../add-review/add-review";
+import {SignIn} from "../sign-in/sign-in";
+import {MyList} from "../my-list/my-list";
+import {Film} from "../film/film";
+import {AddReview} from "../add-review/add-review";
 import {NotFound} from "../404/404";
-import {ConnectedPlayer} from "../player/player";
+import {Player} from "../player/player";
 import {promoValidation} from "../../validation";
 import {browserHistory} from "../../browser-history";
-import {ConnectedPrivateRoute} from "../private-route/private-route";
+import {PrivateRoute} from "../private-route/private-route";
 
 const App = ({promo}) => (
   <Router history={browserHistory}>
     <Switch>
       <Route exact path="/">
-        <ConnectedMain promo={promo}/>
+        <Main promo={promo}/>
       </Route>
-      <ConnectedPrivateRoute exact path="/mylist" render={() => <ConnectedMyList/>}/>
+      <PrivateRoute exact path="/mylist" render={() => <MyList/>}/>
       <Route exact path="/films/:id">
-        <ConnectedFilm/>
+        <Film/>
       </Route>
-      <ConnectedPrivateRoute exact path="/films/:id/review" render={() => <ConnectedAddReview/>}/>
+      <PrivateRoute exact path="/films/:id/review" render={() => <AddReview/>}/>
       <Route exact path="/player/:id">
-        <ConnectedPlayer/>
+        <Player/>
       </Route>
       <Route exact path="/login">
-        <ConnectedSignIn/>
+        <SignIn/>
       </Route>
       <Route>
         <NotFound/>

@@ -1,14 +1,18 @@
 import React from 'react';
-import {reviewValidation} from "../../validation";
 import {Review} from "../review/review";
-import {connect} from "react-redux";
-import PropTypes from "prop-types";
-import {getReviewsForActiveFilm} from "../../store/data/selector";
+import {useSelector} from "react-redux";
+import {NameSpace} from "../../store/reducer";
 
-const FilmReviews = ({reviewsForActiveFilm}) => {
-  const halfIndex = Math.ceil(reviewsForActiveFilm.length / 2);
-  const firstHalfReviews = reviewsForActiveFilm.splice(0, halfIndex);
-  const secondHalfReviews = reviewsForActiveFilm.splice(-halfIndex);
+const FilmReviews = () => {
+  const {reviewsForActiveFilm} = useSelector((state) => state[NameSpace.DATA]);
+
+  let firstHalfReviews = reviewsForActiveFilm;
+  let secondHalfReviews = [];
+  if (reviewsForActiveFilm.length > 1) {
+    const halfIndex = Math.floor(reviewsForActiveFilm.length / 2);
+    firstHalfReviews = [...reviewsForActiveFilm].splice(0, halfIndex);
+    secondHalfReviews = [...reviewsForActiveFilm].splice(-halfIndex);
+  }
 
   return <>
     <div className="movie-card__reviews movie-card__row">
@@ -22,13 +26,4 @@ const FilmReviews = ({reviewsForActiveFilm}) => {
   </>;
 };
 
-FilmReviews.propTypes = {
-  reviewsForActiveFilm: PropTypes.arrayOf(reviewValidation.review).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  reviewsForActiveFilm: getReviewsForActiveFilm(state),
-});
-const ConnectedFilmReviews = connect(mapStateToProps, null)(FilmReviews);
-
-export {FilmReviews, ConnectedFilmReviews};
+export {FilmReviews};

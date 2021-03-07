@@ -1,13 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {filmValidation} from "../../validation";
-import * as PropTypes from "prop-types";
 import {VideoPlayer} from "../video-player/video-player";
 import {redirectToRoute} from "../../store/action";
-import {connect} from "react-redux";
+import {useDispatch} from "react-redux";
 import {fetchReviewList} from "../../store/api-actions";
 import {ONE_SECOND} from "../../const";
 
-const FilmCard = ({film, onLinkClick}) => {
+const FilmCard = ({film}) => {
   const [isPlaying, setPlaying] = useState(false);
 
   const isInitialMount = useRef(true);
@@ -38,10 +37,12 @@ const FilmCard = ({film, onLinkClick}) => {
     setPlaying(false);
   };
 
+  const dispatch = useDispatch();
+
   const onLinkClickHandler = (evt) => {
     evt.preventDefault();
-
-    onLinkClick(film.id);
+    dispatch(fetchReviewList(film.id));
+    dispatch(redirectToRoute(`/films/${film.id}`));
   };
 
   return <>
@@ -61,15 +62,6 @@ const FilmCard = ({film, onLinkClick}) => {
 
 FilmCard.propTypes = {
   ...filmValidation,
-  onLinkClick: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onLinkClick(id) {
-    dispatch(fetchReviewList(id));
-    dispatch(redirectToRoute(`/films/${id}`));
-  },
-});
-const ConnectedFilmCard = connect(null, mapDispatchToProps)(FilmCard);
-
-export {FilmCard, ConnectedFilmCard};
+export {FilmCard};

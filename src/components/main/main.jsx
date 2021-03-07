@@ -1,25 +1,19 @@
 import React from 'react';
-import {filmValidation, promoValidation} from "../../validation";
-import {ConnectedFilmList} from "../film-list/film-list";
-import {ConnectedGenreList} from "../genre-list/genre-list";
-import {ConnectedShowMore} from "../show-more/show-more";
-import {connect} from "react-redux";
-import PropTypes from "prop-types";
+import {promoValidation} from "../../validation";
+import {FilmList} from "../film-list/film-list";
+import {GenreList} from "../genre-list/genre-list";
+import {ShowMore} from "../show-more/show-more";
+import {useDispatch, useSelector} from "react-redux";
 import {redirectToRoute} from "../../store/action";
-import {ConnectedUserBlock} from "../user-block/user-block";
-import {getFilteredFilms, getShownFilmQuantity} from "../../store/data/selector";
+import {UserBlock} from "../user-block/user-block";
+import {NameSpace} from "../../store/reducer";
 
-const Main = (props) => {
-  const {
-    promo: {title, genre, date},
-    filteredFilms,
-    shownFilmQuantity,
-    onMyListClick,
-  } = props;
-
+const Main = ({promo: {title, genre, date}}) => {
+  const {filteredFilms, shownFilmQuantity} = useSelector((state) => state[NameSpace.DATA]);
+  const dispatch = useDispatch();
   const handleMyListClick = (evt) => {
     evt.preventDefault();
-    onMyListClick();
+    dispatch(redirectToRoute(`/mylist`));
   };
 
   return <>
@@ -39,7 +33,7 @@ const Main = (props) => {
           </a>
         </div>
 
-        <ConnectedUserBlock/>
+        <UserBlock/>
       </header>
 
       <div className="movie-card__wrap">
@@ -78,10 +72,10 @@ const Main = (props) => {
     <div className="page-content">
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <ConnectedGenreList/>
-        <ConnectedFilmList/>
+        <GenreList/>
+        <FilmList/>
         <div className="catalog__more">
-          {filteredFilms.length > shownFilmQuantity ? <ConnectedShowMore/> : ``}
+          {filteredFilms.length > shownFilmQuantity ? <ShowMore/> : ``}
         </div>
       </section>
 
@@ -104,20 +98,6 @@ const Main = (props) => {
 
 Main.propTypes = {
   ...promoValidation,
-  filteredFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
-  shownFilmQuantity: PropTypes.number.isRequired,
-  onMyListClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  filteredFilms: getFilteredFilms(state),
-  shownFilmQuantity: getShownFilmQuantity(state),
-});
-const mapDispatchToProps = (dispatch) => ({
-  onMyListClick() {
-    dispatch(redirectToRoute(`/mylist`));
-  },
-});
-const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main);
-
-export {Main, ConnectedMain};
+export {Main};

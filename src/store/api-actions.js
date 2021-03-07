@@ -7,7 +7,9 @@ const fetchFilmList = () => (dispatch, _getState, api) => (
 
 const fetchReviewList = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}`)
-    .then(({data}) => dispatch(setReviews(data)))
+    .then(({data}) => {
+      dispatch(setReviews(data));
+    })
 );
 
 const postReview = (id, dataToSend) => (dispatch, _getState, api) => (

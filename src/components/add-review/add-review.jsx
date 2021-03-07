@@ -1,14 +1,13 @@
 import React from 'react';
-import {filmValidation} from "../../validation";
-import {ConnectedSendCommentForm} from "../send-comment-form/send-comment-form";
+import {SendCommentForm} from "../send-comment-form/send-comment-form";
 import {useParams} from "react-router-dom";
-import {connect} from "react-redux";
-import PropTypes from "prop-types";
-import {ConnectedUserBlock} from "../user-block/user-block";
-import {getAllFilms} from "../../store/data/selector";
+import {useSelector} from "react-redux";
+import {UserBlock} from "../user-block/user-block";
+import {NameSpace} from "../../store/reducer";
 
-const AddReview = ({allFilms}) => {
+const AddReview = () => {
   const {id} = useParams();
+  const {allFilms} = useSelector((state) => state[NameSpace.DATA]);
   const film = allFilms.find((currentFilm) => currentFilm.id === parseInt(id, 10));
 
   return <>
@@ -40,7 +39,7 @@ const AddReview = ({allFilms}) => {
             </ul>
           </nav>
 
-          <ConnectedUserBlock/>
+          <UserBlock/>
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
@@ -51,20 +50,11 @@ const AddReview = ({allFilms}) => {
       </div>
 
       <div className="add-review">
-        <ConnectedSendCommentForm id={parseInt(id, 10)}/>
+        <SendCommentForm id={parseInt(id, 10)}/>
       </div>
 
     </section>
   </>;
 };
 
-AddReview.propTypes = {
-  allFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  allFilms: getAllFilms(state),
-});
-const ConnectedAddReview = connect(mapStateToProps, null)(AddReview);
-
-export {ConnectedAddReview};
+export {AddReview};

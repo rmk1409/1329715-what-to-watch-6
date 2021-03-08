@@ -2,7 +2,7 @@ import {
   changeGenre,
   getFilmsByCurrentGenre,
   increaseShownFilmQuantity,
-  loadFilms, setPromo,
+  loadFilms, setFavorite, setPromo,
   setReviews,
   setShownFilmQuantity,
 } from "../action";
@@ -15,6 +15,7 @@ const initState = {
     genre: `Drama`,
     released: 2014
   },
+  favoriteFilms: [],
   reviewsForActiveFilm: [],
   isFilmsLoaded: false,
   allFilms: [],
@@ -24,6 +25,9 @@ const initState = {
 };
 
 const dataReducer = createReducer(initState, (builder) => {
+  builder.addCase(setFavorite, (state, action) => {
+    state.favoriteFilms = action.payload;
+  });
   builder.addCase(setPromo, (state, action) => {
     state.promo = action.payload;
   });

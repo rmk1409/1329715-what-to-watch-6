@@ -1,12 +1,11 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {FilmList} from "../film-list/film-list";
 import {useSelector} from "react-redux";
 import {UserBlock} from "../user-block/user-block";
 import {NameSpace} from "../../store/reducer";
 
 const MyList = () => {
-  const {allFilms} = useSelector((state) => state[NameSpace.DATA]);
-  const favoriteFilms = useMemo(() => allFilms.filter((film) => film[`is_favorite`]), [allFilms]);
+  const {favoriteFilms} = useSelector((state) => state[NameSpace.DATA]);
 
   return <>
     <div className="user-page">

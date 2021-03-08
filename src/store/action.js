@@ -1,16 +1,16 @@
 import {createAction} from "@reduxjs/toolkit";
 
 const ActionType = {
-  CHANGE_GENRE: `app/change-genre-action`,
-  GET_FILMS_BY_CURRENT_GENRE: `app/get-film-by-current-genre`,
-  SET_SHOWN_FILM_QUANTITY: `app/set-shown-film-quantity`,
-  INCREASE_SHOWN_FILM_QUANTITY: `app/increase-shown-film-quantity`,
-
-  REDIRECT_TO_ROUTE: `route/redirect-to-route`,
-
+  CHANGE_GENRE: `data/change-genre-action`,
+  GET_FILMS_BY_CURRENT_GENRE: `data/get-film-by-current-genre`,
+  SET_SHOWN_FILM_QUANTITY: `data/set-shown-film-quantity`,
+  INCREASE_SHOWN_FILM_QUANTITY: `data/increase-shown-film-quantity`,
   LOAD_REVIEWS: `data/load-reviews`,
   SET_REVIEWS: `data/set-reviews`,
   LOAD_FILMS: `data/load-films`,
+  SET_PROMO: `data/set-promo`,
+
+  REDIRECT_TO_ROUTE: `route/redirect-to-route`,
 
   SET_AUTH_INFO: `user/set-auth-info`,
   SET_AUTHORIZATION_STATUS: `user/set-authorization`,
@@ -25,6 +25,7 @@ const setShownFilmQuantity = createAction(ActionType.SET_SHOWN_FILM_QUANTITY, (q
 const increaseShownFilmQuantity = createAction(ActionType.INCREASE_SHOWN_FILM_QUANTITY);
 const setAuthInfo = createAction(ActionType.SET_AUTH_INFO, (authInfo) => ({payload: authInfo}));
 const setReviews = createAction(ActionType.SET_REVIEWS, (reviews) => ({payload: reviews}));
+const setPromo = createAction(ActionType.SET_PROMO, (promo) => ({payload: promo}));
 
 export {
   ActionType,
@@ -37,4 +38,5 @@ export {
   increaseShownFilmQuantity,
   setAuthInfo,
   setReviews,
+  setPromo,
 };

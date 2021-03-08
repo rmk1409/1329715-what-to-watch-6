@@ -1,4 +1,4 @@
-import {loadFilms, redirectToRoute, setAuthInfo, setAuthorization, setReviews} from "./action";
+import {loadFilms, redirectToRoute, setAuthInfo, setAuthorization, setPromo, setReviews} from "./action";
 
 const fetchFilmList = () => (dispatch, _getState, api) => (
   api.get(`/films`)
@@ -7,9 +7,12 @@ const fetchFilmList = () => (dispatch, _getState, api) => (
 
 const fetchReviewList = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}`)
-    .then(({data}) => {
-      dispatch(setReviews(data));
-    })
+    .then(({data}) => dispatch(setReviews(data)))
+);
+
+const fetchPromo = () => (dispatch, _getState, api) => (
+  api.get(`/films/promo`)
+    .then(({data}) => dispatch(setPromo(data)))
 );
 
 const postReview = (id, dataToSend) => (dispatch, _getState, api) => (
@@ -36,4 +39,4 @@ const login = (user) => (dispatch, _getState, api) => (
     .catch(() => dispatch(setAuthorization(false)))
 );
 
-export {fetchFilmList, fetchReviewList, checkAuth, login, postReview};
+export {fetchFilmList, fetchReviewList, checkAuth, login, postReview, fetchPromo};

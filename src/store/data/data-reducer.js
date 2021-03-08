@@ -2,7 +2,7 @@ import {
   changeGenre,
   getFilmsByCurrentGenre,
   increaseShownFilmQuantity,
-  loadFilms,
+  loadFilms, setPromo,
   setReviews,
   setShownFilmQuantity,
 } from "../action";
@@ -10,6 +10,11 @@ import {Genre, MAX_SHOWN_FILM_QUANTITY_PER_TIME} from "../../const";
 import {createReducer} from "@reduxjs/toolkit";
 
 const initState = {
+  promo: {
+    title: `The Grand Budapest Hotel`,
+    genre: `Drama`,
+    released: 2014
+  },
   reviewsForActiveFilm: [],
   isFilmsLoaded: false,
   allFilms: [],
@@ -19,6 +24,9 @@ const initState = {
 };
 
 const dataReducer = createReducer(initState, (builder) => {
+  builder.addCase(setPromo, (state, action) => {
+    state.promo = action.payload;
+  });
   builder.addCase(setReviews, (state, action) => {
     state.reviewsForActiveFilm = action.payload;
   });

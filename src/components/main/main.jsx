@@ -1,5 +1,4 @@
 import React from 'react';
-import {promoValidation} from "../../validation";
 import {FilmList} from "../film-list/film-list";
 import {GenreList} from "../genre-list/genre-list";
 import {ShowMore} from "../show-more/show-more";
@@ -8,8 +7,12 @@ import {redirectToRoute} from "../../store/action";
 import {UserBlock} from "../user-block/user-block";
 import {NameSpace} from "../../store/reducer";
 
-const Main = ({promo: {title, genre, date}}) => {
-  const {filteredFilms, shownFilmQuantity} = useSelector((state) => state[NameSpace.DATA]);
+const Main = () => {
+  const {
+    filteredFilms,
+    shownFilmQuantity,
+    promo,
+  } = useSelector((state) => state[NameSpace.DATA]);
   const dispatch = useDispatch();
   const handleMyListClick = (evt) => {
     evt.preventDefault();
@@ -19,7 +22,7 @@ const Main = ({promo: {title, genre, date}}) => {
   return <>
     <section className="movie-card">
       <div className="movie-card__bg">
-        <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+        <img src={promo[`background_image`]} alt={promo.name}/>
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -40,15 +43,15 @@ const Main = ({promo: {title, genre, date}}) => {
         <div className="movie-card__info">
           <div className="movie-card__poster">
             <img
-              src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+              src={promo[`poster_image`]} alt={promo.name} width="218"
               height="327"/>
           </div>
 
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">{title}</h2>
+            <h2 className="movie-card__title">{promo.name}</h2>
             <p className="movie-card__meta">
-              <span className="movie-card__genre">{genre}</span>
-              <span className="movie-card__year">{date}</span>
+              <span className="movie-card__genre">{promo.genre}</span>
+              <span className="movie-card__year">{promo.released}</span>
             </p>
 
             <div className="movie-card__buttons">
@@ -94,10 +97,6 @@ const Main = ({promo: {title, genre, date}}) => {
       </footer>
     </div>
   </>;
-};
-
-Main.propTypes = {
-  ...promoValidation,
 };
 
 export {Main};

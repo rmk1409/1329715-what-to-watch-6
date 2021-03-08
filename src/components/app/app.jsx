@@ -11,11 +11,11 @@ import {promoValidation} from "../../validation";
 import {browserHistory} from "../../browser-history";
 import {PrivateRoute} from "../private-route/private-route";
 
-const App = ({promo}) => (
+const App = () => (
   <Router history={browserHistory}>
     <Switch>
       <Route exact path="/">
-        <Main promo={promo}/>
+        <Main/>
       </Route>
       <PrivateRoute exact path="/mylist" render={() => <MyList/>}/>
       <Route exact path="/films/:id">
@@ -34,9 +34,5 @@ const App = ({promo}) => (
     </Switch>
   </Router>
 );
-
-App.propTypes = {
-  ...promoValidation,
-};
 
 export {App};

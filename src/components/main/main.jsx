@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import {UserBlock} from "../user-block/user-block";
 import {NameSpace} from "../../store/reducer";
 import {AddToFavoriteButton} from "../add-to-favorite-button/add-to-favorite-button";
+import {PlayButton} from "../play-button/play-button";
 
 const Main = () => {
   const {
@@ -50,12 +51,7 @@ const Main = () => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button">
-                <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"/>
-                </svg>
-                <span>Play</span>
-              </button>
+              <PlayButton id={promo.id}/>
               <AddToFavoriteButton id={promo.id}/>
             </div>
           </div>

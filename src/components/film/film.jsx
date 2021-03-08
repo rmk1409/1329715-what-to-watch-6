@@ -8,6 +8,7 @@ import {NotFound} from "../404/404";
 import {UserBlock} from "../user-block/user-block";
 import {redirectToRoute} from "../../store/action";
 import {NameSpace} from "../../store/reducer";
+import {AddToFavoriteButton} from "../add-to-favorite-button/add-to-favorite-button";
 
 const MAX_SHOWN_SIMILAR_FILM_QUANTITY = 4;
 
@@ -69,12 +70,7 @@ const Film = () => {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"/>
-                </svg>
-                <span>My list</span>
-              </button>
+              <AddToFavoriteButton id={parseInt(id, 10)}/>
               {authorizationStatus ?
                 <a href="add-review.html" className="btn movie-card__button" onClick={onAddReviewClickHandler}>Add
                   review</a> : ``}

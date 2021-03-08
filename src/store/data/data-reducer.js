@@ -2,7 +2,9 @@ import {
   changeGenre,
   getFilmsByCurrentGenre,
   increaseShownFilmQuantity,
-  loadFilms, setFavorite, setPromo,
+  loadFilms,
+  setFavoriteList,
+  setPromo,
   setReviews,
   setShownFilmQuantity,
 } from "../action";
@@ -13,7 +15,7 @@ const initState = {
   promo: {
     title: `The Grand Budapest Hotel`,
     genre: `Drama`,
-    released: 2014
+    released: 2014,
   },
   favoriteFilms: [],
   reviewsForActiveFilm: [],
@@ -25,7 +27,7 @@ const initState = {
 };
 
 const dataReducer = createReducer(initState, (builder) => {
-  builder.addCase(setFavorite, (state, action) => {
+  builder.addCase(setFavoriteList, (state, action) => {
     state.favoriteFilms = action.payload;
   });
   builder.addCase(setPromo, (state, action) => {

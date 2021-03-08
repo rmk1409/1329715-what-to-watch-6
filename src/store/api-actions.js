@@ -1,4 +1,12 @@
-import {loadFilms, redirectToRoute, setAuthInfo, setAuthorization, setFavorite, setPromo, setReviews} from "./action";
+import {
+  loadFilms,
+  redirectToRoute,
+  setAuthInfo,
+  setAuthorization,
+  setFavoriteList,
+  setPromo,
+  setReviews,
+} from "./action";
 
 const fetchFilmList = () => (dispatch, _getState, api) => (
   api.get(`/films`)
@@ -15,10 +23,14 @@ const fetchPromo = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(setPromo(data)))
 );
 
-const fetchFavorite = () => (dispatch, _getState, api) => (
+const fetchFavoriteList = () => (dispatch, _getState, api) => (
   api.get(`/favorite`)
-    .then(({data}) => dispatch(setFavorite(data)))
+    .then(({data}) => dispatch(setFavoriteList(data)))
 );
+
+const changeFavoriteStatus = (filmId, status = true) => (dispatch, _getState, api) => {
+  api.post(`/favorite/${filmId}/${status ? 1 : 0}`);
+};
 
 const postReview = (id, dataToSend) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, dataToSend)
@@ -44,4 +56,13 @@ const login = (user) => (dispatch, _getState, api) => (
     .catch(() => dispatch(setAuthorization(false)))
 );
 
-export {fetchFilmList, fetchReviewList, checkAuth, login, postReview, fetchPromo, fetchFavorite};
+export {
+  fetchFilmList,
+  fetchReviewList,
+  checkAuth,
+  login,
+  postReview,
+  fetchPromo,
+  fetchFavoriteList,
+  changeFavoriteStatus,
+};

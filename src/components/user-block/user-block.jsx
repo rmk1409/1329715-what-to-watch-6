@@ -10,13 +10,17 @@ const UserBlock = () => {
     evt.preventDefault();
     dispatch(redirectToRoute(`/login`));
   };
+  const handleAvatarClick = (evt) => {
+    evt.preventDefault();
+    dispatch(redirectToRoute(`/mylist`));
+  };
 
   return <>
     <div className="user-block">
       {authorizationStatus ?
         <>
           <div className="user-block__avatar">
-            <img src={authInfo[`avatar_url`]} alt="User avatar" width="63" height="63"/>
+            <img src={authInfo[`avatar_url`]} alt="User avatar" width="63" height="63" onClick={handleAvatarClick}/>
           </div>
         </> :
         <a href="sign-in.html" className="user-block__link" onClick={handleSignInClick}>Sign in</a>

@@ -7,7 +7,6 @@ import {Film} from "../film/film";
 import {AddReview} from "../add-review/add-review";
 import {NotFound} from "../404/404";
 import {Player} from "../player/player";
-import {promoValidation} from "../../validation";
 import {browserHistory} from "../../browser-history";
 import {PrivateRoute} from "../private-route/private-route";
 

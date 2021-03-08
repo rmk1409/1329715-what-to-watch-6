@@ -9,7 +9,7 @@ const ActionType = {
   SET_REVIEWS: `data/set-reviews`,
   LOAD_FILMS: `data/load-films`,
   SET_PROMO: `data/set-promo`,
-  SET_FAVORITE: `data/set-favorite-list`,
+  SET_FAVORITE_LIST: `data/set-favorite-list`,
 
   REDIRECT_TO_ROUTE: `route/redirect-to-route`,
 
@@ -27,7 +27,7 @@ const increaseShownFilmQuantity = createAction(ActionType.INCREASE_SHOWN_FILM_QU
 const setAuthInfo = createAction(ActionType.SET_AUTH_INFO, (authInfo) => ({payload: authInfo}));
 const setReviews = createAction(ActionType.SET_REVIEWS, (reviews) => ({payload: reviews}));
 const setPromo = createAction(ActionType.SET_PROMO, (promo) => ({payload: promo}));
-const setFavorite = createAction(ActionType.SET_FAVORITE, (favoriteList) => ({payload: favoriteList}));
+const setFavoriteList = createAction(ActionType.SET_FAVORITE_LIST, (favoriteList) => ({payload: favoriteList}));
 
 export {
   ActionType,
@@ -41,5 +41,5 @@ export {
   setAuthInfo,
   setReviews,
   setPromo,
-  setFavorite
+  setFavoriteList,
 };

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FilmList} from "../film-list/film-list";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {UserBlock} from "../user-block/user-block";
 import {NameSpace} from "../../store/reducer";
+import {fetchFavoriteList} from "../../store/api-actions";
 
 const MyList = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchFavoriteList());
+  }, []);
   const {favoriteFilms} = useSelector((state) => state[NameSpace.DATA]);
 
   return <>

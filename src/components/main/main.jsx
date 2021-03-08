@@ -2,10 +2,10 @@ import React from 'react';
 import {FilmList} from "../film-list/film-list";
 import {GenreList} from "../genre-list/genre-list";
 import {ShowMore} from "../show-more/show-more";
-import {useDispatch, useSelector} from "react-redux";
-import {redirectToRoute} from "../../store/action";
+import {useSelector} from "react-redux";
 import {UserBlock} from "../user-block/user-block";
 import {NameSpace} from "../../store/reducer";
+import {AddToFavoriteButton} from "../add-to-favorite-button/add-to-favorite-button";
 
 const Main = () => {
   const {
@@ -13,11 +13,6 @@ const Main = () => {
     shownFilmQuantity,
     promo,
   } = useSelector((state) => state[NameSpace.DATA]);
-  const dispatch = useDispatch();
-  const handleMyListClick = (evt) => {
-    evt.preventDefault();
-    dispatch(redirectToRoute(`/mylist`));
-  };
 
   return <>
     <section className="movie-card">
@@ -61,12 +56,7 @@ const Main = () => {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button" onClick={handleMyListClick}>
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"/>
-                </svg>
-                <span>My list</span>
-              </button>
+              <AddToFavoriteButton id={promo.id}/>
             </div>
           </div>
         </div>

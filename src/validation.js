@@ -30,10 +30,6 @@ const filmValidation = {
   }),
 };
 
-const filmsValidation = {
-  films: PropTypes.arrayOf(filmValidation.film).isRequired,
-};
-
 const reviewValidation = {
   review: PropTypes.shape({
     "id": PropTypes.number.isRequired,
@@ -47,4 +43,4 @@ const reviewValidation = {
   }),
 };
 
-export {promoValidation, filmValidation, filmsValidation, reviewValidation};
+export {promoValidation, filmValidation, reviewValidation};

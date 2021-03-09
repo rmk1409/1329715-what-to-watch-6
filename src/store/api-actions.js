@@ -1,37 +1,68 @@
-import {ActionCreator} from "./action";
+import {
+  loadFilms,
+  redirectToRoute,
+  setAuthInfo,
+  setAuthorization,
+  setFavoriteList,
+  setPromo,
+  setReviews,
+} from "./action";
 
 const fetchFilmList = () => (dispatch, _getState, api) => (
   api.get(`/films`)
-    .then(({data}) => dispatch(ActionCreator.loadFilms(data)))
+    .then(({data}) => dispatch(loadFilms(data)))
 );
 
 const fetchReviewList = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}`)
-    .then(({data}) => dispatch(ActionCreator.loadReviews(data)))
+    .then(({data}) => dispatch(setReviews(data)))
 );
+
+const fetchPromo = () => (dispatch, _getState, api) => (
+  api.get(`/films/promo`)
+    .then(({data}) => dispatch(setPromo(data)))
+);
+
+const fetchFavoriteList = () => (dispatch, _getState, api) => (
+  api.get(`/favorite`)
+    .then(({data}) => dispatch(setFavoriteList(data)))
+);
+
+const changeFavoriteStatus = (filmId, status = true) => (dispatch, _getState, api) => {
+  api.post(`/favorite/${filmId}/${status ? 1 : 0}`);
+};
 
 const postReview = (id, dataToSend) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, dataToSend)
-    .then(({data}) => dispatch(ActionCreator.setReviews(data)))
+    .then(({data}) => dispatch(setReviews(data)))
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
     .then(({data}) => {
-      dispatch(ActionCreator.setAuthInfo(data));
-      dispatch(ActionCreator.setAuthorization(true));
+      dispatch(setAuthInfo(data));
+      dispatch(setAuthorization(true));
     })
-    .catch(() => dispatch(ActionCreator.setAuthorization(false)))
+    .catch(() => dispatch(setAuthorization(false)))
 );
 
 const login = (user) => (dispatch, _getState, api) => (
   api.post(`/login`, {...user})
     .then(({data}) => {
-      dispatch(ActionCreator.setAuthInfo(data));
-      dispatch(ActionCreator.setAuthorization(true));
-      dispatch(ActionCreator.redirectToRoute(`/`));
+      dispatch(setAuthInfo(data));
+      dispatch(setAuthorization(true));
+      dispatch(redirectToRoute(`/`));
     })
-    .catch(() => dispatch(ActionCreator.setAuthorization(false)))
+    .catch(() => dispatch(setAuthorization(false)))
 );
 
-export {fetchFilmList, fetchReviewList, checkAuth, login, postReview};
+export {
+  fetchFilmList,
+  fetchReviewList,
+  checkAuth,
+  login,
+  postReview,
+  fetchPromo,
+  fetchFavoriteList,
+  changeFavoriteStatus,
+};

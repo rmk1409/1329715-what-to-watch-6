@@ -1,12 +1,16 @@
-import React from 'react';
-import {filmValidation} from "../../validation";
+import React, {useEffect} from 'react';
 import {FilmList} from "../film-list/film-list";
-import {connect} from "react-redux";
-import PropTypes from "prop-types";
-import {ConnectedUserBlock} from "../user-block/user-block";
+import {useDispatch, useSelector} from "react-redux";
+import {UserBlock} from "../user-block/user-block";
+import {NameSpace} from "../../store/reducer";
+import {fetchFavoriteList} from "../../store/api-actions";
 
-const MyList = ({allFilms}) => {
-  const favoriteFilms = allFilms.filter((film) => film[`is_favorite`]);
+const MyList = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchFavoriteList());
+  }, []);
+  const {favoriteFilms} = useSelector((state) => state[NameSpace.DATA]);
 
   return <>
     <div className="user-page">
@@ -21,7 +25,7 @@ const MyList = ({allFilms}) => {
 
         <h1 className="page-title user-page__title">My list</h1>
 
-        <ConnectedUserBlock/>
+        <UserBlock/>
       </header>
 
       <section className="catalog">
@@ -47,14 +51,4 @@ const MyList = ({allFilms}) => {
   </>;
 };
 
-MyList.propTypes = {
-  allFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  allFilms: state.allFilms,
-});
-
-const ConnectedMyList = connect(mapStateToProps, null)(MyList);
-
-export {ConnectedMyList};
+export {MyList};

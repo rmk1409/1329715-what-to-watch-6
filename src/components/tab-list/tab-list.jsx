@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {filmValidation} from "../../validation";
 import {FilmOverview} from "../film-overview/film-overview";
 import {FilmDetails} from "../film-details/film-details";
-import {ConnectedFilmReviews} from "../film-reviews/film-reviews";
+import {FilmReviews} from "../film-reviews/film-reviews";
 
 const tabType = {
   OVERVIEW: `OVERVIEW`,
@@ -18,7 +18,7 @@ const getContent = (film, type = tabType.OVERVIEW) => {
       content = <FilmDetails film={film}/>;
       break;
     case tabType.REVIEWS:
-      content = <ConnectedFilmReviews/>;
+      content = <FilmReviews/>;
       break;
   }
   return content;

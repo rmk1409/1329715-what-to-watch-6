@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {filmValidation} from "../../validation";
 import {Rating} from "../../const";
 
@@ -22,12 +22,13 @@ const getScoreWord = (number) => {
   return word;
 };
 
-const FilmOverview = ({film}) => (
-  <>
+const FilmOverview = ({film}) => {
+  const memoGetStore = useMemo(() => getScoreWord(film.rating), []);
+  return <>
     <div className="movie-rating">
       <div className="movie-rating__score">{film.rating}</div>
       <p className="movie-rating__meta">
-        <span className="movie-rating__level">{getScoreWord(film.rating)}</span>
+        <span className="movie-rating__level">{memoGetStore}</span>
         <span className="movie-rating__count">{film[`scores_count`]} ratings</span>
       </p>
     </div>
@@ -36,8 +37,8 @@ const FilmOverview = ({film}) => (
       <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
       <p className="movie-card__starring"><strong>Starring: {film.starring.join(`, `)}</strong></p>
     </div>
-  </>
-);
+  </>;
+};
 
 FilmOverview.propTypes = {
   ...filmValidation,

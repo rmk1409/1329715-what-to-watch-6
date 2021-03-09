@@ -1,76 +1,45 @@
+import {createAction} from "@reduxjs/toolkit";
+
 const ActionType = {
-  CHANGE_GENRE: `change-genre-action`,
-  GET_FILMS_BY_CURRENT_GENRE: `get-film-by-current-genre`,
-  SET_SHOWN_FILM_QUANTITY: `set-shown-film-quantity`,
-  INCREASE_SHOWN_FILM_QUANTITY: `increase-shown-film-quantity`,
-  LOAD_FILMS: `load-films`,
-  SET_AUTHORIZATION_STATUS: `set-authorization`,
-  SET_AUTH_INFO: `set-auth-info`,
-  REDIRECT_TO_ROUTE: `redirect-to-route`,
-  LOAD_REVIEWS: `load-reviews`,
-  SET_REVIEWS: `set-reviews`,
+  CHANGE_GENRE: `data/change-genre-action`,
+  GET_FILMS_BY_CURRENT_GENRE: `data/get-film-by-current-genre`,
+  SET_SHOWN_FILM_QUANTITY: `data/set-shown-film-quantity`,
+  INCREASE_SHOWN_FILM_QUANTITY: `data/increase-shown-film-quantity`,
+  LOAD_REVIEWS: `data/load-reviews`,
+  SET_REVIEWS: `data/set-reviews`,
+  LOAD_FILMS: `data/load-films`,
+  SET_PROMO: `data/set-promo`,
+  SET_FAVORITE_LIST: `data/set-favorite-list`,
 
+  REDIRECT_TO_ROUTE: `route/redirect-to-route`,
+
+  SET_AUTH_INFO: `user/set-auth-info`,
+  SET_AUTHORIZATION_STATUS: `user/set-authorization`,
 };
 
-const ActionCreator = {
-  redirectToRoute(url) {
-    return {
-      type: ActionType.REDIRECT_TO_ROUTE,
-      payload: url,
-    };
-  },
-  setAuthorization(isAuthorized) {
-    return {
-      type: ActionType.SET_AUTHORIZATION_STATUS,
-      payload: isAuthorized,
-    };
-  },
-  loadFilms(films) {
-    return {
-      type: ActionType.LOAD_FILMS,
-      payload: films,
-    };
-  },
-  changeGenre(genre) {
-    return {
-      type: ActionType.CHANGE_GENRE,
-      payload: genre,
-    };
-  },
-  getFilmsByCurrentGenre() {
-    return {
-      type: ActionType.GET_FILMS_BY_CURRENT_GENRE,
-    };
-  },
-  setShownFilmQuantity(quantity) {
-    return {
-      type: ActionType.SET_SHOWN_FILM_QUANTITY,
-      payload: quantity,
-    };
-  },
-  increaseShownFilmQuantity() {
-    return {
-      type: ActionType.INCREASE_SHOWN_FILM_QUANTITY,
-    };
-  },
-  setAuthInfo(data) {
-    return {
-      type: ActionType.SET_AUTH_INFO,
-      payload: data,
-    };
-  },
-  loadReviews(data) {
-    return {
-      type: ActionType.LOAD_REVIEWS,
-      payload: data,
-    };
-  },
-  setReviews(data) {
-    return {
-      type: ActionType.SET_REVIEWS,
-      payload: data,
-    };
-  },
-};
+const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({payload: url}));
+const setAuthorization = createAction(ActionType.SET_AUTHORIZATION_STATUS, (isAuthorized) => ({payload: isAuthorized}));
+const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({payload: films}));
+const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => ({payload: genre}));
+const getFilmsByCurrentGenre = createAction(ActionType.GET_FILMS_BY_CURRENT_GENRE);
+const setShownFilmQuantity = createAction(ActionType.SET_SHOWN_FILM_QUANTITY, (quantity) => ({payload: quantity}));
+const increaseShownFilmQuantity = createAction(ActionType.INCREASE_SHOWN_FILM_QUANTITY);
+const setAuthInfo = createAction(ActionType.SET_AUTH_INFO, (authInfo) => ({payload: authInfo}));
+const setReviews = createAction(ActionType.SET_REVIEWS, (reviews) => ({payload: reviews}));
+const setPromo = createAction(ActionType.SET_PROMO, (promo) => ({payload: promo}));
+const setFavoriteList = createAction(ActionType.SET_FAVORITE_LIST, (favoriteList) => ({payload: favoriteList}));
 
-export {ActionType, ActionCreator};
+export {
+  ActionType,
+  redirectToRoute,
+  setAuthorization,
+  loadFilms,
+  changeGenre,
+  getFilmsByCurrentGenre,
+  setShownFilmQuantity,
+  increaseShownFilmQuantity,
+  setAuthInfo,
+  setReviews,
+  setPromo,
+  setFavoriteList,
+};

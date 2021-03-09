@@ -1,30 +1,24 @@
 import React from 'react';
-import {filmValidation, promoValidation} from "../../validation";
-import {ConnectedFilmList} from "../film-list/film-list";
-import {ConnectedGenreList} from "../genre-list/genre-list";
-import {ConnectedShowMore} from "../show-more/show-more";
-import {connect} from "react-redux";
-import PropTypes from "prop-types";
-import {ActionCreator} from "../../store/action";
-import {ConnectedUserBlock} from "../user-block/user-block";
+import {FilmList} from "../film-list/film-list";
+import {GenreList} from "../genre-list/genre-list";
+import {ShowMore} from "../show-more/show-more";
+import {useSelector} from "react-redux";
+import {UserBlock} from "../user-block/user-block";
+import {NameSpace} from "../../store/reducer";
+import {AddToFavoriteButton} from "../add-to-favorite-button/add-to-favorite-button";
+import {PlayButton} from "../play-button/play-button";
 
-const Main = (props) => {
+const Main = () => {
   const {
-    promo: {title, genre, date},
     filteredFilms,
     shownFilmQuantity,
-    onMyListClick,
-  } = props;
-
-  const handleMyListClick = (evt) => {
-    evt.preventDefault();
-    onMyListClick();
-  };
+    promo,
+  } = useSelector((state) => state[NameSpace.DATA]);
 
   return <>
     <section className="movie-card">
       <div className="movie-card__bg">
-        <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+        <img src={promo[`background_image`]} alt={promo.name}/>
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -38,37 +32,27 @@ const Main = (props) => {
           </a>
         </div>
 
-        <ConnectedUserBlock/>
+        <UserBlock/>
       </header>
 
       <div className="movie-card__wrap">
         <div className="movie-card__info">
           <div className="movie-card__poster">
             <img
-              src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+              src={promo[`poster_image`]} alt={promo.name} width="218"
               height="327"/>
           </div>
 
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">{title}</h2>
+            <h2 className="movie-card__title">{promo.name}</h2>
             <p className="movie-card__meta">
-              <span className="movie-card__genre">{genre}</span>
-              <span className="movie-card__year">{date}</span>
+              <span className="movie-card__genre">{promo.genre}</span>
+              <span className="movie-card__year">{promo.released}</span>
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button">
-                <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"/>
-                </svg>
-                <span>Play</span>
-              </button>
-              <button className="btn btn--list movie-card__button" type="button" onClick={handleMyListClick}>
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"/>
-                </svg>
-                <span>My list</span>
-              </button>
+              <PlayButton id={promo.id}/>
+              <AddToFavoriteButton id={promo.id}/>
             </div>
           </div>
         </div>
@@ -77,10 +61,10 @@ const Main = (props) => {
     <div className="page-content">
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <ConnectedGenreList/>
-        <ConnectedFilmList/>
+        <GenreList/>
+        <FilmList/>
         <div className="catalog__more">
-          {filteredFilms.length > shownFilmQuantity ? <ConnectedShowMore/> : ``}
+          {filteredFilms.length > shownFilmQuantity ? <ShowMore/> : ``}
         </div>
       </section>
 
@@ -101,22 +85,4 @@ const Main = (props) => {
   </>;
 };
 
-Main.propTypes = {
-  ...promoValidation,
-  filteredFilms: PropTypes.arrayOf(filmValidation.film).isRequired,
-  shownFilmQuantity: PropTypes.number.isRequired,
-  onMyListClick: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  filteredFilms: state.filteredFilms,
-  shownFilmQuantity: state.shownFilmQuantity,
-});
-const mapDispatchToProps = (dispatch) => ({
-  onMyListClick() {
-    dispatch(ActionCreator.redirectToRoute(`/mylist`));
-  },
-});
-const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main);
-
-export {Main, ConnectedMain};
+export {Main};

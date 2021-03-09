@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {reviewValidation} from "../../validation";
 import * as dayjs from 'dayjs';
 
 const Review = ({review}) => {
-  const dateForAttribute = dayjs(review.date).format(`YYYY-MM-DD`);
-  const dateForTextContent = dayjs(review.date).format(`MMMM DD, YYYY`);
+  const memoDateForAttribute = useMemo(() => dayjs(review.date).format(`YYYY-MM-DD`), [review.date]);
+  const memoDateForTextContent = useMemo(() => dayjs(review.date).format(`MMMM DD, YYYY`), [review.date]);
 
   return <>
     <div className="review">
@@ -13,7 +13,7 @@ const Review = ({review}) => {
 
         <footer className="review__details">
           <cite className="review__author">{review.user.name}</cite>
-          <time className="review__date" dateTime={dateForAttribute}>{dateForTextContent}</time>
+          <time className="review__date" dateTime={memoDateForAttribute}>{memoDateForTextContent}</time>
         </footer>
       </blockquote>
 

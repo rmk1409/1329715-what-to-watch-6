@@ -5,7 +5,7 @@ import {NameSpace} from "../../store/reducer";
 import {redirectToRoute} from "../../store/action";
 import {BigVideoPlayer} from "../big-video-player/big-video-player";
 import {TimeLeft} from "../time-left/time-left";
-import {MemoPlayerProgress, PlayerProgress} from "../time-left/player-progress/player-progress";
+import {MemoPlayerProgress} from "../time-left/player-progress/player-progress";
 import {ONE_HUNDRED_PERCENT, ONE_SECOND} from "../../const";
 
 const Player = () => {

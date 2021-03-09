@@ -7,8 +7,8 @@ import {NameSpace} from "../../store/reducer";
 const GenreList = () => {
   const {allFilms, chosenGenre} = useSelector((state) => state[NameSpace.DATA]);
   const uniqueGenres = useMemo(
-    () => Array.from(new Set(allFilms.map((film) => film.genre))),
-    [allFilms],
+      () => Array.from(new Set(allFilms.map((film) => film.genre))),
+      [allFilms],
   );
 
   const dispatch = useDispatch();

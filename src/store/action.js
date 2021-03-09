@@ -21,7 +21,6 @@ const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({pa
 const setAuthorization = createAction(ActionType.SET_AUTHORIZATION_STATUS, (isAuthorized) => ({payload: isAuthorized}));
 const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({payload: films}));
 const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => ({payload: genre}));
-const getFilmsByCurrentGenre = createAction(ActionType.GET_FILMS_BY_CURRENT_GENRE);
 const setShownFilmQuantity = createAction(ActionType.SET_SHOWN_FILM_QUANTITY, (quantity) => ({payload: quantity}));
 const increaseShownFilmQuantity = createAction(ActionType.INCREASE_SHOWN_FILM_QUANTITY);
 const setAuthInfo = createAction(ActionType.SET_AUTH_INFO, (authInfo) => ({payload: authInfo}));
@@ -35,7 +34,6 @@ export {
   setAuthorization,
   loadFilms,
   changeGenre,
-  getFilmsByCurrentGenre,
   setShownFilmQuantity,
   increaseShownFilmQuantity,
   setAuthInfo,

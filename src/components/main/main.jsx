@@ -7,13 +7,27 @@ import {UserBlock} from "../user-block/user-block";
 import {NameSpace} from "../../store/reducer";
 import {AddToFavoriteButton} from "../add-to-favorite-button/add-to-favorite-button";
 import {PlayButton} from "../play-button/play-button";
+import {createSelector} from 'reselect';
+import {Genre} from "../../const";
+
+const selectFilteredFilms = createSelector(
+    [
+      (state) => state[NameSpace.DATA].allFilms,
+      (state) => state[NameSpace.DATA].chosenGenre,
+    ],
+    (allFilms, chosenGenre) => allFilms.filter((film) => film.genre === chosenGenre),
+);
 
 const Main = () => {
   const {
-    filteredFilms,
+    allFilms,
+    chosenGenre,
     shownFilmQuantity,
     promo,
   } = useSelector((state) => state[NameSpace.DATA]);
+
+  const filteredFilms = useSelector(selectFilteredFilms);
+  const filmsToShow = chosenGenre === Genre.ALL ? allFilms : filteredFilms;
 
   return <>
     <section className="movie-card">
@@ -62,9 +76,9 @@ const Main = () => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <GenreList/>
-        <FilmList/>
+        <FilmList films={filmsToShow}/>
         <div className="catalog__more">
-          {filteredFilms.length > shownFilmQuantity ? <ShowMore/> : ``}
+          {filmsToShow.length > shownFilmQuantity ? <ShowMore/> : ``}
         </div>
       </section>
 

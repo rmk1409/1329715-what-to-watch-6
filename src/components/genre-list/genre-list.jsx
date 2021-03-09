@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeGenre, getFilmsByCurrentGenre, setShownFilmQuantity} from "../../store/action";
+import {changeGenre, setShownFilmQuantity} from "../../store/action";
 import {Genre, MAX_GENRE_QUANTITY} from "../../const";
 import {NameSpace} from "../../store/reducer";
 
@@ -16,7 +16,6 @@ const GenreList = () => {
     evt.preventDefault();
     const newChosenGenre = evt.target.textContent;
     dispatch(changeGenre(newChosenGenre));
-    dispatch(getFilmsByCurrentGenre());
     dispatch(setShownFilmQuantity());
   };
 

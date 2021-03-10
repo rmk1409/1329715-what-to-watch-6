@@ -1,6 +1,5 @@
 import {
   changeGenre,
-  getFilmsByCurrentGenre,
   increaseShownFilmQuantity,
   loadFilms,
   setFavoriteList,
@@ -22,7 +21,6 @@ const initState = {
   isFilmsLoaded: false,
   allFilms: [],
   chosenGenre: Genre.ALL,
-  filteredFilms: [],
   shownFilmQuantity: 0,
 };
 
@@ -43,22 +41,14 @@ const dataReducer = createReducer(initState, (builder) => {
   builder.addCase(changeGenre, (state, action) => {
     state.chosenGenre = action.payload;
   });
-  builder.addCase(getFilmsByCurrentGenre, (state, _action) => {
-    let filteredFilms = state.allFilms;
-    const chosenGenre = state.chosenGenre;
-    if (Genre.ALL !== chosenGenre) {
-      filteredFilms = filteredFilms.filter((film) => film.genre === chosenGenre);
-    }
-    state.filteredFilms = filteredFilms;
-  });
   builder.addCase(setShownFilmQuantity, (state, action) => {
     state.shownFilmQuantity = action.payload ||
-      (state.filteredFilms.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : state.filteredFilms.length);
+      (state.allFilms.length > MAX_SHOWN_FILM_QUANTITY_PER_TIME ? MAX_SHOWN_FILM_QUANTITY_PER_TIME : state.allFilms.length);
   });
   builder.addCase(increaseShownFilmQuantity, (state, _action) => {
-    state.shownFilmQuantity = (state.shownFilmQuantity + MAX_SHOWN_FILM_QUANTITY_PER_TIME) < state.filteredFilms.length ?
+    state.shownFilmQuantity = (state.shownFilmQuantity + MAX_SHOWN_FILM_QUANTITY_PER_TIME) < state.allFilms.length ?
       state.shownFilmQuantity + MAX_SHOWN_FILM_QUANTITY_PER_TIME :
-      state.filteredFilms.length;
+      state.allFilms.length;
   });
 });
 

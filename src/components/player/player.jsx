@@ -1,9 +1,12 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useCallback} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {NameSpace} from "../../store/reducer";
 import {redirectToRoute} from "../../store/action";
 import {BigVideoPlayer} from "../big-video-player/big-video-player";
+import {TimeLeft} from "../time-left/time-left";
+import {MemoPlayerProgress} from "../time-left/player-progress/player-progress";
+import {ONE_HUNDRED_PERCENT, ONE_SECOND} from "../../const";
 
 const Player = () => {
   const {allFilms} = useSelector((state) => state[NameSpace.DATA]);
@@ -38,11 +41,19 @@ const Player = () => {
   };
 
   const [seconds, setSeconds] = useState(0);
-  const onLoadedData = () => {
+  const [progress, setProgress] = useState(0);
+  const onLoadedData = useCallback(() => {
     videoRef.current.play();
-    setSeconds(() => videoRef.current.duration.toFixed());
-    setTimeout(() => setSeconds((prevSeconds) => prevSeconds - 1), 1000);
-  };
+    setSeconds(() => Math.floor(videoRef.current.duration));
+    setInterval(() => {
+      setSeconds(() => {
+        return Math.floor(videoRef.current.duration - videoRef.current.currentTime);
+      });
+      setProgress(()=>{
+        return Math.floor(videoRef.current.currentTime * ONE_HUNDRED_PERCENT / videoRef.current.duration);
+      });
+    }, ONE_SECOND);
+  }, []);
 
   return <>
     <div className="player">
@@ -52,11 +63,8 @@ const Player = () => {
 
       <div className="player__controls">
         <div className="player__controls-row">
-          <div className="player__time">
-            <progress className="player__progress" value="0" max="100"/>
-            <div className="player__toggler" style={{left: `0%`}}>Toggler</div>
-          </div>
-          <div className="player__time-value">{seconds}</div>
+          <MemoPlayerProgress progress={progress}/>
+          <TimeLeft seconds={seconds}/>
         </div>
 
         <div className="player__controls-row">

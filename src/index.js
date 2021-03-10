@@ -7,7 +7,7 @@ import {createAPI} from "./services/api";
 import {checkAuth, fetchFilmList, fetchPromo} from "./store/api-actions";
 import {redirect} from "./store/redirect";
 import {LoadingScreen} from "./components/loading-screen/loading-screen";
-import {getFilmsByCurrentGenre, increaseShownFilmQuantity} from "./store/action";
+import {increaseShownFilmQuantity} from "./store/action";
 import {configureStore} from "@reduxjs/toolkit";
 
 const api = createAPI();
@@ -28,7 +28,6 @@ Promise.resolve()
   .then(() => store.dispatch(checkAuth()))
   .then(() => store.dispatch(fetchPromo()))
   .then(() => store.dispatch(fetchFilmList()))
-  .then(() => store.dispatch(getFilmsByCurrentGenre()))
   .then(() => store.dispatch(increaseShownFilmQuantity()))
   .then(() => {
     ReactDOM.render(

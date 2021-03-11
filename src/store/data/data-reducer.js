@@ -2,9 +2,9 @@ import {
   changeGenre,
   increaseShownFilmQuantity,
   loadFilms,
-  setFavoriteList,
-  setPromo,
-  setReviews,
+  loadFavoriteList,
+  loadPromo,
+  loadReviews,
   setShownFilmQuantity,
 } from "../action";
 import {Genre, MAX_SHOWN_FILM_QUANTITY_PER_TIME} from "../../const";
@@ -25,13 +25,13 @@ const initState = {
 };
 
 const dataReducer = createReducer(initState, (builder) => {
-  builder.addCase(setFavoriteList, (state, action) => {
+  builder.addCase(loadFavoriteList, (state, action) => {
     state.favoriteFilms = action.payload;
   });
-  builder.addCase(setPromo, (state, action) => {
+  builder.addCase(loadPromo, (state, action) => {
     state.promo = action.payload;
   });
-  builder.addCase(setReviews, (state, action) => {
+  builder.addCase(loadReviews, (state, action) => {
     state.reviewsForActiveFilm = action.payload;
   });
   builder.addCase(loadFilms, (state, action) => {

@@ -1,9 +1,9 @@
-import React, {useRef, useState, useCallback} from 'react';
+import React, {useCallback, useRef, useState, useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {NameSpace} from "../../store/reducer";
 import {redirectToRoute} from "../../store/action";
-import {BigVideoPlayer} from "../big-video-player/big-video-player";
+import {MemoBigVideoPlayer} from "../big-video-player/big-video-player";
 import {TimeLeft} from "../time-left/time-left";
 import {MemoPlayerProgress} from "../player-progress/player-progress";
 import {ONE_HUNDRED_PERCENT, ONE_SECOND} from "../../const";
@@ -42,21 +42,28 @@ const Player = () => {
 
   const [seconds, setSeconds] = useState(0);
   const [progress, setProgress] = useState(0);
+
   const onLoadedData = useCallback(() => {
     videoRef.current.play();
-    setSeconds(() => Math.floor(videoRef.current.duration));
-    setInterval(() => {
-      setSeconds(() => {
-        return Math.floor(videoRef.current.duration - videoRef.current.currentTime);
-      });
-      setProgress(() => {
-        return Math.floor(videoRef.current.currentTime * ONE_HUNDRED_PERCENT / videoRef.current.duration);
-      });
-    }, ONE_SECOND);
+    setSeconds(() => Math.floor(videoRef.current.duration - videoRef.current.currentTime));
+    setProgress(() => Math.floor(videoRef.current.currentTime * ONE_HUNDRED_PERCENT / videoRef.current.duration));
   }, []);
 
+  const intervalRef = useRef();
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      setSeconds(() => Math.floor(videoRef.current.duration - videoRef.current.currentTime));
+      setProgress(() => Math.floor(videoRef.current.currentTime * ONE_HUNDRED_PERCENT / videoRef.current.duration));
+    }, ONE_SECOND);
+
+    return () => {
+      window.clearInterval(intervalRef.current);
+    };
+  }, [seconds]);
+
   return <div className="player">
-    <BigVideoPlayer onLoadedData={onLoadedData} ref={videoRef} film={film}/>
+    <MemoBigVideoPlayer onLoadedData={onLoadedData} ref={videoRef} film={film}/>
 
     <button type="button" className="player__exit" onClick={handleExitClick}>Exit</button>
 

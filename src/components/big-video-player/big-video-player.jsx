@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react';
+import React, {forwardRef, memo} from 'react';
 import {filmValidation} from "../../validation";
 import * as PropTypes from "prop-types";
 
@@ -15,4 +15,6 @@ BigVideoPlayer.propTypes = {
   onLoadedData: PropTypes.func.isRequired,
 };
 
-export {BigVideoPlayer};
+const MemoBigVideoPlayer = memo(BigVideoPlayer);
+
+export {MemoBigVideoPlayer};

@@ -52,4 +52,4 @@ const dataReducer = createReducer(initState, (builder) => {
   });
 });
 
-export {dataReducer};
+export {dataReducer, initState};

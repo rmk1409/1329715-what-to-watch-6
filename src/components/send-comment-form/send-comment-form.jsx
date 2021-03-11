@@ -37,22 +37,20 @@ const SendCommentForm = ({id}) => {
     setReviewValid(isRatingValid && isMsgValid);
   }, [review]);
 
-  return <>
-    <form action="#" className="add-review__form">
-      <div className="rating">
-        <MemoRatingStar setRating={setRating}/>
-      </div>
+  return <form action="#" className="add-review__form">
+    <div className="rating">
+      <MemoRatingStar setRating={setRating}/>
+    </div>
 
-      <div className="add-review__text">
-        <MemoReviewTextarea setComment={setComment}/>
-        <div className="add-review__submit">
-          <button
-            className="add-review__btn" type="submit" onClick={onSubmitClickHandler} disabled={!isReviewValid}>Post
-          </button>
-        </div>
+    <div className="add-review__text">
+      <MemoReviewTextarea setComment={setComment}/>
+      <div className="add-review__submit">
+        <button
+          className="add-review__btn" type="submit" onClick={onSubmitClickHandler} disabled={!isReviewValid}>Post
+        </button>
       </div>
-    </form>
-  </>;
+    </div>
+  </form>;
 };
 
 SendCommentForm.propTypes = {

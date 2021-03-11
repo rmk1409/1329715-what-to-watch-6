@@ -12,9 +12,7 @@ const getFormattedTime = (totalSeconds) => {
 };
 
 const TimeLeft = ({seconds}) => (
-  <>
-    <div className="player__time-value">{getFormattedTime(seconds)}</div>
-  </>
+  <div className="player__time-value">{getFormattedTime(seconds)}</div>
 );
 
 TimeLeft.propTypes = {

@@ -5,7 +5,7 @@ import {NameSpace} from "../../store/reducer";
 import {redirectToRoute} from "../../store/action";
 import {BigVideoPlayer} from "../big-video-player/big-video-player";
 import {TimeLeft} from "../time-left/time-left";
-import {MemoPlayerProgress} from "../time-left/player-progress/player-progress";
+import {MemoPlayerProgress} from "../player-progress/player-progress";
 import {ONE_HUNDRED_PERCENT, ONE_SECOND} from "../../const";
 
 const Player = () => {
@@ -49,48 +49,46 @@ const Player = () => {
       setSeconds(() => {
         return Math.floor(videoRef.current.duration - videoRef.current.currentTime);
       });
-      setProgress(()=>{
+      setProgress(() => {
         return Math.floor(videoRef.current.currentTime * ONE_HUNDRED_PERCENT / videoRef.current.duration);
       });
     }, ONE_SECOND);
   }, []);
 
-  return <>
-    <div className="player">
-      <BigVideoPlayer onLoadedData={onLoadedData} ref={videoRef} film={film}/>
+  return <div className="player">
+    <BigVideoPlayer onLoadedData={onLoadedData} ref={videoRef} film={film}/>
 
-      <button type="button" className="player__exit" onClick={handleExitClick}>Exit</button>
+    <button type="button" className="player__exit" onClick={handleExitClick}>Exit</button>
 
-      <div className="player__controls">
-        <div className="player__controls-row">
-          <MemoPlayerProgress progress={progress}/>
-          <TimeLeft seconds={seconds}/>
-        </div>
+    <div className="player__controls">
+      <div className="player__controls-row">
+        <MemoPlayerProgress progress={progress}/>
+        <TimeLeft seconds={seconds}/>
+      </div>
 
-        <div className="player__controls-row">
-          <button type="button" className="player__play" onClick={handlePlayPauseButtonClick}>
-            {isPlaying ?
-              <svg viewBox="0 0 14 21" width="14" height="21">
-                <use xlinkHref="#pause"/>
-              </svg> :
-              <svg viewBox="0 0 19 19" width="19" height="19">
-                <use xlinkHref="#play-s"/>
-              </svg>
-            }
-            <span>{isPlaying ? `Pause` : `Play`}</span>
-          </button>
-          <div className="player__name">Transpotting</div>
-
-          <button type="button" className="player__full-screen" onClick={handleFullScreenClick}>
-            <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen"/>
+      <div className="player__controls-row">
+        <button type="button" className="player__play" onClick={handlePlayPauseButtonClick}>
+          {isPlaying ?
+            <svg viewBox="0 0 14 21" width="14" height="21">
+              <use xlinkHref="#pause"/>
+            </svg> :
+            <svg viewBox="0 0 19 19" width="19" height="19">
+              <use xlinkHref="#play-s"/>
             </svg>
-            <span>Full screen</span>
-          </button>
-        </div>
+          }
+          <span>{isPlaying ? `Pause` : `Play`}</span>
+        </button>
+        <div className="player__name">Transpotting</div>
+
+        <button type="button" className="player__full-screen" onClick={handleFullScreenClick}>
+          <svg viewBox="0 0 27 27" width="27" height="27">
+            <use xlinkHref="#full-screen"/>
+          </svg>
+          <span>Full screen</span>
+        </button>
       </div>
     </div>
-  </>;
+  </div>;
 };
 
 export {Player};

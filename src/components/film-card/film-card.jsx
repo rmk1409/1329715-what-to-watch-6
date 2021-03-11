@@ -45,19 +45,17 @@ const FilmCard = ({film}) => {
     dispatch(redirectToRoute(`/films/${film.id}`));
   };
 
-  return <>
-    <article
-      className="small-movie-card catalog__movies-card"
-      onMouseEnter={() => onMouseEnter()}
-      onMouseLeave={() => onMouseLeave()}>
-      <div className="small-movie-card__image">
-        <VideoPlayer film={film} ref={videoRef}/>
-      </div>
-      <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" onClick={onLinkClickHandler} href="#">{film.name}</a>
-      </h3>
-    </article>
-  </>;
+  return <article
+    className="small-movie-card catalog__movies-card"
+    onMouseEnter={() => onMouseEnter()}
+    onMouseLeave={() => onMouseLeave()}>
+    <div className="small-movie-card__image">
+      <VideoPlayer film={film} ref={videoRef}/>
+    </div>
+    <h3 className="small-movie-card__title">
+      <a className="small-movie-card__link" onClick={onLinkClickHandler} href="#">{film.name}</a>
+    </h3>
+  </article>;
 };
 
 FilmCard.propTypes = {

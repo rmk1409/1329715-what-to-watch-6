@@ -14,16 +14,14 @@ const FilmReviews = () => {
     secondHalfReviews = [...reviewsForActiveFilm].splice(-halfIndex);
   }
 
-  return <>
-    <div className="movie-card__reviews movie-card__row">
-      <div className="movie-card__reviews-col">
-        {firstHalfReviews.map((review) => <Review key={review.id} review={review}/>)}
-      </div>
-      <div className="movie-card__reviews-col">
-        {secondHalfReviews.map((review) => <Review key={review.id} review={review}/>)}
-      </div>
+  return <div className="movie-card__reviews movie-card__row">
+    <div className="movie-card__reviews-col">
+      {firstHalfReviews.map((review) => <Review key={review.id} review={review}/>)}
     </div>
-  </>;
+    <div className="movie-card__reviews-col">
+      {secondHalfReviews.map((review) => <Review key={review.id} review={review}/>)}
+    </div>
+  </div>;
 };
 
 export {FilmReviews};

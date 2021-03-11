@@ -19,20 +19,18 @@ const GenreList = () => {
     dispatch(setShownFilmQuantity());
   };
 
-  return <>
-    <ul className="catalog__genres-list">
+  return <ul className="catalog__genres-list">
+    <li
+      key={Genre.ALL} className={`catalog__genres-item ${chosenGenre === Genre.ALL ? Genre.ACTIVE_GENRE_CLASS : ``}`}>
+      <a href="#" className="catalog__genres-link" onClick={onClickGenre}>All genres</a>
+    </li>
+    {uniqueGenres.map((currentUniqueGenre, index) => index < MAX_GENRE_QUANTITY ?
       <li
-        key={Genre.ALL} className={`catalog__genres-item ${chosenGenre === Genre.ALL ? Genre.ACTIVE_GENRE_CLASS : ``}`}>
-        <a href="#" className="catalog__genres-link" onClick={onClickGenre}>All genres</a>
-      </li>
-      {uniqueGenres.map((currentUniqueGenre, index) => index < MAX_GENRE_QUANTITY ?
-        <li
-          key={currentUniqueGenre}
-          className={`catalog__genres-item ${chosenGenre === currentUniqueGenre ? Genre.ACTIVE_GENRE_CLASS : ``}`}>
-          <a href="#" className="catalog__genres-link" onClick={onClickGenre}>{currentUniqueGenre}</a>
-        </li> : ``)}
-    </ul>
-  </>;
+        key={currentUniqueGenre}
+        className={`catalog__genres-item ${chosenGenre === currentUniqueGenre ? Genre.ACTIVE_GENRE_CLASS : ``}`}>
+        <a href="#" className="catalog__genres-link" onClick={onClickGenre}>{currentUniqueGenre}</a>
+      </li> : ``)}
+  </ul>;
 };
 
 export {GenreList};

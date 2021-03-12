@@ -7,18 +7,18 @@ import {createAPI} from "./services/api";
 import {checkAuth, fetchFilmList, fetchPromo} from "./store/api-actions";
 import {redirect} from "./store/redirect";
 import {LoadingScreen} from "./components/loading-screen/loading-screen";
-import {increaseShownFilmQuantity} from "./store/action";
+import {increaseShownFilmQuantity, setAuthorizationStatus} from "./store/action";
 import {configureStore} from "@reduxjs/toolkit";
 
-const api = createAPI();
+const api = createAPI(() => store.dispatch(setAuthorizationStatus(false)));
 const store = configureStore({
   reducer: combinedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
-        extraArgument: api
-      }
-    }).concat(redirect)
+        extraArgument: api,
+      },
+    }).concat(redirect),
 });
 
 Promise.resolve()

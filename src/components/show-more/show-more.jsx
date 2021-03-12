@@ -8,9 +8,7 @@ const ShowMore = () => {
     dispatch(increaseShownFilmQuantity());
   };
 
-  return <>
-    <button className="catalog__button" type="button" onClick={clickShowMore}>Show more</button>
-  </>;
+  return <button className="catalog__button" type="button" onClick={clickShowMore}>Show more</button>;
 };
 
 export {ShowMore};

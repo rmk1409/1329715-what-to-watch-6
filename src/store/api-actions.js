@@ -2,10 +2,10 @@ import {
   loadFilms,
   redirectToRoute,
   setAuthInfo,
-  setAuthorization,
-  setFavoriteList,
-  setPromo,
-  setReviews,
+  setAuthorizationStatus,
+  loadFavoriteList,
+  loadPromo,
+  loadReviews,
 } from "./action";
 
 const fetchFilmList = () => (dispatch, _getState, api) => (
@@ -15,17 +15,17 @@ const fetchFilmList = () => (dispatch, _getState, api) => (
 
 const fetchReviewList = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}`)
-    .then(({data}) => dispatch(setReviews(data)))
+    .then(({data}) => dispatch(loadReviews(data)))
 );
 
 const fetchPromo = () => (dispatch, _getState, api) => (
   api.get(`/films/promo`)
-    .then(({data}) => dispatch(setPromo(data)))
+    .then(({data}) => dispatch(loadPromo(data)))
 );
 
 const fetchFavoriteList = () => (dispatch, _getState, api) => (
   api.get(`/favorite`)
-    .then(({data}) => dispatch(setFavoriteList(data)))
+    .then(({data}) => dispatch(loadFavoriteList(data)))
 );
 
 const changeFavoriteStatus = (filmId, status = true) => (dispatch, _getState, api) => {
@@ -34,26 +34,26 @@ const changeFavoriteStatus = (filmId, status = true) => (dispatch, _getState, ap
 
 const postReview = (id, dataToSend) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, dataToSend)
-    .then(({data}) => dispatch(setReviews(data)))
+    .then(({data}) => dispatch(loadReviews(data)))
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
     .then(({data}) => {
       dispatch(setAuthInfo(data));
-      dispatch(setAuthorization(true));
+      dispatch(setAuthorizationStatus(true));
     })
-    .catch(() => dispatch(setAuthorization(false)))
+    .catch(() => dispatch(setAuthorizationStatus(false)))
 );
 
 const login = (user) => (dispatch, _getState, api) => (
   api.post(`/login`, {...user})
     .then(({data}) => {
       dispatch(setAuthInfo(data));
-      dispatch(setAuthorization(true));
+      dispatch(setAuthorizationStatus(true));
       dispatch(redirectToRoute(`/`));
     })
-    .catch(() => dispatch(setAuthorization(false)))
+    .catch(() => dispatch(setAuthorizationStatus(false)))
 );
 
 export {

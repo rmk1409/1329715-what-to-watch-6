@@ -6,7 +6,7 @@ import * as PropTypes from "prop-types";
 const BigVideoPlayer = forwardRef(({film, onLoadedData}, ref) => (
   <video
     ref={ref} src={film[`video_link`]} className="player__video" poster={film[`preview_image`]}
-    onLoadedData={onLoadedData} muted/>
+    onLoadedData={onLoadedData} muted data-testid="video-player-id"/>
 ));
 
 

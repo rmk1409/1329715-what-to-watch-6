@@ -10,7 +10,7 @@ import {LoadingScreen} from "./components/loading-screen/loading-screen";
 import {increaseShownFilmQuantity, setAuthorizationStatus} from "./store/action";
 import {configureStore} from "@reduxjs/toolkit";
 import {Router} from "react-router-dom";
-import {browserHistory} from "../../browser-history";
+import {browserHistory} from "./browser-history";
 
 const api = createAPI(() => store.dispatch(setAuthorizationStatus(false)));
 const store = configureStore({

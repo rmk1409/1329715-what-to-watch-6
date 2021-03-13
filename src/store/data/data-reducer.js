@@ -12,6 +12,7 @@ import {createReducer} from "@reduxjs/toolkit";
 
 const initState = {
   promo: {
+    id: 0,
     title: `The Grand Budapest Hotel`,
     genre: `Drama`,
     released: 2014,

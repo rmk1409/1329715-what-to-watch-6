@@ -12,7 +12,6 @@ const tabType = {
 
 const getContent = (film, type = tabType.OVERVIEW) => {
   let content = <FilmOverview film={film}/>;
-
   switch (type) {
     case tabType.DETAILS:
       content = <FilmDetails film={film}/>;
@@ -26,12 +25,10 @@ const getContent = (film, type = tabType.OVERVIEW) => {
 
 const TabList = ({film}) => {
   const [chosenTab, setChosenTab] = useState(tabType.OVERVIEW);
-
   const onClickLink = (evt) => {
     evt.preventDefault();
     setChosenTab(evt.target.textContent.toUpperCase());
   };
-
   return <>
     <nav className="movie-nav movie-card__nav">
       <ul className="movie-nav__list">

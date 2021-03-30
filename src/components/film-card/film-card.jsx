@@ -8,11 +8,9 @@ import {ONE_SECOND} from "../../const";
 
 const FilmCard = ({film}) => {
   const [isPlaying, setPlaying] = useState(false);
-
   const isInitialMount = useRef(true);
   const videoRef = useRef();
   const timeoutRef = useRef();
-
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -23,10 +21,8 @@ const FilmCard = ({film}) => {
         videoRef.current.load();
       }
     }
-
     return () => window.clearTimeout(timeoutRef.current);
   }, [isPlaying]);
-
   const onMouseEnter = () => {
     timeoutRef.current = setTimeout(() => {
       setPlaying(true);
@@ -36,15 +32,12 @@ const FilmCard = ({film}) => {
     window.clearTimeout(timeoutRef.current);
     setPlaying(false);
   };
-
   const dispatch = useDispatch();
-
   const onLinkClickHandler = (evt) => {
     evt.preventDefault();
     dispatch(fetchReviewList(film.id));
     dispatch(redirectToRoute(`/films/${film.id}`));
   };
-
   return <article
     className="small-movie-card catalog__movies-card"
     onMouseEnter={() => onMouseEnter()}

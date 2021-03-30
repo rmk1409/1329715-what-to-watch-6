@@ -16,19 +16,19 @@ const ActionType = {
   SET_AUTHORIZATION_STATUS: `user/set-authorization`,
 };
 
-const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => ({payload: genre}));
-const setShownFilmQuantity = createAction(ActionType.SET_SHOWN_FILM_QUANTITY, (quantity) => ({payload: quantity}));
+const changeGenre = createAction(ActionType.CHANGE_GENRE);
+const setShownFilmQuantity = createAction(ActionType.SET_SHOWN_FILM_QUANTITY);
 const increaseShownFilmQuantity = createAction(ActionType.INCREASE_SHOWN_FILM_QUANTITY);
 
-const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({payload: films}));
-const loadReviews = createAction(ActionType.LOAD_REVIEWS, (reviews) => ({payload: reviews}));
-const loadPromo = createAction(ActionType.LOAD_PROMO, (promo) => ({payload: promo}));
-const loadFavoriteList = createAction(ActionType.LOAD_FAVORITE_LIST, (favoriteList) => ({payload: favoriteList}));
+const loadFilms = createAction(ActionType.LOAD_FILMS);
+const loadReviews = createAction(ActionType.LOAD_REVIEWS);
+const loadPromo = createAction(ActionType.LOAD_PROMO);
+const loadFavoriteList = createAction(ActionType.LOAD_FAVORITE_LIST);
 
-const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({payload: url}));
+const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE);
 
-const setAuthInfo = createAction(ActionType.SET_AUTH_INFO, (authInfo) => ({payload: authInfo}));
-const setAuthorizationStatus = createAction(ActionType.SET_AUTHORIZATION_STATUS, (isAuthorized) => ({payload: isAuthorized}));
+const setAuthInfo = createAction(ActionType.SET_AUTH_INFO);
+const setAuthorizationStatus = createAction(ActionType.SET_AUTHORIZATION_STATUS);
 
 export {
   ActionType,

@@ -4,8 +4,7 @@ import {useSelector} from "react-redux";
 import {NameSpace} from "../../store/reducer";
 
 const FilmReviews = () => {
-  const {reviewsForActiveFilm} = useSelector((state) => state[NameSpace.DATA]);
-
+  const reviewsForActiveFilm = useSelector((state) => state[NameSpace.DATA].reviewsForActiveFilm);
   let firstHalfReviews = reviewsForActiveFilm;
   let secondHalfReviews = [];
   if (reviewsForActiveFilm.length > 1) {
@@ -13,7 +12,6 @@ const FilmReviews = () => {
     firstHalfReviews = [...reviewsForActiveFilm].splice(0, halfIndex);
     secondHalfReviews = [...reviewsForActiveFilm].splice(-halfIndex);
   }
-
   return <div className="movie-card__reviews movie-card__row">
     <div className="movie-card__reviews-col">
       {firstHalfReviews.map((review) => <Review key={review.id} review={review}/>)}

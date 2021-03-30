@@ -10,7 +10,7 @@ const MyList = () => {
   useEffect(() => {
     dispatch(fetchFavoriteList());
   }, []);
-  const {favoriteFilms} = useSelector((state) => state[NameSpace.DATA]);
+  const favoriteFilms = useSelector((state) => state[NameSpace.DATA].favoriteFilms);
 
   return <div className="user-page">
     <header className="page-header user-page__head">

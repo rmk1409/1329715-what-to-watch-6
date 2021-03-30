@@ -13,40 +13,28 @@ const SendCommentForm = ({id}) => {
     comment: ``,
   });
   const [isReviewValid, setReviewValid] = useState(false);
-
-  const setRating = useCallback(
-      (evt) => setReview({...review, rating: evt.target.value}),
-      [review.rating],
-  );
-  const setComment = useCallback(
-      (evt) => setReview({...review, comment: evt.target.value}),
-      [review.comment],
-  );
-
+  const setRating = useCallback((evt) => setReview({...review, rating: evt.target.value}), [review.rating]);
+  const setComment = useCallback((evt) => setReview({...review, comment: evt.target.value}), [review.comment]);
   const dispatch = useDispatch();
   const onSubmitClickHandler = (evt) => {
     evt.preventDefault();
     dispatch(postReview(id, review));
     dispatch(redirectToRoute(`/films/${id}`));
   };
-
   useEffect(() => {
     const isRatingValid = review.rating >= Review.MIN_VALID_RATING && review.rating <= Review.MAX_VALID_RATING;
     const isMsgValid = review.comment.length >= Review.MIN_VALID_MSG_LENGTH && review.comment.length <= Review.MAX_VALID_MSG_LENGTH;
-
     setReviewValid(isRatingValid && isMsgValid);
   }, [review]);
-
   return <form action="#" className="add-review__form">
     <div className="rating">
       <MemoRatingStar setRating={setRating}/>
     </div>
-
     <div className="add-review__text">
       <MemoReviewTextarea setComment={setComment}/>
       <div className="add-review__submit">
-        <button
-          className="add-review__btn" type="submit" onClick={onSubmitClickHandler} disabled={!isReviewValid}>Post
+        <button className="add-review__btn" type="submit" onClick={onSubmitClickHandler} disabled={!isReviewValid}>
+          Post
         </button>
       </div>
     </div>

@@ -9,7 +9,6 @@ const AddToFavoriteButton = ({id}) => {
     evt.preventDefault();
     dispatch(changeFavoriteStatus(id));
   };
-
   return <button className="btn btn--list movie-card__button" type="button" onClick={handleMyListClick}>
     <svg viewBox="0 0 19 20" width="19" height="20">
       <use xlinkHref="#add"/>
@@ -19,7 +18,7 @@ const AddToFavoriteButton = ({id}) => {
 };
 
 AddToFavoriteButton.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number,
 };
 
 export {AddToFavoriteButton};

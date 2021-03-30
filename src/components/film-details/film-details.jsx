@@ -12,7 +12,6 @@ const getStars = (film) => {
 const FilmDetails = ({film}) => {
   const memoFormattedDuration = useMemo(() => `${Math.floor(film[`run_time`] / MIN_IN_HOUR)}h ${film[`run_time`] % MIN_IN_HOUR}m`, [film]);
   const memoStars = useMemo(() => getStars(film), [film]);
-
   return <div className="movie-card__text movie-card__row">
     <div className="movie-card__text-col">
       <p className="movie-card__details-item">
@@ -24,7 +23,6 @@ const FilmDetails = ({film}) => {
         <span className="movie-card__details-value">{memoStars}</span>
       </p>
     </div>
-
     <div className="movie-card__text-col">
       <p className="movie-card__details-item">
         <strong className="movie-card__details-name">Run Time</strong>

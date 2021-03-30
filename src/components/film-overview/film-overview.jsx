@@ -6,18 +6,12 @@ const getScoreWord = (number) => {
   let word = `Awesome`;
   if (number >= Rating.MIN_SCORE_FOR_BAD_RATING && number < Rating.MAX_SCORE_FOR_BAD_RATING) {
     word = `Bad`;
-  } else {
-    if (number < Rating.MAX_SCORE_FOR_NORMAL_RATING) {
-      word = `Normal`;
-    } else {
-      if (number < Rating.MAX_SCORE_FOR_GOOD_RATING) {
-        word = `Good`;
-      } else {
-        if (number < Rating.MAX_SCORE_FOR_VERY_GOOD_RATING) {
-          word = `Very good`;
-        }
-      }
-    }
+  } else if (number < Rating.MAX_SCORE_FOR_NORMAL_RATING) {
+    word = `Normal`;
+  } else if (number < Rating.MAX_SCORE_FOR_GOOD_RATING) {
+    word = `Good`;
+  } else if (number < Rating.MAX_SCORE_FOR_VERY_GOOD_RATING) {
+    word = `Very good`;
   }
   return word;
 };

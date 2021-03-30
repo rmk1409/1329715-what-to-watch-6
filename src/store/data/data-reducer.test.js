@@ -143,10 +143,10 @@ const promoStub = {
 };
 
 describe(`Reducers work correctly`, () => {
-  it(`reducer without action should return initial state`, function () {
+  it(`reducer without action should return initial state`, () => {
     expect(dataReducer(undefined, {})).toEqual(initState);
   });
-  it(`should load favorite list`, function () {
+  it(`should load favorite list`, () => {
     expect(dataReducer(initState, loadFavoriteList(favoriteListStub))).toEqual({
       ...initState,
       favoriteFilms: favoriteListStub,
@@ -155,7 +155,7 @@ describe(`Reducers work correctly`, () => {
       ...initState,
     });
   });
-  it(`should load reviews for active film`, function () {
+  it(`should load reviews for active film`, () => {
     expect(dataReducer(initState, loadReviews(reviewsForActiveFilmStub))).toEqual({
       ...initState,
       reviewsForActiveFilm: reviewsForActiveFilmStub,
@@ -164,34 +164,34 @@ describe(`Reducers work correctly`, () => {
       ...initState,
     });
   });
-  it(`should load films`, function () {
+  it(`should load films`, () => {
     expect(dataReducer(initState, loadFilms(allFilmsStub))).toEqual({
       ...initState,
       allFilms: allFilmsStub,
       isFilmsLoaded: true,
     });
   });
-  it(`should load promo`, function () {
+  it(`should load promo`, () => {
     expect(dataReducer(initState, loadPromo(promoStub))).toEqual({
       ...initState,
       promo: promoStub,
     });
   });
-  it(`should change genre`, function () {
+  it(`should change genre`, () => {
     const newGenre = `newGenre`;
     expect(dataReducer(initState, changeGenre(newGenre))).toEqual({
       ...initState,
       chosenGenre: newGenre,
     });
   });
-  it(`should set shown film quantity`, function () {
+  it(`should set shown film quantity`, () => {
     const newData = 42;
     expect(dataReducer(initState, setShownFilmQuantity(newData))).toEqual({
       ...initState,
       shownFilmQuantity: newData,
     });
   });
-  it(`should calculate shown film quantity`, function () {
+  it(`should calculate shown film quantity`, () => {
     const anyNumberLessThanMaxShownFilmQuantityPerTime = 4;
     const someArray = new Array(anyNumberLessThanMaxShownFilmQuantityPerTime).fill(null);
     expect(dataReducer({...initState, allFilms: someArray}, setShownFilmQuantity())).toEqual({
@@ -200,7 +200,7 @@ describe(`Reducers work correctly`, () => {
       shownFilmQuantity: someArray.length,
     });
   });
-  it(`should calculate shown film quantity by MAX_SHOWN_FILM_QUANTITY_PER_TIME`, function () {
+  it(`should calculate shown film quantity by MAX_SHOWN_FILM_QUANTITY_PER_TIME`, () => {
     const anyNumberBiggerThanMaxShownFilmQuantityPerTime = 9;
     const someBigArray = new Array(anyNumberBiggerThanMaxShownFilmQuantityPerTime).fill(null);
     expect(dataReducer({...initState, allFilms: someBigArray}, setShownFilmQuantity())).toEqual({
@@ -209,7 +209,7 @@ describe(`Reducers work correctly`, () => {
       shownFilmQuantity: MAX_SHOWN_FILM_QUANTITY_PER_TIME,
     });
   });
-  it(`should increase shown film quantity to film quantity`, function () {
+  it(`should increase shown film quantity to film quantity`, () => {
     const anyNumberBiggerThanMaxShownFilmQuantityPerTime = 9;
     const someBigArray = new Array(anyNumberBiggerThanMaxShownFilmQuantityPerTime).fill(null);
     const anyNumberLessThanAllFilmsLength = 5;
@@ -223,7 +223,7 @@ describe(`Reducers work correctly`, () => {
       shownFilmQuantity: someBigArray.length,
     });
   });
-  it(`should increase shown film quantity by MAX_SHOWN_FILM_QUANTITY_PER_TIME`, function () {
+  it(`should increase shown film quantity by MAX_SHOWN_FILM_QUANTITY_PER_TIME`, () => {
     const anyNumberBiggerThanMaxShownFilmQuantityPerTime = 9;
     const someBigArray = new Array(anyNumberBiggerThanMaxShownFilmQuantityPerTime).fill(null);
     expect(dataReducer({...initState, allFilms: someBigArray}, increaseShownFilmQuantity())).toEqual({

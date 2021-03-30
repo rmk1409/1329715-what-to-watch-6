@@ -5,12 +5,9 @@ import {Genre, MAX_GENRE_QUANTITY} from "../../const";
 import {NameSpace} from "../../store/reducer";
 
 const GenreList = () => {
-  const {allFilms, chosenGenre} = useSelector((state) => state[NameSpace.DATA]);
-  const uniqueGenres = useMemo(
-      () => Array.from(new Set(allFilms.map((film) => film.genre))),
-      [allFilms],
-  );
-
+  const allFilms = useSelector((state) => state[NameSpace.DATA].allFilms);
+  const chosenGenre = useSelector((state) => state[NameSpace.DATA].chosenGenre);
+  const uniqueGenres = useMemo(() => Array.from(new Set(allFilms.map((film) => film.genre))), [allFilms]);
   const dispatch = useDispatch();
   const onClickGenre = (evt) => {
     evt.preventDefault();
@@ -18,7 +15,6 @@ const GenreList = () => {
     dispatch(changeGenre(newChosenGenre));
     dispatch(setShownFilmQuantity());
   };
-
   return <ul className="catalog__genres-list">
     <li
       key={Genre.ALL} className={`catalog__genres-item ${chosenGenre === Genre.ALL ? Genre.ACTIVE_GENRE_CLASS : ``}`}>

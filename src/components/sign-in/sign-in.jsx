@@ -6,16 +6,13 @@ const SignIn = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const dispatch = useDispatch();
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
     dispatch(login({
       email: emailRef.current.value,
       password: passwordRef.current.value,
     }));
   };
-
   return <div className="user-page">
     <header className="page-header user-page__head">
       <div className="logo">
@@ -25,10 +22,8 @@ const SignIn = () => {
           <span className="logo__letter logo__letter--3">W</span>
         </a>
       </div>
-
       <h1 className="page-title user-page__title">Sign in</h1>
     </header>
-
     <div className="sign-in user-page__content">
       <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
         <div className="sign-in__fields">
@@ -50,7 +45,6 @@ const SignIn = () => {
         </div>
       </form>
     </div>
-
     <footer className="page-footer">
       <div className="logo">
         <a href="/" className="logo__link logo__link--light">
@@ -59,7 +53,6 @@ const SignIn = () => {
           <span className="logo__letter logo__letter--3">W</span>
         </a>
       </div>
-
       <div className="copyright">
         <p>© 2019 What to watch Ltd.</p>
       </div>

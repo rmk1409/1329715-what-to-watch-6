@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux';
 import {NameSpace} from "../../store/reducer";
 
 const PrivateRoute = ({render, path, exact}) => {
-  const {authorizationStatus} = useSelector((state)=>state[NameSpace.USER]);
+  const authorizationStatus = useSelector((state)=>state[NameSpace.USER].authorizationStatus);
   return (
     <Route
       path={path}

@@ -4,7 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {NameSpace} from "../../store/reducer";
 
 const UserBlock = () => {
-  const {authorizationStatus, authInfo} = useSelector((state) => state[NameSpace.USER]);
+  const authorizationStatus = useSelector((state) => state[NameSpace.USER].authorizationStatus);
+  const authInfo = useSelector((state) => state[NameSpace.USER].authInfo);
   const dispatch = useDispatch();
   const handleSignInClick = (evt) => {
     evt.preventDefault();
@@ -14,7 +15,6 @@ const UserBlock = () => {
     evt.preventDefault();
     dispatch(redirectToRoute(`/mylist`));
   };
-
   return <div className="user-block">
     {authorizationStatus ?
       <>

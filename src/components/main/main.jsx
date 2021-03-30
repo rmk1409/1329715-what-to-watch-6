@@ -19,24 +19,18 @@ const selectFilteredFilms = createSelector(
 );
 
 const Main = () => {
-  const {
-    allFilms,
-    chosenGenre,
-    shownFilmQuantity,
-    promo,
-  } = useSelector((state) => state[NameSpace.DATA]);
-
+  const allFilms = useSelector((state) => state[NameSpace.DATA].allFilms);
+  const chosenGenre = useSelector((state) => state[NameSpace.DATA].chosenGenre);
+  const shownFilmQuantity = useSelector((state) => state[NameSpace.DATA].shownFilmQuantity);
+  const promo = useSelector((state) => state[NameSpace.DATA].promo);
   const filteredFilms = useSelector(selectFilteredFilms);
   const filmsToShow = chosenGenre === Genre.ALL ? allFilms : filteredFilms;
-
   return <>
     <section className="movie-card">
       <div className="movie-card__bg">
         <img src={promo[`background_image`]} alt={promo.name}/>
       </div>
-
       <h1 className="visually-hidden">WTW</h1>
-
       <header className="page-header movie-card__head">
         <div className="logo">
           <a className="logo__link">
@@ -45,10 +39,8 @@ const Main = () => {
             <span className="logo__letter logo__letter--3">W</span>
           </a>
         </div>
-
         <UserBlock/>
       </header>
-
       <div className="movie-card__wrap">
         <div className="movie-card__info">
           <div className="movie-card__poster">
@@ -56,14 +48,12 @@ const Main = () => {
               src={promo[`poster_image`]} alt={promo.name} width="218"
               height="327"/>
           </div>
-
           <div className="movie-card__desc">
             <h2 className="movie-card__title">{promo.name}</h2>
             <p className="movie-card__meta">
               <span className="movie-card__genre">{promo.genre}</span>
               <span className="movie-card__year">{promo.released}</span>
             </p>
-
             <div className="movie-card__buttons">
               <PlayButton id={promo.id}/>
               <AddToFavoriteButton id={promo.id}/>
@@ -81,7 +71,6 @@ const Main = () => {
           {filmsToShow.length > shownFilmQuantity ? <ShowMore/> : ``}
         </div>
       </section>
-
       <footer className="page-footer">
         <div className="logo">
           <a className="logo__link logo__link--light">
@@ -90,7 +79,6 @@ const Main = () => {
             <span className="logo__letter logo__letter--3">W</span>
           </a>
         </div>
-
         <div className="copyright">
           <p>© 2019 What to watch Ltd.</p>
         </div>
